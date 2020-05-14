@@ -1,0 +1,12 @@
+
+<view hidden='{{modalHidden}}'>
+    <view class='mask_layer' bindtap='click_close_modal' />
+    <view class='modal_box' style="background-color:{{bgcolor}}; min-height: {{minheight}};">
+        <icon wx:if="{{showIcon}}" bindtap="click_close_modal" type="clear" size="22" class="close-icon"/>
+        <view wx:if="{{showIcon}}" class="title {{suc_sign ? 'green' : '' }}">{{title}}</view>
+        <view class='content'>
+            <slot name="before"></slot>
+            <slot name="after"></slot>
+        </view>
+    </view>
+</view>

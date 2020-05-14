@@ -1,0 +1,33 @@
+/* pages/my_detail/my_detail.wxss */
+/* pages/wchang_name/wchang_name.wxss */
+page{
+  background: rgb(245, 245, 245);
+  font-size: 36rpx;
+  color: #000000;
+}
+.content{
+  height: 110rpx;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32rpx;
+  
+
+}
+.content1{
+  border-top: 1rpx solid #e5e5e5;
+}
+.name{
+  color: #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.pic1{
+   height: 100rpx;
+  width: 100rpx;
+  border-radius: 50%; 
+}

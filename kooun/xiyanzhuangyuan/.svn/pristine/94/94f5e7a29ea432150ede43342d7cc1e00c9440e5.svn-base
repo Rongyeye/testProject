@@ -1,0 +1,30 @@
+/* pages/weChatLogin.wxss */
+
+page {
+    background-color: #fff;
+    /*align-items: center;*/
+    /*background: url("http://file.rsrtz.com/group1/M00/00/06/rBLgSlw9fUSAdxt8ADJaPwsMttM347.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: contain;*/
+    /*background-position: center;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*height: 100%;*/
+}
+image {
+    width: 582rpx;
+    height: 474rpx;
+    /*margin-bottom: 100rpx;*/
+}
+
+.btn {
+    width: 582rpx;
+    height: 474rpx;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    margin-top: 200rpx;
+}
+.btn:before, .btn:after {
+    border: none;
+}

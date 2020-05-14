@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>会员编辑</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <style>
+        .layui-form-select dl {
+            max-height: 180px;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <form id="form" class="layui-form" action="" lay-filter="formbox">
+        <div class="layui-form-item">
+            <label class="layui-form-label">昵称<span class="required_star">＊</span></label>
+            <div class="layui-input-block">
+                <input name="nick_name" type="text" autocomplete="off" class="layui-input" required
+                       placeholder="请输入昵称">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属场馆<span class="required_star">＊</span></label>
+            <div class="layui-input-block">
+                <input name="venueName" type="text" autocomplete="off" class="layui-input" required disabled
+                       placeholder="请输入所属场馆">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-form-label">类型<span class="required_star">＊</span></div>
+            <div class="layui-input-inline">
+                <input name="typeMsg" type="text" autocomplete="off" class="layui-input" required disabled
+                       placeholder="请输入类型">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">会员ID<span class="required_star">＊</span></label>
+            <div class="layui-input-block">
+                <input name="userId" type="text" autocomplete="off" class="layui-input" required disabled
+                       placeholder="请输入会员ID">
+            </div>
+        </div>
+
+        <div class="userbox" style="display: none;">
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">生日<span class="required_star">＊</span></label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="dateStart" name="birthday" placeholder="yyyy-MM-dd">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所在地区<span class="required_star">＊</span></label>
+                <div class="layui-input-block">
+                    <input name="address" type="text" autocomplete="off" class="layui-input" required
+                           placeholder="请输入地址">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">兴趣<span class="required_star">＊</span></label>
+                <div class="layui-input-block dispFlex" style="justify-content:  flex-start;">
+                    <div class="ask_label" id="askLabelBox">
+
+                    </div>
+                    <button id="addAskBtn" class="layui-btn layui-btn-sm marginL20">
+                        <i class="layui-icon layui-icon-add-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学校<span class="required_star">＊</span></label>
+                <div class="layui-input-block">
+                    <input name="school" type="text" autocomplete="off" class="layui-input" required
+                           placeholder="请输入学校">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sex" value="0" title="女">
+                    <input type="radio" name="sex" value="1" title="男">
+                    <input type="radio" name="sex" value="2" title="保密">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">简介<span class="required_star">＊</span></label>
+            <div class="layui-input-block">
+                <textarea id="summernote" name="introduction" placeholder="请输入内容"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否置顶</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sort" value="0" title="否">
+                <input type="radio" name="sort" value="1" title="是">
+            </div>
+        </div>
+        <div class="layui-input-block">
+            <button onclick="location.href='userList.html'; return false;" class="layui-btn layui-btn-primary">取消</button>
+            <button permission="sys:user:edit" class="layui-btn" lay-submit lay-filter="formSubmit">保存</button>
+        </div>
+    </form>
+</div>
+<form id="askLabel" class="layui-form" action="" style="padding: 20px; display: none;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">兴趣名称</label>
+        <div class="layui-input-inline select-box" style="width: 300px;">
+            <input type="text" autocomplete="off" placeholder="请选择"
+                   class="layui-input">
+            <i class="layui-icon" style="color: #999;">&#xe625;</i>
+        </div>
+        <div id="hobbyLabels" class="flow-default flow_box" style="width: 300px; text-align:left; left: 170px;"></div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+            <button class="layui-btn" lay-submit="" lay-filter="commitLabel">保存</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script type="text/javascript" src="../../../static/js/uploadFiles.js"></script>
+<script>
+//    checkPermission();
+</script>
+<!--图片上传，富文本-->
+<script>
+    uploadImg('#uploadPicture', 1);
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            // shortcuts: false,
+            // toolbar: [
+            //     ['fontsize', ['fontsize']] // 有字号，但是默认没有显示
+            // ],
+            // toolbar: [
+            //     // [groupName, [list of button]]
+            //     ['style', ['clear']],
+            //     // ['font', ['strikethrough', 'superscript', 'subscript']],
+            //     ['fontsize', ['fontsize']],
+            //     // ['color', ['color']],
+            //     ['para', ['paragraph']],
+            //     // ['height', ['height']]
+            //     ['insert', ['picture']]
+            //
+            // ],
+            lang: 'zh-CN',
+            height: 300,
+            callbacks: {
+                onImageUpload: function (files, editor, welEditable) {
+                    sendFile(files);
+                },
+                onMediaDelete: function (e) {
+                    var imgUrl = e.context.currentSrc;
+                    console.log("删除图片====");
+                    console.log(e);
+                    $.ajax({
+                        xhrFields: {withCredentials: true},
+                        type: "POST",
+                        data: {url: imgUrl},
+                        url: http + '/index/deletePicRecord',
+                        success: function (data) {
+                            console.log("删除富文本图片=====");
+                            console.log(data);
+                        },
+                        error: function () {
+                            console.log("删除失败");
+                        }
+                    });
+                }
+            },
+        });
+    });
+
+    function sendFile(files) {
+        var formData = new FormData();
+        formData.append("file", files[0]);
+        $.ajax({
+            data: formData,
+            type: "POST",
+            url: uploadFile(),
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (data) {
+                console.log("富文本=====");
+                console.log(data);
+                $('#summernote').summernote('insertImage', data.result.url);
+                uploadImgSucs(data.result.urlId);
+            },
+            error: function () {
+                alert("上传失败");
+            }
+        });
+    }
+
+    // 富文本上传图片,接口成功后需要调这个接口
+    function uploadImgSucs(urlid) {
+        $.ajax({
+            xhrFields: {withCredentials: true},
+            type: 'post',
+            data: {urlId: urlid},
+            url: http + '/index/deletePicCache',
+            success: function (res) {
+                console.log("=====富文本图片上传成功=====");
+                console.log(res);
+
+                if (res.status == 'success') {
+
+                } else {
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        successService(layer, res, null, null);
+                    });
+                }
+            }
+        });
+    }
+</script>
+<script>
+    var id = getUrlParam().id, flg = getUrlParam().flg;
+    $(function () {
+        if (flg == 1) { //用户
+            $('.userbox').show();
+        }
+    });
+    layui.use(['form', 'laydate', 'layer', 'flow'], function () {
+        var form = layui.form, $ = layui.$, layer = layui.layer, laydate = layui.laydate,
+            flow = layui.flow;
+        laydate.render({
+            elem: '#dateStart', //指定元素
+        });
+
+        //点击切换下拉选框
+        $('.select-box').click(function (e) {
+            $(this).next().toggle();
+            $(this).parent().siblings().find('.flow_box').hide();
+            e.stopPropagation();
+        });
+        getCoachLabel();
+        function getCoachLabel() {
+            flow.load({
+                elem: '#hobbyLabels' //流加载容器
+                , scrollElem: '#hobbyLabels' //滚动条所在元素，一般不用填
+                , isAuto: true
+                , end: ' '
+                , done: function (pageStart, next) {//执行下一页的回调
+                    var lis = [];
+                    $.ajax({
+                        xhrFields: {withCredentials: true},
+                        type: 'post',
+                        url: ajaxHttp() + '/hobby/list',
+                        async: false,
+                        data: {pageStart: pageStart, pageTotal: 8},
+                        success: function (myd) {
+                            console.log("=====专栏==============");
+                            console.log(myd);
+                            if (myd.status == 'success') {
+                                layui.each(myd.result.data, function (index, item, arr) {
+                                    lis.push('<p id="' + item.id + '">' + item.name + '</p>');
+                                });
+                                next(lis.join(''), pageStart < Math.ceil(myd.result.pageCount/8));
+                                pageStart = myd.result.pageStart;
+                                $('.flow_box p').click(function () {
+                                    $(this).addClass('active').siblings().removeClass('active');
+                                    $('.select-box input').val($(this).text()).attr('id', $(this).attr('id'));
+                                    $(this).parent().hide();
+                                });
+                            } else {
+                                successService(layer, myd, null, null);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        getDetail();
+        function getDetail() {
+            $.ajax({
+                url: ajaxHttp() + "/user/getUserInfo",
+                data: {userId: id, flag: flg},
+                success: function (res) {
+                    console.log("详情------");
+                    console.log(res);
+
+                    if (res.status == "success") {
+                        form.val("formbox", {
+                            address: res.result.address,
+                            typeMsg: res.result.typeMsg,
+                            birthday: res.result.birthday,
+                            nick_name: res.result.nick_name,
+                            school: res.result.school,
+                            userId: res.result.userId,
+                            venueName: res.result.venueName,
+                        });
+                        if (flg == 1) {
+                            if(res.result.hobbyList.length > 0) {
+                                for (var k=0; k<res.result.hobbyList.length; k++) {
+                                    var hobbyArr = res.result.hobbyList[k];
+                                    $('#askLabelBox').append('<span id="'+hobbyArr.hobbyId+'" class="layui-btn layui-btn-primary layui-btn-sm">'+hobbyArr.name+'<i class="layui-icon layui-icon-close"></i></span>');
+                                }
+                            }
+                            $('#summernote').summernote('code', res.result.introduction)
+                        } else {
+                            $('#summernote').summernote('code', res.result.introduce)
+                        }
+
+                        $('input[name="sex"]').eq(res.result.sex).attr('checked', true);
+                        if (res.result.sort == 0) {
+                            $('input[name="sort"]').eq(0).attr('checked', true);
+                        } else {
+                            $('input[name="sort"]').eq(1).attr('checked', true).val(res.result.sort);
+                        }
+
+//                        $("#uploadPicture").find('.uploadTip').before('<img src="' + res.result.pic + '" alt="" class="layui-upload-img">');
+
+                        form.render();
+                    } else {
+                        layui.use(['layer'], function () {
+                            var layer = layui.layer;
+                            successService(layer, res, null, null)
+                        })
+                    }
+                }
+            });
+        }
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field, obj = {};
+
+            fd.id = id;
+
+            if(flg == 1) { //用户
+                var arrHobby = [], strHobby = '';
+                $('#askLabelBox span').each(function () {
+                    strHobby += $(this).attr('id') + ','
+                });
+                obj = {
+                    venueName: '',
+                    birthday: fd.birthday,
+                    address: fd.address,
+                    school: fd.school,
+                    nick_name: fd.nick_name,
+                    sex: fd.sex,
+                    sort: fd.sort,
+                    type: fd.type,
+                    userId: fd.userId,
+                    introduction: fd.introduction,
+                    hobby: strHobby.substring(0, strHobby.lastIndexOf(','))
+                }
+            } else {
+                obj = {
+                    venueName: fd.venueName,
+                    introduce: fd.introduction,
+                    nick_name: fd.nick_name,
+                    sort: fd.sort,
+                    userId: fd.userId,
+                    type: fd.type,
+                }
+            }
+
+            console.log(obj);
+
+            updateVenue(obj);
+            return false;
+        });
+
+        function updateVenue(data) {
+            $.ajax({
+                url: ajaxHttp() + '/user/editUser',
+                data: {userJson: JSON.stringify(data), flag: flg},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(layer, res, 'userList.html', null);
+                    } else {
+                        successService(layer, res, null, null);
+                    }
+                }
+            });
+        }
+
+        $('#askLabelBox').on('click', '.layui-icon', function () {
+            var that = this;
+            layer.confirm('删除后，该标签将会无法正常使用，是否确认删除？', {
+                icon: 3, title: '提示',
+                btn: ['我要删除', '我再想想']
+            }, function (index) { //确定
+                $(that).parent().remove();
+
+                layer.close(index);
+                console.log("确定");
+            }, function (index) {  //取消
+                layer.close(index);
+                console.log("取消");
+            });
+        });
+
+        //添加标签
+        var labelIndex = '';
+        $('#addAskBtn').click(function () {
+            if($("#askLabelBox").children("span").length > 3) {
+                layer.msg("<h2 style='color:#FF5722'>最多只能添加3个标签</h2>",{icon: 5, anim: 5,zIndex:99999999});
+            } else {
+                $('#askLabel').find('input[name="labelName"]').val('').attr('id', '');
+                labelIndex = layer.open({
+                    type: 1,
+                    title: "添加兴趣",
+                    area:  ['500px', '300px'],
+                    content: $('#askLabel')
+                });
+            }
+            return false;
+        })
+        form.on('submit(commitLabel)', function (data) {
+            var labelN = $('.select-box input').val();
+            var labelId = $('.select-box input').attr('id');
+
+            $('#askLabelBox').append('<span id="'+labelId+'" class="layui-btn layui-btn-primary layui-btn-sm">'+labelN+'<i class="layui-icon layui-icon-close"></i></span>');
+
+            layer.close(labelIndex);
+
+            console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    });
+</script>
+</body>
+</html>

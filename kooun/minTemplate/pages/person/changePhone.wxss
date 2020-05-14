@@ -1,0 +1,42 @@
+page {
+    background-color: #fff;
+}
+.header {
+    height: 400rpx;
+    justify-content: center;
+    flex-direction: column;
+}
+.header .title {
+    padding-bottom: 38rpx;
+    font-size: 70rpx;
+    color: #f14c4c;
+}
+.title2 {
+    color: #656565;
+}
+.item {
+    padding-left: 0;
+}
+.item .item_after {
+    color: #000;
+    text-align: left;
+}
+.code {
+    padding: 10rpx 0;
+}
+.fz24 {
+    line-height: 36rpx;
+    padding-left: 8rpx;
+}
+.btn {
+    width: 100%;
+}
+.xieyi {
+    text-decoration: underline;
+}
+.c90 {
+    margin-top: 28rpx;
+    font-size: 22rpx;
+    text-align: center;
+}
+

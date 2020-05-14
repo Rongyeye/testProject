@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "卡券",
+  "usingComponents": {
+    "alertModal": "../../components/alertModal",
+    "tab": "../../components/tab"
+  }
+}

@@ -1,0 +1,24 @@
+
+<view class='framebig'>
+   <view class='frameQRCode'>
+        <view class='frameHeadpicture'>
+          <image src='../../images/2541.jpg' class='picture'></image>
+            <view class='frameName'>
+                  <view class='name'>
+                      {{myInfo.nickName}}
+                      </view>
+                        <view class="frame_type">
+                          <block wx:for="{{role}}" wx:key="{{index}}">
+                            <view class='type'>{{item}}</view>
+                          </block>
+                    </view>
+                </view>
+            </view>
+            <image src="{{qRCode}}" class='QRcode'></image>
+          <view class='text'>分享二维码邀请好友</view>
+         </view>
+    
+     <button class='button' bindtap="onShareAppMessage" open-type="share">分享二维码邀请好友加入</button>
+  
+
+</view>

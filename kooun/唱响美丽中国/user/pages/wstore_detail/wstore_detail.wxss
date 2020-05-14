@@ -1,0 +1,66 @@
+/* pages/store_detail_vip/store_detail_vip.wxss */
+/* pages/store_detail/store_detail.wxss */
+.wsection{
+  padding: 30rpx 20rpx;
+  font-size: 30rpx;
+  color: #333333;
+  letter-spacing: 1rpx;
+
+}
+
+.wpic{
+  width: 710rpx;
+  height: 460rpx;
+}
+.wcontent{
+  padding: 22rpx 0;
+  line-height: 60rpx;
+}
+.wtitle{
+  font-family: PingFang-SC-Bold;
+  font-size: 36rpx;
+  letter-spacing: 0rpx;
+  color: #000000;
+  }
+  .wdetail{
+    display: block;
+  }
+  .wtab{
+  font-size: 22rpx;
+  font-family: PingFang-SC-Medium;
+    display: flex;
+  justify-content: center;
+
+  align-items: center;
+  margin-left: 24rpx;
+width: 116rpx;
+  }
+  .wtab1{
+
+    border-radius: 18rpx;
+   background: #ed4849;
+
+   height: 36rpx;
+
+  line-height: 36rpx;
+
+  color: white;
+}
+.wtab2{
+
+    border-radius: 20rpx;
+   background: #ffffff;
+   border: 1rpx solid #999999;
+   
+   height: 38rpx;
+
+  line-height: 38rpx;
+
+  color: #999999;
+}
+.wicon{
+  width:8rpx; 
+  height:14rpx;
+  margin-left: 5rpx;
+
+}

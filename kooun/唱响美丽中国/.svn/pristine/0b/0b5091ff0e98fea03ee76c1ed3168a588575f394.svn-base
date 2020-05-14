@@ -1,0 +1,22 @@
+<!--pages/my_detail/my_detail.wxml-->
+<view class='content' bindtap='bind_changeavator'>
+    <view>更换头像</view>
+    <view class='name'>
+      <image src='{{avator}}' class='pic1'></image>
+      <image src='http://tmp/wx6c48f1852517911d.o6zAJswnq6TsD1COyx1k1OwdTNjU.dmgKbVSGNzQXed50ae67878a799dcdf5c57bb8aca50d.png' class='pic'></image>  
+    </view>
+ </view>
+<view class='content content1' bindtap='bind_changename'>
+    <view>昵称</view>
+    <view class='name'>
+      <view>{{nickname}}</view>
+      <image src='http://tmp/wx6c48f1852517911d.o6zAJswnq6TsD1COyx1k1OwdTNjU.dmgKbVSGNzQXed50ae67878a799dcdf5c57bb8aca50d.png' class='pic2'></image>  
+    </view>
+ </view>
+<view class='content content1' bindtap='bind_changeid'>
+    <view>手机号</view>
+    <view class='name'>
+      <view>{{phone}}</view>
+      <image src='http://tmp/wx6c48f1852517911d.o6zAJswnq6TsD1COyx1k1OwdTNjU.dmgKbVSGNzQXed50ae67878a799dcdf5c57bb8aca50d.png' class='pic2'></image>  
+    </view>
+ </view>

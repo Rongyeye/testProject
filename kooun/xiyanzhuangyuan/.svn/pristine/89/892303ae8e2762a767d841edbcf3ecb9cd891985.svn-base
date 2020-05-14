@@ -1,0 +1,70 @@
+<import src="../../wxParse/wxParse.wxml"/>
+<view class="content">
+    <view class="header">
+        <image src="{{bannerImg}}"></image>
+    </view>
+    <view class="dynamic_cont bgwhite">
+        <block wx:for="{{dynamics}}" wx:key="index">
+            <view class="dynamic_item">
+                <view bindtap="hideComtBtn" class="dynamic_title dispFlex">
+                    <view class="head_img marginR20">
+                        <image src="{{item.headImgUrl}}"></image>
+                    </view>
+                    <view>
+                        <view class="title">{{item.nickname}}</view>
+                        <view class="date fz24 c90">{{item.releaseTime}}</view>
+                    </view>
+                </view>
+                <view class="dynamic_item_cont">
+                    <!--<block wx:for="{{wxParseArrCont}}" wx:key="" wx:for-index="dIndex">-->
+                        <view bindtap="hideComtBtn" class="intro">
+                            <!--{{item.content}}-->
+                            <!--<template is="wxParse" data="{{wxParseData:content.nodes}}"/>-->
+                            <template is="wxParse" data="{{wxParseData:wxParseArrCont[index]}}"/>
+                        </view>
+                    <!--</block>-->
+
+                    <view class="img_box">
+                        <block wx:for="{{item.pics}}" wx:for-item="imgItem" wx:for-index="imgIndex" wx:key="i">
+                            <!--<view class="img_item">-->
+                                <image bindtap="previewImg" mode="aspectFill" data-index="{{index}}" data-item="{{imgItem}}" src="{{imgItem}}"></image>
+                            <!--</view>-->
+                        </block>
+                    </view>
+                    <view class="comment">
+                        <view class="dispFlex btns">
+                            <view hidden="{{item.showComBtn}}" class="comt_btn">
+                                <!--praiseType 0=未点赞1=已点赞 -->
+                                <view bindtap="tapZan" data-index="{{index}}" class="com_i">{{item.praiseType == 1 ? '已赞' : '点赞'}}({{item.praiseNum}})</view>
+                                <view bindtap="commentBtn" data-index="{{index}}" class="com_i">评论</view>
+                            </view>
+                            <image bindtap="showComtBtn" data-index="{{index}}" src="../../imgs/comment.png"></image>
+                        </view>
+                        <view wx:if="{{item.prises.length != 0}}" class="prise_lists">
+                            <image src="../../imgs/zan.png"></image>
+                            <block wx:for="{{item.prises}}" wx:for-item="priseItem" wx:for-index="priseIndex" wx:key="priseIndex">
+                                <!--<text>{{priseItem}}{{priseIndex == item.prises.length-1 ? '' : '，'}}</text>-->
+                                {{priseItem}}{{priseIndex == item.prises.length-1 ? '' : '，'}}
+                            </block>
+                        </view>
+                        <view wx:if="{{item.comts.length != 0}}" class="comment_lists">
+                            <block wx:for="{{item.comts}}" wx:for-item="comItem" wx:for-index="comIndex" wx:key="comIndex">
+                                <view bindtap="hideComtBtn" id="{{comItem.commentId}}" class="comment_item c90">
+                                    <text class="user_name">{{comItem.nick_name}}：</text>
+                                    <text>{{comItem.comment}}</text>
+                                </view>
+                            </block>
+                            <view bindtap="loadMoreComment" data-index="{{index}}" class="more_comment">查看更多评论</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </view>
+    <view hidden="{{showInputBox}}" class="input_box">
+        <input type="text" bindinput="getInputVal" focus="{{!showInputBox}}" placeholder="评论" cursor-spacing="10"/>
+        <button bindtap="sendMsg">发送</button>
+    </view>
+</view>
+<!--<view class="copyright">广州人上人企业管理咨询有限公司 版权所有 COPYRIGHT WWW.GZRSR.COM ALL RIGHT RESERVED 粤ICP备09215353号</view>-->
+

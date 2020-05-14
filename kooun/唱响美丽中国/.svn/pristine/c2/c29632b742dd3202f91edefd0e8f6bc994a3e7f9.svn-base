@@ -1,0 +1,42 @@
+<!-- 搜索 -->
+<view class='border'>
+  <image src='{{icon3_2x}}'class="b_picture"></image>
+  <input class='border_text' placeholder="搜索"></input>
+</view>
+
+<!-- 导航栏 -->
+<view class='frame'>
+  <view class='frame_nearby'>
+    <view class='text'>附近唱响</view>
+    <image src='{{denglu}}' class='picture'></image>
+  </view>
+  <view class='text' class='textA'>最近距离</view>
+  <view class='button'>筛选</view>
+</view>
+
+<!-- 主要项目 -->
+<scroll-view style="height:380px" scroll-y="true" bindscrolltolower="lowerMoreShopList">
+
+<view class='item'>
+    <image src='{{storeimg}}' class='item_picture'></image>
+    
+    <view class='framebig'>
+      <view class='frame_name_lable'>
+        <view class='frame_name_lable'>
+          <view class='name'>
+             {{storename}}
+          </view>
+
+           <view class='item_lable'>
+             {{storeClass}}
+          </view>
+        </view>
+      
+      </view>
+      <view class='classification'>{{business}}</view>
+       <view class='detailedAddress'>
+          {{storeAdd}}
+      </view>
+    </view>  
+</view>
+</scroll-view>

@@ -1,0 +1,94 @@
+<view class='frame_person'>
+  <view class='frame_pg'>
+    <image src="{{headPic}}" class='picture' bindtap='switToPsdtl'></image>
+    <image src='{{pic2}}' class='gear'bindtap='switToSetting'></image>
+  </view>
+  <view class='text' bindtap="switToPsdtl">{{nickName}}</view>
+  <view class='frame'>
+  <!-- 第一种情况 -->
+    <block wx:if="{{serviceName.length==0}}">
+    <view class='frame_button' bindtap='switToUpdate'>
+      <view class='button_text'>升级</view>
+      <image src='{{gengduo4}}' class='button_picture'></image>
+    </view>
+  </block>
+
+<!-- 第二种情况 -->
+  <block wx:elif="{{serviceName.length<3}}">
+    <block wx:for="{{serviceName}}" wx:key="{{index}}">
+      <view class='frame_buttonB'>
+          <view class='button_textB'>{{serviceName[index]}}</view>
+          <image src='{{gengduo3}}' class='button_pictureB'></image>
+        </view>
+    </block>
+      <view class='frame_button' bindtap='switToUpdate'>
+          <view class='button_text'>升级</view>
+          <image src='{{gengduo4}}' class='button_picture'></image>
+       </view>
+  </block>
+
+<!-- 第四种情况 -->
+    <block wx:elif="{{serviceName.length==3}}">
+   <view class='frame_buttonB'>
+      <view class='button_textB'>特约商家</view>
+      <image src='{{gengduo3}}' class='button_pictureB'></image>
+    </view>
+    <view class='frame_buttonB'>
+      <view class='button_textB'>合作单位</view>
+      <image src='{{gengduo3}}' class='button_pictureB'></image>
+    </view>
+   <view class='frame_buttonB'>
+      <view class='button_textB'>传播大使</view>
+      <image src='{{gengduo3}}' class='button_pictureB'></image>
+    </view>
+    </block>
+    
+  </view>
+
+
+  <view class='useless'></view>
+  <view class='frame'>
+    <view class='frame_prince'>
+      <view class='text_prince' bindtap='switToakward'>{{proReWard}}</view>
+      <view class='text_type'>推广奖励</view>
+    </view>
+    <view class='frame_prince'>
+      <view class='text_prince' bindtap='switToMywallet'>{{money}}</view>
+      <view class='text_type'>我的钱包</view>
+    </view>
+  </view>
+</view>
+
+<!-- item -->
+<view class='frame_item' bindtap='switToQRcode'>
+  <view class='frameB'>
+    <image src='{{icon_duanxin}}' class='item_picture'></image>
+    <view class='item_text'>推广二维码</view>
+  </view>
+  
+  <image src='{{gengduo3}}' class='item_icon'></image>
+</view>
+<view class='frame_item' bindtap='switToinviteFriend'>
+  <view class='frameB'>
+    <image src='{{icon_duanxin}}' class='item_picture'></image>
+    <view class='item_text'>邀请好友</view>
+  </view>
+  
+  <image src='{{gengduo3}}' class='item_icon'></image>
+</view>
+<view class='frame_item'bindtap='switToMysing'>
+  <view class='frameB' >
+    <image src='{{icon_duanxin}}' class='item_picture'></image>
+    <view class='item_text'>我的唱响</view>
+  </view>
+  
+  <image src='{{gengduo3}}' class='item_icon'></image>
+</view>
+<view class='frame_item'bindtap='switToMyrecomment'>
+  <view class='frameB' >
+    <image src='{{icon_duanxin}}' class='item_picture'></image>
+    <view class='item_text'>我的推荐</view>
+  </view>
+  
+  <image src='{{gengduo3}}' class='item_icon'></image>
+</view>

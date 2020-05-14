@@ -1,0 +1,12 @@
+
+<view hidden='{{modalHidden}}'>
+    <view class='mask_layer' bindtap='click_close_modal'/>
+    <view class='modal_box'>
+        <icon bindtap="click_close_modal" type="clear" size="22" class="close-icon"/>
+        <view class='content'>
+            <image src="../imgs/blankpage.png"></image>
+            <view class="blank_tip">该服务功能尚未上线</view>
+            <view class="blank_tip">敬请期待</view>
+        </view>
+    </view>
+</view>

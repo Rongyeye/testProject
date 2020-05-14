@@ -1,0 +1,18 @@
+<view wx:for="{{orderItemInfo}}" wx:key="index" class="order_cont fz28">
+    <view class="image_box">
+        <image src="{{item.image}}"></image>
+    </view>
+    <view class="order_detail">
+        <view class="title">{{item.title}}</view>
+        <view class="order_desc">
+            <view class="cate">{{item.cate}}</view>
+            <view class="good_price dispFlex">
+                <view>
+                    <text>{{item.price}}</text>
+                    <text>{{item.discPrice}}</text>
+                </view>
+                <view>{{item.goodNum}}件</view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,30 @@
+<view class="wallet">
+    <view class="header marginb20 dispFlex">
+        <navigator open-type="navigate" url="/" class="walt dispFlex">
+            <view class="money">222</view>
+            <view class="fz24">卡券</view>
+        </navigator>
+        <view bindtap="showBlankPage" class="redpack dispFlex">
+            <view class="money">222</view>
+            <view class="fz24">红包</view>
+        </view>
+    </view>
+    <view class="wallt_cont dispFlex bgwhite">
+        <view bindtap="showWaltModal" class="text">
+            <text class="fz24">账户余额（元）</text>
+            <view class="icon icon-question"></view>
+        </view>
+        <view class="money">88.88</view>
+
+    </view>
+</view>
+
+<!-- 功能未上线提示框 -->
+<blankpage modal-hidden="{{is_modal_Hidden}}"></blankpage>
+
+<!-- 调用modal组件 -->
+<alertModal modal-hidden="{{is_modal_Hidden_money}}" title="{{titleMoney}}">
+    <view class="modal_walt" slot="before">
+        <image src="../../imgs/blankpage.png"></image>
+    </view>
+</alertModal>

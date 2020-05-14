@@ -1,0 +1,17 @@
+<view class='frameAward'>
+  <view class='title'>累计推广奖励</view>
+  <view class='prince'>{{proReWard}}</view>
+  <view class='text'>明细</view>
+</view>
+
+<!-- item -->
+<!-- for循环 -->
+<view wx:for="{{data}}" wx:key="{{index}}">
+<view class='frameitem'>
+  <view class='frametext'>
+    <view class='itemname'>{{item.note}}</view>
+    <view class='date'>{{item.time}}</view>
+  </view>
+  <view class='money'>{{item.amount}}</view>
+</view>
+</view>

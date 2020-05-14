@@ -1,0 +1,111 @@
+.banner {
+    height: 400rpx;
+}
+
+.banner .slide-image {
+    width: 750rpx;
+    height: 400rpx;
+}
+
+.contact {
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 20rpx;
+}
+
+.contact .address {
+    font-size: 26rpx;
+    width: 420rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.addr_img {
+    width: 36rpx;
+    height: 36rpx;
+    margin-right: 20rpx;
+}
+.phone {
+    width: 48rpx;
+    height: 48rpx;
+}
+.service {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+    margin-left: 20rpx;
+}
+.service:before, .service:after {
+    border: none;
+}
+.service image {
+    width: 56rpx;
+    height: 48rpx;
+}
+.focus {
+    width: 50rpx;
+    height: 50rpx;
+    margin-left: 20rpx;
+}
+
+.cont_item {
+    padding: 20rpx 30rpx;
+}
+.cont_item swiper {
+    height: 320rpx;
+}
+.cont_item .title {
+    padding-bottom: 10rpx;
+}
+.cont_item .box {
+    width: 50%;
+    align-items: center;
+}
+.cont_item .slide-image {
+    width: 320rpx;
+    height: 220rpx;
+}
+
+.scroll_box {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+}
+.scroll_box .scroll_item {
+    display: inline-flex;
+    flex-direction: column;
+}
+.scroll_item .c90 {
+    padding-top: 12rpx;
+}
+.scroll_box .enter_item {
+    width: 690rpx;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.enter_item image {
+    width: 220rpx;
+    height: 160rpx;
+}
+.enterCont {
+    padding: 6rpx 0;
+}
+
+.dot_box {
+    display: flex;
+    justify-content: center;
+    margin-top: 20rpx;
+}
+.dot_item {
+    width: 16rpx;
+    height: 16rpx;
+    border-radius: 50%;
+    margin-right: 8rpx;
+    background-color: #999999;
+}
+.dot_item.active {
+    background-color: #000000;
+}
+

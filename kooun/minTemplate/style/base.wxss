@@ -1,0 +1,148 @@
+page {
+    background-color: #f3f5f7;
+    border-top: 1px solid #edeff1;
+    display: flex;
+    flex-direction: column;
+}
+.tac {
+    text-align: center;
+}
+.tal {
+    text-align: left;
+}
+.tar {
+    text-align: right;
+}
+.tdunderline {
+    text-decoration: underline;
+}
+.tdlinethrough {
+    text-decoration: line-through;
+}
+.lh50 {
+    line-height: 50rpx;
+    height: 50rpx;
+}
+
+.c00 {
+    color: #000;
+}
+.bgwhite {
+    background-color: #fff;
+}
+.c90 {
+    color: #909090;
+}
+.red_normal {
+    color: #ff0000;
+}
+.orange {
+    color: #f95808;
+}
+.red_press {
+    color: #f01818;
+}
+.blue {
+    color: #2a64ff;
+}
+.purple {
+    color: #f656fc;
+}
+.pressed {
+    color: white;
+    background-color: #f01818;
+}
+.normal {
+    color: white;
+    background-color: #f43939;
+}
+.disabled {
+    color: white;
+    background-color: #909090;
+}
+.box_shadow_org {
+    border-color: #f95808;
+    box-shadow: 0 0 12rpx #f95808;
+}
+.box_shadow_blue {
+    border-color: #2a64ff;
+    box-shadow: 0 0 12rpx #2a64ff;
+}
+.box_shadow_purple {
+    border-color: #f656fc;
+    box-shadow: 0 0 12rpx #f656fc;
+}
+button {
+    margin: 0;
+    font-size: 32rpx;
+    border-radius: inherit;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+}
+button:before, button:after {
+    border: none;
+    border-radius: inherit;
+}
+.btn {
+    margin: 40rpx auto 0;
+    width: 500rpx;
+}
+input {
+    font-size: 28rpx;
+}
+
+
+/*内容区域距离两边20rpx*/
+.pd20 {
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+}
+.marginb20 {
+    margin-bottom: 20rpx;
+}
+.margintop20 {
+    margin-top: 20rpx;
+}
+.margintop30 {
+    margin-top: 30rpx;
+}
+.marginR20 {
+    margin-right: 20rpx;
+}
+.fz22 {
+    font-size: 22rpx;
+}
+.fz24 {
+    font-size: 24rpx;
+}
+.fz26 {
+    font-size: 26rpx;
+}
+.fz28 {
+    font-size: 28rpx;
+}
+.fz30 {
+    font-size: 30rpx;
+}
+.fz32 {
+    font-size: 32rpx;
+}
+.fz34 {
+    font-size: 34rpx;
+}
+.fz36 {
+    font-size: 36rpx;
+}
+
+.img_icon {
+    width: 44rpx;
+    height: 44rpx;
+}
+.dispFlex {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.borderT2 {
+    border-top: 2px solid #edeff1;
+}

@@ -1,0 +1,64 @@
+<!--pages/w_teyuecheck/w_teyuecheck.wxml-->
+
+<view class='content content1'>
+  <view>上传商户店面图</view>
+  <view class='bg-img' bindtap='upimg' >
+    <image src='{{img}}' class='camera'>
+    </image>
+  </view>
+</view>
+
+<view class='content content2'>
+  <view class='block1'>
+    <view class='store_name'>店铺名称</view>
+    <input bindinput='getName' type="text" class='sinput' placeholder="请输入您的店铺名称" />
+  </view>
+  <view class='block1'>
+    <view class='store_name'>联系方式</view>
+    <input bindinput='getPhone' type="numble" class='sinput' placeholder="请输入您的手机号" maxlength="11"/>
+  </view>
+  <view class='block2 block1'>
+    <view class='store_name'>主营业务</view>
+    <view style='display:flex;    align-items: center; '>
+      <view bindtap='showModalStatus'>请选择</view>
+      <image class='icon' src='https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS9lZDUwYWU2Nzg3OGE3OTlkY2RmNWM1N2JiOGFjYTUwZC5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLm9ZQmlvZkx1WklWeWVkNTBhZTY3ODc4YTc5OWRjZGY1YzU3YmI4YWNhNTBkLnBuZw=='></image>
+    </view>
+  </view>
+  <view class='block2 block1'>
+    <view class='store_name'>店铺地址</view>
+    <view style='display:flex;    align-items: center; '>
+      <!-- 所在地区 -->
+      <!-- 多列选择器 -->
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key="name">
+        <view class="picker">
+          <!-- 当前选择：{{multiArray[0][0].name}}，{{multiArray[1][0].name}}，{{multiArray[2][0].name}} -->
+          当前选择：{{multiArray[0][multiIndex[0]].name}}，{{multiArray[1][multiIndex[1]].name}}，{{multiArray[2][multiIndex[2]].name}}
+        </view>
+      </picker>
+      <image class='icon' src='https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS9lZDUwYWU2Nzg3OGE3OTlkY2RmNWM1N2JiOGFjYTUwZC5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLm9ZQmlvZkx1WklWeWVkNTBhZTY3ODc4YTc5OWRjZGY1YzU3YmI4YWNhNTBkLnBuZw=='></image>
+    </view>
+  </view>
+  <textarea class='block3' placeholder='详细地址：如道路、门牌号、小区、楼栋号、单元室等' bindinput='getAddress'></textarea>
+</view>
+<view class='btn' bindtap='submit'>提交审核</view>
+
+<!-- 弹窗 -->
+<view hidden='{{modalHidden}}'>
+  <view class='mask_layer' bindtap='click_close_modal' />
+  <view class='modal_box'>
+    <view class='content'>
+      <view class="Title">
+        <view class="title">主营业务（可多选）</view>
+        <view class="done" bindtap="selectDone">完成</view>
+      </view>
+      <block wx:for='{{container}}' wx:key="index" wx:for-item="item">
+
+        <view class="list" bindtap="selectTab" data-index="{{index}}">
+          <view>{{item.business}}</view>
+          <image src='{{item.flg ?"https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS80ODg5MDk0Nzk5NjRjYmQxZDJlMThjNTI5YzZmZWMyYi5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLmt5Uk5Vb3JTMkphUzQ4ODkwOTQ3OTk2NGNiZDFkMmUxOGM1MjljNmZlYzJiLnBuZw==":"https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS9jY2NjZjBhMmIxNGRjYzEzZTQzNmYyYmFkYTBiZTMwOC5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLkRJOWwyVnhPUnpOZmNjY2NmMGEyYjE0ZGNjMTNlNDM2ZjJiYWRhMGJlMzA4LnBuZw=="}}' class='pic'></image>
+        </view>
+
+      </block>
+    </view>
+  </view>
+</view>

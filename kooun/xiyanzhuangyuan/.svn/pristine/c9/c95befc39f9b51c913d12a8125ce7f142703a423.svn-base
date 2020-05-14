@@ -1,0 +1,4 @@
+<!--pages/weChatLogin.wxml-->
+<button wx:if="{{flag}}" class="normal btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+    <image src="../imgs/loginbtn.png"></image>
+</button>

@@ -1,0 +1,54 @@
+.order_cont {
+    padding: 20rpx;
+    display: flex;
+    margin-bottom: 20rpx;
+    background-color: #fff;
+    padding-bottom: 60rpx;
+}
+.image_box {
+    display: flex;
+    align-items: center;
+}
+.image_box .good_img {
+    width: 200rpx;
+    height: 200rpx;
+    margin-right: 20rpx;
+}
+.order_detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+.detail_list .title {
+    font-size: 28rpx;
+    margin-bottom: 6rpx;
+    display: flex;
+    justify-content: space-between;
+}
+.order_detail .order_desc {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    bottom: -45rpx;
+}
+.order_desc button {
+    margin: 0;
+    margin-top: 20rpx;
+}
+.order_btn {
+    height: 48rpx;
+    text-align: center;
+    line-height: 48rpx;
+}
+
+
+
+
+
+
+
+

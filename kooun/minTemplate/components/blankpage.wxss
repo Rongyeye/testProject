@@ -1,0 +1,20 @@
+/* components/blankpage.wxss */
+@import "alertModal.wxss";
+.content {
+    padding-top: 60px;
+}
+.blank_tip {
+    font-size: 26rpx;
+    line-height: 48rpx;
+    color: #909090;
+}
+
+.modal_box {
+    background-color: #fff;
+}
+.content image {
+    width: 320rpx;
+    height: 240rpx;
+}
+
+

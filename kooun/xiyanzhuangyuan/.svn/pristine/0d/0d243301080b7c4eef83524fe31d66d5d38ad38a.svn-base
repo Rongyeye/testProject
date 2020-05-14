@@ -1,0 +1,76 @@
+page {
+    background-color: #f3f5f7;
+    /*border-top: 1px solid #edeff1;*/
+    display: flex;
+    flex-direction: column;
+    font-size: 28rpx;
+}
+input {
+    font-size: 28rpx;
+}
+.dispFlex {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.c666 {
+    color: #666666;
+}
+.c90 {
+    color: #909090;
+}
+.bgwhite {
+    background-color: #fff;
+}
+
+.tac {
+    text-align: center;
+}
+.tal {
+    text-align: left;
+}
+.tar {
+    text-align: right;
+}
+/*内容区域距离两边26rpx*/
+.pd26 {
+    padding-left: 26rpx;
+    padding-right: 26rpx;
+}
+.marginb20 {
+    margin-bottom: 20rpx;
+}
+.marginR20 {
+    margin-right: 20rpx;
+}
+.fz22 {
+    font-size: 22rpx;
+}
+.fz24 {
+    font-size: 24rpx;
+}
+.fz26 {
+    font-size: 26rpx;
+}
+.fz28 {
+    font-size: 28rpx;
+}
+.fz30 {
+    font-size: 30rpx;
+}
+.fz32 {
+    font-size: 32rpx;
+}
+.fz34 {
+    font-size: 34rpx;
+}
+.fz36 {
+    font-size: 36rpx;
+}
+
+.copyright {
+    font-size: 11rpx;
+    color: #999999;
+    text-align: center;
+    padding: 10rpx 0;
+}

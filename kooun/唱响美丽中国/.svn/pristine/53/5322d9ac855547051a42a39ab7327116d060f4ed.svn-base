@@ -1,0 +1,44 @@
+<!--pages/wchang_phone/wchang_phone.wxml-->
+<view>
+  <view class='content'> 
+    <view class='name'>
+      <image src='https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS82ZGQ3YTVkY2UyYmRlYTRjNDlmZGIzNmNkMDc4MzM1ZS5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLldFSnVvV3R4d3pFaTZkZDdhNWRjZTJiZGVhNGM0OWZkYjM2Y2QwNzgzMzVlLnBuZw=='                class='pic pic1'>
+      </image> 
+      <!-- 输入新的手机号-->
+      <input bindinput='getphone' type="number"  class='sinput' value="{{phone}}" placeholder="请输入新的手机号" maxlength="11"/>
+    </view>
+    <view class="contenteye">
+      <image src='https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS9iYmU5YjQwZTIzNGMyMDk1MmM1Yzk0NWQ4NzM5ODZjLm82ekFKc3ducTZUc0QxQ095eDFrMU93ZFROalUudnFNcDNzcVNES3dWMGJiZTliNDBlMjM0YzIwOTUyYzVjOTQ1ZDg3Mzk4NmMucG5n'                        class='pic2' bindtap="del">
+    </image> 
+    </view>
+
+  </view>
+
+  <view class='content' > 
+    <view class='name'>
+      <image src='https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS80NWM0YTdlY2Q5MGNjYmZkNjVmZDliNjFiYTVkZGVhZC5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLm9IVFdKSUdkNDVSbTQ1YzRhN2VjZDkwY2NiZmQ2NWZkOWI2MWJhNWRkZWFkLnBuZw=='                class='pic pic3'>
+      </image> 
+      <input bindinput='inputCode' type="text"  class='sinput2' placeholder="{{code}}"/>
+    </view>
+    <view class="getcode" bindtap='{{codeSec==0? "sendCode": "sendcoder"}}'>{{codeSec==0?getCodeText:timeNumber+"后可重发"}}</view> 
+  </view>
+  <view class='content'> 
+    <view class='name'>
+      <image src='https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS9kMWEyZWRkNDM1MDY5OWE4NjliYzg1Mjg2MGIzM2IzMi5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLmNYdHc0WVhnT2huc2QxYTJlZGQ0MzUwNjk5YTg2OWJjODUyODYwYjMzYjMyLnBuZw=='                class='pic pic4'>
+      </image> 
+      <!-- 输入密码 -->
+      <input bindinput='getPassword' type="text"  class='sinput2 lock' placeholder="请输入密码" password='{{status}}'/>
+      <!-- <view class='lock'>
+      ********
+      </view> -->
+    </view>
+    <view class="contenteye"> 
+      <image src='{{status?close:open}}'   class='pic5' bindtap="eye">
+      </image> 
+    </view>
+
+  </view>
+
+
+</view>
+<view class='btn' bindtap='save'>保存</view>

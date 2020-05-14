@@ -1,0 +1,26 @@
+/* pages/videoCase/videoDetail.wxss */
+.video_box {
+    width: 100%;
+    height: 600rpx;
+}
+.video_box video {
+    width: 100%;
+    height: 100%;
+}
+
+.info {
+    padding: 0 30rpx 30rpx;
+}
+.info .title {
+    line-height: 88rpx;
+    border-bottom: 1px solid #E5E5E5;
+    font-size: 30rpx;
+}
+.info .date {
+    color: #909090;
+    font-size: 24rpx;
+    text-align: center;
+    padding: 20rpx 0;
+}
+
+

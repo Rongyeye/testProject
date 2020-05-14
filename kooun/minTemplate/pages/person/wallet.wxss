@@ -1,0 +1,41 @@
+.wallet {
+    margin-top: 20rpx;
+}
+.header .walt, .header .redpack {
+    width: 50%;
+    height: 140rpx;
+    padding-left: 26rpx;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: #ffffff;
+}
+.header .walt {
+    background-color: red;
+}
+.header .redpack {
+    background-color: dodgerblue;
+}
+.header .money {
+    font-size: 48rpx;
+}
+.wallt_cont {
+    height: 350rpx;
+    flex-direction: column;
+    justify-content: center;
+}
+.wallt_cont .text {
+    position: relative;
+}
+.wallt_cont  .money {
+    font-size: 70rpx;
+    color: #010101;
+}
+.wallt_cont .icon-question {
+    position:absolute;
+    top:0;
+
+}
+
+
+

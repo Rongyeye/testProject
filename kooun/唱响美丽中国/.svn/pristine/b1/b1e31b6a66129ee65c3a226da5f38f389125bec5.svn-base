@@ -1,0 +1,68 @@
+.frameAward{
+  padding-top: 63rpx;
+  width: 750rpx;
+  height: 291rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #ffffff;
+  border: 0.1rpx solid rebeccapurple;
+}
+.title{
+  font-family: PingFang-SC-Medium;
+  font-size: 28rpx;
+  color: #999999;
+}
+.prince{
+  margin-bottom: 70rpx;
+  font-family: PingFang-SC-Bold;
+  font-size: 68rpx;
+  color: #ed4849;
+}
+.text{
+  align-self: flex-start;
+  margin-left: 20rpx;
+  margin-bottom:30rpx;
+  margin-top: 63rpx;
+  font-weight: bold;
+  
+  font-family: PingFang-SC-Bold;
+  font-size: 28rpx;
+}
+
+
+.frameitem{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.1rpx solid #e5e5e5;
+}
+
+.frametext{
+  margin-left: 20rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemname{
+  font-weight: bold;
+  font-family: PingFang-SC-Bold;
+  font-size: 32rpx;
+  color: #333333;
+}
+.date{
+  margin-top: 19rpx;
+  font-family: PingFang-SC-Bold;
+  font-size: 22rpx;
+  color: #999999;
+}
+.money{
+  margin-top: 51rpx;
+  margin-right: 20rpx;
+  font-family:PingFang-SC-Medium;
+  font-size: 32rpx;
+  color: #ed4849;
+}

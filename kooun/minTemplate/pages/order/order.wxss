@@ -1,0 +1,11 @@
+@import "../../style/orderStyle.wxss";
+
+.order_body {
+    margin-top: 118rpx;
+    margin-bottom: 120rpx;
+}
+
+
+
+
+

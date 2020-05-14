@@ -1,0 +1,30 @@
+<view class="discIndex">
+    <tab current="{{current}}" bind:currentTab="getCurrentTab" tab-list="{{tab_items}}"></tab>
+
+    <view class="disc_content">
+        <view wx:if="{{current == 0}}" class="medal">
+            勋章
+        </view>
+        <view wx:if="{{current == 1}}" class="activities">
+            <view class="act_item">
+                <image src="../../imgs/bgImg.jpg"></image>
+                <view class="pd20 act_cont">
+                    <view class="fz26">平台上线，全面优惠，上门纯手工汽车打蜡直减100元</view>
+                    <view class="fz24 c90">原价238元，现只需138元。</view>
+                </view>
+            </view>
+            <view class="act_item">
+                <image src="../../imgs/bgImg.jpg"></image>
+                <view class="pd20 act_cont">
+                    <view class="fz26">平台上线，全面优惠，上门纯手工汽车打蜡直减100元</view>
+                    <view class="fz24 c90">原价238元，现只需138元。</view>
+                </view>
+            </view>
+
+        </view>
+        <view wx:if="{{current == 2}}" class="medal">
+            资讯
+        </view>
+
+    </view>
+</view>

@@ -1,0 +1,26 @@
+<view class="content bgwhite">
+    <scroll-view class="tab" scroll-y style="height: 1010rpx;" bindscrolltolower="lowerMoreClassify">
+        <view wx:for="{{firstClassifies}}" wx:key="index" class="tab_item">
+            <view bindtap="choseTab" data-index="{{index}}" class="{{current == index ? 'active' : ''}} title">{{current
+                == index ? '• ' : ''}}{{item.title}}
+            </view>
+            <block wx:if="{{current == index}}">
+                <view bindtap="choseChildTab" class="tabItem_child {{curChild==childIndex ? 'active' : ''}}"
+                      wx:for="{{secClassifies}}" wx:for-index="childIndex" wx:for-item="childItem" wx:key="i"
+                      data-childindex="{{childIndex}}">{{childItem.title}}
+                </view>
+            </block>
+        </view>
+
+    </scroll-view>
+    <scroll-view class="tab_body" scroll-y style="height: 1010rpx;" bindscrolltolower="lowerMoreCourse">
+        <view wx:if="{{courses.length == 0}}" class="c90 fz26 pd26">暂无特色菜品</view>
+        <block wx:else>
+            <navigator wx:for="{{courses}}" wx:key="index" url="courseDetail?id={{item.id}}" class="tbody_item" hover-class="none">
+                <image mode="aspectFill" src="{{item.titlePic}}"></image>
+                <view class="title tac c666">• {{item.title}} •</view>
+            </navigator>
+        </block>
+    </scroll-view>
+</view>
+<!--<view class="copyright">广州人上人企业管理咨询有限公司 版权所有 COPYRIGHT WWW.GZRSR.COM ALL RIGHT RESERVED 粤ICP备09215353号</view>-->

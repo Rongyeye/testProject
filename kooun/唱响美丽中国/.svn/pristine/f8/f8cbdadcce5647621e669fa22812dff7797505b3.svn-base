@@ -1,0 +1,49 @@
+<!-- 轮播图 -->
+<swiper indicator-dots="true"
+  autoplay="true" interval="3000" duration="1000"  class='swiper_picture'>
+  <block wx:for="{{banner}}" wx:key="{{index}}">
+      <swiper-item >
+        <block wx:for="{{banner[index].bannerPic}}" wx:key="{{index}}">
+          <image src="{{item}}" class='swiper_picture'/>
+        </block>
+      </swiper-item>
+  </block>
+</swiper>
+
+<!-- 热点 -->
+<view class='frame_hotpoint'>
+  <image src='{{redian}}' class='hotpoint'></image>
+  <swiper autoplay="true" interval="5000" duration="1000" class='hotText'vertical="true" >
+   <block wx:for="{{hotPointList}}" wx:key="{{index}}" data-index="{{index}}">
+    <swiper-item class='hotText'>
+      <text class='hotText' bindtap='switchToHot' id="{{hotPointList[index].hotspotId}}"> {{hotPointList[index].hotspotTitle}}</text>
+    </swiper-item>
+  </block>
+</swiper>
+</view>
+
+<!-- 主体分类模块 -->
+<view class='frame_button'bindtap='switToNearbyS'>
+  <view class='frame'>
+    
+    <view class='button' >附近唱响</view> 
+  </view>
+  <image src='{{gengduo1}}' class='ICONB'></image>
+ 
+</view>
+
+<scroll-view scroll-y="true" style="height:300px" bindscrolltolower="lowerMoreClassify">
+<view class='frame_classification'>
+    <!-- 遍历项目 -->
+    <block wx:for="{{classify}}" wx:key="{{index}}">
+        <view class='frame_item' id="{{classify[index].businessId}}" bindtap='switch'>
+         <!-- 遍历图片 -->
+          <block wx:for="{{classify[index].businessPic}}" wx:key="{{index}}">
+              <image src="{{item}}" class='icon'></image>
+          </block>
+          <text class='text'>{{classify[index].businessName}}</text>
+        </view>
+      </block>
+</view>
+    </scroll-view>
+

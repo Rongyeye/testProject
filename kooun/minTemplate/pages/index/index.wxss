@@ -1,0 +1,22 @@
+.per_header {
+    height: 260rpx;
+    justify-content: flex-start;
+    background-color: #f43939;
+    padding-left: 50rpx;
+}
+.per_img {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%;
+}
+.per_header .per_info {
+    margin-left: 20rpx;
+}
+.per_info .name {
+    color: black;
+    font-size: 34rpx;
+    line-height: 46rpx;
+}
+.per_info view {
+    color: #ffffff;
+}

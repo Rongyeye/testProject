@@ -1,0 +1,16 @@
+
+<view class="bgwhite">
+    <view class="video_box dispFlex">
+        <block wx:for="{{videos}}" wx:key="index">
+            <view bindtap="tapShowDetail" data-index="{{index}}" class="video_item">
+                <view class="video_img">
+                    <image mode="aspectFill" src="{{item.titlePic}}"></image>
+                    <image class="icon" src="../../imgs/video.png"></image>
+                </view>
+                <view class="title">{{item.title}}</view>
+            </view>
+        </block>
+    </view>
+</view>
+<!--<view class="copyright">广州人上人企业管理咨询有限公司 版权所有 COPYRIGHT WWW.GZRSR.COM ALL RIGHT RESERVED 粤ICP备09215353号</view>-->
+

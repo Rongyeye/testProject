@@ -1,0 +1,65 @@
+<view class="personalInfo margintop30">
+    <view class="header dispFlex">
+        <image src="../../imgs/icon.png" class="per_img"></image>
+        <view class="per_info">
+            <view class="name fz34">Lemon</view>
+            <view class="c90 fz26 dispFlex">
+                <view class="addr">广州</view>
+                <view class="state">普通车主</view>
+            </view>
+        </view>
+    </view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+        <navigator open-type="navigate" url="changeName" class="item">
+             <view class="item_name">姓名</view>
+                <view>
+                    <input name="userName" class="item_after" type="text" placeholder="填写姓名方便预约服务"/>
+                    <view class="icon icon-right-min"></view>
+                </view>
+      
+        </navigator>
+        <view class="item">
+    
+                <view class="item_name">性别</view>
+                <view bindtap="showSexBox">
+                    <input name="sex" value="{{sex}}" class="item_after" type="text" placeholder="设置"/>
+                    <view class="icon icon-right-min"></view>
+                </view>
+      
+        </view>
+        <view class="item">
+        
+                <view class="item_name">生日</view>
+                <picker class="item_after chose_date" mode="date" value="{{date}}" bindchange="bindDateChange">
+                    <view wx:if="{{date == ''}}" class="c90 fz28">生日当天送上惊喜</view>
+                    <view wx:else class="picker">{{date}}</view>
+                </picker>
+                <view class="icon icon-right-min"></view>
+        
+        </view>
+        <navigator open-type="navigate" url="changePhone" class="item">
+        
+                <view class="item_name">修改绑定</view>
+                <view>
+                    <input name="phone" class="item_after" type="text" placeholder="修改绑定手机号码"/>
+                    <view class="icon icon-right-min"></view>
+                </view>
+       
+        </navigator>
+    </form>
+</view>
+
+<!-- 调用modal组件 -->
+<alertModal modal-hidden="{{is_modal_Hidden_sex}}" show-icon="{{showIcon}}">
+    <view class="modal_sex" slot="before">
+        <view bindtap="choseSex" data-type="1" class="item">
+            <view class="icon myicon"></view>
+            <text>男</text>
+        </view>
+        <view bindtap="choseSex" data-type="0" class="item">
+            <view class="icon myicon"></view>
+            <text>女</text>
+        </view>
+    </view>
+</alertModal>
+

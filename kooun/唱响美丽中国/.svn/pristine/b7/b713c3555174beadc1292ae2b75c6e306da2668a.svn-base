@@ -1,0 +1,23 @@
+<view class='flex'>
+  <view class='frameA'>
+    <input type="number" bindinput="getPhone" class='text'placeholder='手机号码'></input> 
+  </view>
+  <view class='frameB'>
+    <view class='frame_text_picture'>
+      <input bindinput="getPwd" class='text'placeholder='请输入您的登陆密码' password='{{indexA}}'></input> 
+      <image  src='{{indexA==false? pic1:pic2}}' class='picture' bindtap='hiddenpawd'></image>
+    </view>
+  </view>
+  <view bindtap='loginBtn' class='login'>登陆</view>
+
+  <view class='frameitem'>
+    <view class='forget' bindtap='forgetPawd'>忘记密码</view>
+    <view class='register' bindtap='register'>注册</view>
+  </view>
+  
+  <view class='frame_already'>
+    <image src="{{sec==0? gou1:gou2}}" class='alreday_icon' bindtap='select'></image>
+    <view class='already_text'>我已阅读完并同意该</view>
+    <view class='already_textred' bindtap=''>协议政策</view>
+  </view>
+</view>

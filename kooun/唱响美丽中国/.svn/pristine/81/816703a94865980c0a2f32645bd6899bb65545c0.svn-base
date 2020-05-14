@@ -1,0 +1,17 @@
+<view class='wsection'>
+  <image src='/images/tu.jpg' class='wpic'></image>
+  <view class='wcontent'>
+    <view class='wtitle'>唱响详情</view>
+    <view class='wdetail'>
+      <view style='display:flex;align-items:center;'>
+           <view>店铺名称：{{storeName}}</view>
+           <view class='wtab'>特约商家</view>
+      </view>
+   
+      <view>联系方式：13800138000</view>
+      <view>主营业务：{{storeBusiness}}</view>
+      <view>店铺地址：{{storeAdd}}</view>
+    </view>
+  </view>
+
+</view>

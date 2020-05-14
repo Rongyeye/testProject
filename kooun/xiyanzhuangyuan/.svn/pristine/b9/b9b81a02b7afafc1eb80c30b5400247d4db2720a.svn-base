@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/weChatLogin",
+    "pages/index/index",
+    "pages/classifies/classifyList",
+    "pages/classifies/courseDetail",
+    "pages/videoCase/video",
+    "pages/videoCase/videoDetail",
+    "pages/dynamic/dynamic"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "喜宴庄园",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#909090",
+    "selectedColor": "#e70c14",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "#e3e3e3",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "imgs/tab_home.png",
+        "selectedIconPath": "imgs/tab_home_ho.png"
+      },
+      {
+        "pagePath": "pages/classifies/classifyList",
+        "text": "菜品",
+        "iconPath": "imgs/tab_classify.png",
+        "selectedIconPath": "imgs/tab_classify_ho.png"
+      },
+      {
+        "pagePath": "pages/videoCase/video",
+        "text": "视频",
+        "iconPath": "imgs/tab_video.png",
+        "selectedIconPath": "imgs/tab_video_ho.png"
+      },
+      {
+        "pagePath": "pages/dynamic/dynamic",
+        "text": "动态",
+        "iconPath": "imgs/tab_dynamic.png",
+        "selectedIconPath": "imgs/tab_dynamic_ho.png"
+      }
+    ]
+  }
+}

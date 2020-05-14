@@ -1,0 +1,70 @@
+/* pages/wupdated/wupdated.wxss */
+/* pages/wchang_name/wchang_name.wxss */
+page{
+  background: rgb(245, 245, 245);
+  font-size: 36rpx;
+  color: #000000;
+  font-family:PingFang-SC-Medium;
+}
+.section{
+  background: white;
+   padding: 0 32rpx;
+}
+.content{
+  height: 110rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #e5e5e5;
+ }
+.content2{
+  height: 110rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border-bottom: 1rpx solid #e5e5e5; */
+ }
+ .prize{
+  color:#ed4849;
+  font-family:PingFang-SC-Bold;
+ }
+.name{
+  color: #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pic{
+   height: 40rpx;
+  width:40rpx;
+  margin-left: 20rpx; 
+}
+.display{
+    display: flex;
+    align-items: center;
+}
+.pay{
+    position: fixed;
+    bottom: 0;
+    /* 因为加了padding,已经占据了40rpx的宽度,所以不能再设置宽度为750rpx; */
+    width: 710rpx;
+    font-size: 48rpx;
+    height: 120rpx;
+     padding: 0 20rpx;
+        display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+
+}
+.btn{
+  border-radius: 38rpx;
+  width: 210rpx;
+  height: 76rpx;
+  background: #ed4849;
+  color:white;
+  font-size: 36rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }

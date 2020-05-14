@@ -1,0 +1,15 @@
+<view class="order">
+
+    <tab current="{{current}}" bind:currentTab="getCurrentTab" tab-list="{{tab_items}}"></tab>
+
+    <view wx:if="{{order.length == 0}}" class="blankpage">
+        <image src="../../imgs/blankpage.png"></image>
+        <view class="tip">暂时订单</view>
+    </view>
+
+    <view wx:else class="order_body">
+        <orderList orderInfo="{{order}}"></orderList>
+    </view>
+
+</view>
+

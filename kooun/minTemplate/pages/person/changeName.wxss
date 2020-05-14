@@ -1,0 +1,17 @@
+.changeName {
+    padding: 100rpx;
+    background-color: #fff;
+}
+.item_content {
+    border-bottom: 1px solid #e3e3e3;
+}
+input {
+    text-align: center;
+    margin: 0 auto;
+}
+.c90 {
+    text-align: center;
+}
+.btn {
+    margin-top: 80rpx;
+}

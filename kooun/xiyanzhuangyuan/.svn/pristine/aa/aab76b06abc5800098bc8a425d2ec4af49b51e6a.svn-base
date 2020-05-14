@@ -1,0 +1,38 @@
+/* pages/classifies/classifyList.wxss */
+.content {
+    display: flex;
+    padding: 30rpx 0;
+}
+.tab {
+    width: 270rpx;
+    border-right: 1px solid #E5E5E5;
+}
+.tab_item, .tbody_item {
+    text-align: center;
+}
+.tab_item .title {
+    height: 88rpx;
+    line-height: 88rpx;
+}
+.tab_item .title.active, .tabItem_child.active {
+    color: #FFA400;
+}
+.tabItem_child {
+    height: 60rpx;
+    line-height: 60rpx;
+    padding-left: 20rpx;
+}
+
+.tbody_item {
+    margin-bottom: 20rpx;
+}
+.tbody_item:nth-last-child(1) {
+    margin-bottom: 0;
+}
+.tbody_item image {
+    width:394rpx;
+    height:238rpx;
+}
+.tbody_item .title {
+    padding-top: 12rpx;
+}

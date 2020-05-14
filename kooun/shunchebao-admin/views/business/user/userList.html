@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员列表</title>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<div class="content">
+    <div class="demoTable layui-form">
+        <form class="layui-form dispFlex" style="width: 100%;">
+            <div class="layui-input-inline marginR20">
+                <input type="text" class="layui-input" id="keyWord" name="keyWord" placeholder="请输入ID/昵称/手机号">
+            </div>
+            <div class="layui-input-inline marginR20">
+                <select name="type" lay-filter="userType">
+                    <option value="">选择用户类型</option>
+                    <option value="1">普通</option>
+                    <option value="2">健身</option>
+                    <option value="3">羽毛球</option>
+                    <option value="4">场馆管理员</option>
+                </select>
+            </div>
+            <div class="dispFlex">
+                时间：
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="dateStart" name="dateStart" placeholder="yyyy-MM-dd">
+                </div>
+                &nbsp;—&nbsp;
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="dateEnd" name="dateEnd" placeholder="yyyy-MM-dd">
+                </div>
+            </div>
+            <button id="selectButton" class="layui-btn site-demo-active marginL20" data-type="reload">
+                <i class="layui-icon layui-icon-search"></i>搜索
+            </button>
+            <button id="resetBtn" type="reset" class="layui-btn marginL20">
+                <i class="layui-icon layui-icon-refresh"></i>重置
+            </button>
+        </form>
+    </div>
+    <div class="layui-form dispFlexBetw" style="margin: 20px 0;">
+        <!--<div class="layui-input-inline">活动列表（21条）</div>-->
+        <div permission="sys:user:black" class="posiRela" id="batchBtn">
+            <button class="layui-btn" style="width: 140px;">
+                <span>批量操作</span><i class="layui-icon layui-icon-triangle-d"
+                                    style="margin-left: 3px; margin-right: 0"></i>
+            </button>
+            <div class="export_list flow_box">
+                <p data-type="1">批量拉黑</p>
+                <p data-type="2">批量取消拉黑</p>
+            </div>
+        </div>
+        <div permission="sys:user:export" class="posiRela" id="exportList">
+            <button class="layui-btn marginL20">
+                <span>导出用户列表 </span><i class="layui-icon layui-icon-triangle-d"
+                                       style="margin-left: 3px; margin-right: 0"></i>
+            </button>
+            <div class="export_list flow_box" id="flow_element">
+                <p data-type="1">导出当前页</p>
+                <p data-type="2">导出所有页</p>
+            </div>
+        </div>
+    </div>
+
+    <table class="layui-hide" id="lay_table" lay-filter="categories"></table>
+    <!-- 分页工具 -->
+    <div class="layui-table-page">
+        <div id="paged" class="page"></div>
+    </div>
+    <!--操作-->
+    <div style="display: none" id="barTool">
+        <a permission="sys:user:edit" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        {{#  if(d.statusValue == 0){ }}
+        <a permission="sys:user:black" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="black">拉黑用户</a>
+        {{#  } else { }}
+        <a permission="sys:user:black" class="layui-btn layui-btn-xs" lay-event="recover">恢复正常</a>
+        {{#  } }}
+
+        {{#  if(d.sort == 0){ }}
+        <a permission="sys:user:isTop" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="setTop">置顶</a>
+        {{#  } else { }}
+        <a permission="sys:user:isTop" class="layui-btn layui-btn-xs" lay-event="cancelTop">取置</a>
+        {{#  } }}
+    </div>
+</div>
+<body>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+//    checkPermission();
+</script>
+<script>
+    //    type   整数  是 0=全部，1=拉黑用户列表 2=场馆用户
+    //    userType 整数  否    1=普通 2=健身 3=羽毛球 4=场馆管理员
+    var usertype = '';
+    $(document).ready(function () {
+        getData();
+        $("#selectButton").click(function () {
+            pageStart = 1;
+            getData();
+            return false;
+        });
+        $('#resetBtn').click(function () {
+            usertype = '';
+        });
+    });
+
+    var pageStart = 1;//开始页数
+    var pageTotal = 10;//每页显示数据条数
+    var dataTotal = 0;//当前搜索条件下的所有数据总条数
+    var ids = [];
+
+    function getData() {
+        $.ajax({
+            url: ajaxHttp() + "/user/getAllUserList",
+            data: {
+                pageStart: pageStart,
+                pageTotal: pageTotal,
+                keyWord: $('#keyWord').val(),
+                type: 0,
+                userType: usertype,
+                startDate: $("#dateStart").val(),
+                endDate: $("#dateEnd").val()
+            },
+            success: function (res) {
+                console.log("列表");
+                console.log(res);
+                if (res.status == 'success') {
+                    dataTotal = res.result.pageCount;
+                    createTable(res.result.data);
+                    ids = [];
+                } else {
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        successService(layer, res, null, null);
+                    });
+                }
+            }
+        });
+    }
+
+    function createTable(data) {
+        for(var i=0;i<data.length;i++){
+            if(data[i].sort != 0){  //置顶
+                data[i].sortText = '<span style="color: red;">是</span>';
+            } else {
+                data[i].sortText = '<span>否</span>';
+            }
+            data[i].status = data[i].statusValue == 0 ? '正常' : '<span style="color: red;">已拉黑</span>';
+        }
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table, laypage = layui.laypage;
+            //表格渲染
+            table.render({
+                elem: '#lay_table'
+                , height: 'full-204'
+                , skin: 'line'
+                , cols: [[
+                    {type: 'checkbox', minWidth: '50', fixed: 'left'}
+                    , {type: 'numbers', fixed: 'left', minWidth: '50', title: '序号'}
+                    , {field: 'avatarUrl', minWidth: '80', title: '头像', align: 'center', templet: '<div><img src="{{d.avatarUrl}}" /></div>'}
+                    , {field: 'nick_name', minWidth: '120', title: '昵称', align: 'center'}
+                    , {field: 'venueName', minWidth: '120', title: '场馆名称', align: 'center'}
+                    , {field: 'phone', minWidth: '120', title: '手机号', align: 'center'}
+                    , {field: 'type', sort: true, minWidth: '100', title: '用户类型', align: 'center'}
+                    , {field: 'status', sort: true, minWidth: '100', title: '账号状态', align: 'center'}
+                    , {field: 'sortText', sort: true, minWidth: '100', title: '是否置顶', align: 'center'}
+                    , {field: 'create_time', sort: true, minWidth: '160', title: '注册时间', align: 'center'}
+                    , {field: 'lastLoginTime', sort: true, minWidth: '160', title: '最后登录时间', align: 'center'}
+                    , {field: 'operation', fixed: 'right', title: '操作', minWidth: '180', align: 'center', toolbar: '#barTool'} //这里的toolbar值是模板元素的选择器
+                ]]
+                , data: data  //数据来源
+                , limit: pageTotal
+            });
+            laypage.render({   //调用分页
+                elem: 'paged'
+                , count: dataTotal //这个是后台返回的数据的总条数
+                , limit: pageTotal   //每页显示的数据的条数,layui会根据count，limit进行分页的计算,
+                , limits: [10, 20, 50, 100]
+                , curr: pageStart
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+                , jump: function (obj, first) {
+                    pageTotal = obj.limit;
+                    pageStart = obj.curr;  //当前第几页, pageStart就是多少
+                    if (!first) { //一定要加此判断，否则初始时会无限刷新
+                        getData();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                    }
+                }
+            });
+            table.on('checkbox(categories)', function (obj) {   //复选框---批量删除操作
+                var checkId = obj.data.userId, flg = obj.data.flag;
+//                “userId”:1,”flag”:1
+                if (obj.type == "one") {
+                    if (obj.checked) {
+                        ids.push({userId: checkId, flag: flg});
+                    } else {
+                        for (var j = 0; j < ids.length; j++) {
+                            var index = ids[j].userId.indexOf(checkId);
+                            if (index > -1) {
+                                ids.splice(index, 1);
+                            }
+                        }
+                    }
+                } else {
+                    if (obj.checked) {
+                        ids = [];
+                        for (var i = 0; i < data.length; i++) {
+                            ids.push(data[i].userId);
+                            ids.push({userId: data[i].userId, flag: data[i].flag});
+                        }
+                    } else {
+                        ids = [];
+                    }
+                }
+            });
+        });
+    };
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var $ = layui.$, table = layui.table, layer = layui.layer, laydate = layui.laydate, form = layui.form;
+        laydate.render({
+            elem: '#dateStart', //指定元素
+        });
+        laydate.render({
+            elem: '#dateEnd', //指定元素
+        });
+
+        form.on('select(userType)', function (data) {
+            usertype = data.value;
+        });
+
+        table.on('tool(categories)', function (obj) {  //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var dynaId = obj.data.userId, flg = obj.data.flag; //获得当前行数据
+            switch (obj.event) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                case 'edit':
+                    location.href = 'userEdit.html?id=' + dynaId + '&flg=' + flg;
+                    break;
+                case 'recover':  // type  1=拉黑，2=取消拉黑
+                    var arr1 = []
+                    arr1.push({userId: dynaId, flag: flg});
+                    batchDynamic('/user/pullBlackUser', {userJson: JSON.stringify(arr1), type: 2});
+                    break;
+                case 'black':   //1=拉黑，2=取消拉黑
+                    var arr2 = [];
+                    arr2.push({userId: dynaId, flag: flg});
+                    batchDynamic('/user/pullBlackUser', {userJson: JSON.stringify(arr2), type: 1});
+                    break;
+                case 'cancelTop':
+                    // 1=置顶, 2=取消置顶
+                    batchDynamic('/user/roofPlacementUser', {userId: dynaId, flag: flg, type: 2});
+                    break;
+                case 'setTop':
+                    // 1=置顶, 2=取消置顶
+                    batchDynamic('/user/roofPlacementUser', {userId: dynaId, flag: flg, type: 1});
+                    break;
+            }
+        });
+
+        //批量操作
+        $('#batchBtn .layui-btn').click(function (e) {
+            $(this).next().toggle();
+            e.stopPropagation();
+        });
+        $('#batchBtn .export_list p').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            var batchType = $(this).data('type');
+            $(this).parent().hide();
+            if (ids.length > 0) {
+                switch (batchType) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                    case 1:  //拉黑
+                        layer.confirm('确认批量操作吗？', {title: '提示'}, function (index) {
+                            batchDynamic('/user/pullBlackUser', {userJson: JSON.stringify(ids), type: 1});
+                        });
+                        break;
+                    case 2:  //取消拉黑
+                        layer.confirm('确认批量操作吗？', {title: '提示'}, function (index) {
+                            batchDynamic('/user/pullBlackUser', {userJson: JSON.stringify(ids), type: 2});
+                        });
+                        break;
+                }
+            } else {
+                layer.msg("<h2 style='color:#FF5722'>请选择需要操作的项</h2>", {icon: 5, anim: 5, zIndex: 99999999});
+            }
+        });
+
+    });
+    //批量操作
+    function batchDynamic(url, mydata) {
+        $.ajax({
+            url: ajaxHttp() + url,
+            data: mydata,
+            dataType: "json",
+            success: function (res) {
+                if (res.status == 'success') {
+                    getData();
+                }
+                successService(layer, res, null, null);
+            }
+        });
+    }
+    //导出
+    $('#exportList .layui-btn').click(function (e) {
+        $(this).next().toggle();
+        e.stopPropagation();
+    })
+    $('#exportList .export_list p').click(function () {
+        $(this).addClass('active').siblings().removeClass('active');
+        var type = $(this).data('type');
+        $(this).parent().hide();
+
+        printExcel(type);
+    });
+
+    function printExcel(printType) {
+        var url = ajaxHttp() + "/user/exportData";
+
+        //定义一个form表单,通过form表单来发送请求
+        var form = $("<form>");
+
+        //设置表单状态为不显示
+        form.attr("style", "display:none");
+
+        //method属性设置请求类型为post
+        form.attr("method", "post");
+
+        //action属性设置请求路径,
+        //请求类型是post时,路径后面跟参数的方式不可用
+        //可以通过表单中的input来传递参数
+        form.attr("action", url);
+        $("body").append(form);//将表单放置在web中
+
+        //在表单中添加input标签来传递参数
+        //如有多个参数可添加多个input标签
+        var input1=$("<input>");
+        input1.attr("type","hidden");//设置为隐藏域
+        input1.attr("name","startDate");//设置参数名称
+        input1.attr("value",$("#dateStart").val());//设置参数值
+        form.append(input1);//添加到表单中
+
+        var input2=$("<input>");
+        input2.attr("type","hidden");//设置为隐藏域
+        input2.attr("name","endDate");//设置参数名称
+        input2.attr("value",$("#dateEnd").val());//设置参数值
+        form.append(input2);//添加到表单中
+
+        var input3 = $("<input>");
+        input3.attr("type", "hidden");//设置为隐藏域
+        input3.attr("name", "pageTotal");//设置参数名称
+        input3.attr("value", pageTotal);//设置参数值
+        form.append(input3);//添加到表单中
+
+        var input4 = $("<input>");
+        input4.attr("type", "hidden");//设置为隐藏域
+        input4.attr("name", "pageStart");//设置参数名称
+        input4.attr("value", pageStart);//设置参数值
+        form.append(input4);//添加到表单中
+
+        var input5 = $("<input>");
+        input5.attr("type", "hidden");//设置为隐藏域
+        input5.attr("name", "keyWord");//设置参数名称
+        input5.attr("value", $('#keyWord').val());//设置参数值
+        form.append(input5);//添加到表单中
+
+        var input6 = $("<input>");
+        input6.attr("type", "hidden");//设置为隐藏域
+        input6.attr("name", "exportType");//设置参数名称
+        input6.attr("value", printType);//设置参数值
+        form.append(input6);//添加到表单中
+
+        var input7 = $("<input>");
+        input7.attr("type", "hidden");//设置为隐藏域
+        input7.attr("name", "type");//设置参数名称
+        input7.attr("value", 0);//设置参数值
+        form.append(input7);//添加到表单中
+
+        var input8 = $("<input>");
+        input8.attr("type", "hidden");//设置为隐藏域
+        input8.attr("name", "userType");//设置参数名称
+        input8.attr("value", usertype);//设置参数值
+        form.append(input8);//添加到表单中
+
+        form.submit();//表单提交
+    }
+
+</script>
+</body>
+</html>

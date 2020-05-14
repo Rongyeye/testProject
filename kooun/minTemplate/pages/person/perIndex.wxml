@@ -1,0 +1,115 @@
+<view class="perIndex">
+    <navigator class="per_header dispFlex" open-type="navigate" url="personalInfo">
+        <image src="../../imgs/bg.jpg" class="per_img"></image>
+        <view class="per_info">
+            <view class="name">Lemon</view>
+            <view class="fz24">个人积分：9999</view>
+            <view class="fz24">个人综合指数：88</view>
+        </view>
+    </navigator>
+
+    <view class="pd20 order-card-nav">
+        <view class="nav_list">
+            <navigator open-type="navigate" url="/pages/order/order?cur=0" class="nav_item">
+                <image src="../../imgs/icon.png" class="nav_icon"></image>
+                <view class="nav_text">未使用</view>
+            </navigator>
+            <navigator open-type="navigate" url="/pages/order/order?cur=1" class="nav_item">
+                <image src="../../imgs/icon.png" class="nav_icon"></image>
+                <view class="nav_text">已预约</view>
+            </navigator>
+            <navigator open-type="navigate" url="/pages/order/order?cur=2" class="nav_item">
+                <image src="../../imgs/icon.png" class="nav_icon"></image>
+                <view class="nav_text">已完成</view>
+            </navigator>
+            <navigator open-type="navigate" url="/pages/order/order?cur=3" class="nav_item">
+                <image src="../../imgs/icon.png" class="nav_icon"></image>
+                <view class="nav_text">待评价</view>
+            </navigator>
+        </view>
+        <view class="nav_list marginb20">
+            <navigator open-type="navigate" url="wallet" class="nav_item">
+                <view class="nav_text">0.01</view>
+                <view class="nav_text">钱包</view>
+            </navigator>
+            <navigator open-type="navigate" url="/" class="nav_item">
+                <view class="nav_text">12</view>
+                <view class="nav_text">卡券</view>
+            </navigator>
+            <view bindtap="showBlankPage" class="nav_item">
+                <view class="nav_text">666</view>
+                <view class="nav_text">红包</view>
+            </view>
+            <view bindtap="showBlankPage" class="nav_item">
+                <image src="../../imgs/icon.png" class="nav_icon"></image>
+                <view class="nav_text">会员中心</view>
+            </view>
+        </view>
+    </view>
+    <view class="nav_list marginb20 service_nav" style="border-bottom: none;">
+        <view bindtap="showBlankPage" class="nav_item">
+            <image src="../../imgs/icon.png" class="nav_icon"></image>
+            <view class="nav_text">查违章</view>
+            <view class="nav_text c90">查询违章记录</view>
+        </view>
+        <ivew bindtap="showBlankPage" class="nav_item">
+            <image src="../../imgs/icon.png" class="nav_icon"></image>
+            <view class="nav_text">服务点</view>
+            <view class="nav_text c90">查找服务点</view>
+        </ivew>
+        <navigator open-type="navigate" url="/" class="nav_item">
+            <image src="../../imgs/icon.png" class="nav_icon"></image>
+            <view class="nav_text">洗车卡</view>
+            <view class="nav_text c90">选择洗车卡</view>
+        </navigator>
+        <view bindtap="showBlankPage" class="nav_item">
+            <image src="../../imgs/icon.png" class="nav_icon"></image>
+            <view class="nav_text">福利</view>
+            <view class="nav_text c90">最近福利活动</view>
+        </view>
+    </view>
+
+    <view class="marginb20">
+        <navigator open-type="navigate" url="" class="item">
+            <view class="dispFlex">
+                <image class="item_img" src="../../imgs/icon.png"></image>
+                <view class="item_name">车辆管理</view>
+            </view>
+            <view class="icon icon-right-min"></view>
+        </navigator>
+        <navigator open-type="navigate" url="addrManage" class="item">
+            <view class="dispFlex">
+                <image class="item_img" src="../../imgs/icon.png"></image>
+                <view class="item_name">地址管理</view>
+            </view>
+            <view class="icon icon-right-min"></view>
+        </navigator>
+        <view bindtap="showBlankPage" class="item">
+            <view class="dispFlex">
+                <image class="item_img" src="../../imgs/icon.png"></image>
+                <view class="item_name">企业服务</view>
+            </view>
+            <view class="dispFlex">
+                <view class="item_after">400-123456789</view>
+                <view class="icon icon-right-min"></view>
+            </view>
+
+        </view>
+        <view bindtap="showBlankPage" class="item">
+            <view class="dispFlex">
+                <image class="item_img" src="../../imgs/icon.png"></image>
+                <view class="item_name">我的积分</view>
+            </view>
+            <view class="dispFlex">
+                <input class="item_after" type="text" placeholder="我的积分"/>
+                <view class="icon icon-right-min"></view>
+            </view>
+        </view>
+
+    </view>
+</view>
+
+
+<!-- 功能未上线提示框 -->
+<blankpage modal-hidden="{{is_modal_Hidden}}"></blankpage>
+

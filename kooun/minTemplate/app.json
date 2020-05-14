@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/discover/discIndex",
+    "pages/manage/manIndex",
+    "pages/person/perIndex",
+    "pages/person/personalInfo",
+    "pages/person/changeName",
+    "pages/person/changePhone",
+    "pages/person/addrManage",
+    "pages/person/wallet",
+    "pages/person/cardPack",
+    "pages/order/order",
+    "pages/order/orderDetail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#909090",
+    "selectedColor": "#f43939",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "imgs/home.png",
+        "selectedIconPath": "imgs/home_ho.png"
+      },
+      {
+        "pagePath": "pages/manage/manIndex",
+        "text": "管家",
+        "iconPath": "imgs/manage.png",
+        "selectedIconPath": "imgs/manage_ho.png"
+      },
+      {
+        "pagePath": "pages/discover/discIndex",
+        "text": "发现",
+        "iconPath": "imgs/discover.png",
+        "selectedIconPath": "imgs/discover_ho.png"
+      },
+      {
+        "pagePath": "pages/person/perIndex",
+        "text": "个人",
+        "iconPath": "imgs/my.png",
+        "selectedIconPath": "imgs/my_ho.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

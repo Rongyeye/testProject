@@ -1,0 +1,43 @@
+/* pages/classifies/courseDetail.wxss */
+@import '../../wxParse/wxParse.wxss';
+
+.wxParse-inline {
+    text-indent: inherit;
+    font-family: "Microsoft Yahei" !important;
+    font-size: 26rpx;
+}
+.header {
+    /*height: 220rpx;*/
+    background-color: #fff;
+}
+.header image {
+    width: 750rpx;
+    height: 250rpx;
+}
+.cont_info, .course_imgs {
+    padding: 0 109rpx 20rpx;
+}
+.cont_info .title {
+    line-height: 126rpx;
+}
+.cont_info .item_title {
+    line-height: 40rpx;
+}
+.cont_info .item {
+    margin-bottom: 20rpx;
+}
+.course_imgs {
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*flex-wrap: wrap;*/
+}
+.course_imgs image {
+    /*width:258rpx;*/
+    /*height:186rpx;*/
+    width: 532rpx;
+    height: 354rpx;
+    margin-bottom: 20rpx;
+}
+.course_imgs image:nth-child(odd) {
+    /*margin-right: 25rpx;*/
+}

@@ -1,0 +1,9 @@
+
+  <view class='.per_header'>
+          <image src="../../imgs/bg.jpg" class="per_img"></image>
+          <view class="per_info">
+            <view class="name">Lemon</view>
+            <view class="name">个人积分：9999</view>
+            <view class="name">个人综合指数：88</view>
+          </view>
+  </view>      

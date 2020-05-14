@@ -1,0 +1,29 @@
+<view class='flex'>
+  <view class='frameA'>
+    <input class='text'placeholder='手机号码' bindinput='getPhone'></input> 
+  </view>
+  <view class='frameB'>
+    <view class='frame_text_picture'>
+      <input class='text'placeholder='验证码' bindinput='getInCode'></input> 
+      <view class='VCode' bindtap='{{codeSec==0?"getCode":"sentCoder"}}'>{{codeSec==0?getCodeText:timeNumber+"后可重发"}}</view>
+       
+    </view>
+  </view>
+  <view class='frameB'>
+    <view class='frame_text_picture'>
+    <input  class='text'placeholder='请设置6-16位密码'bindinput='getPassword' password="{{indexA}}"></input> 
+     <image  src="{{indexA==false?pic1:pic2}}" class='picture' id='0'  bindtap='eyeChang'></image>
+    </view>
+  </view>
+  <view class='frameB'>
+    <view class='frame_text_picture'>
+      <input  class='text'placeholder='请再次输入新密码'bindinput='getConPassword'password="{{indexB}}"></input> 
+     <image  src="{{indexB==false?pic1:pic2}}" class='picture' id='1' bindtap='eyeChang'></image>
+    </view>
+    
+  </view>
+  <block wx:if="{{codeStadus}}">
+        <view class='alread_text'>验证码已发送，30分钟内有效</view>
+        </block>
+  <view class='login' bindtap='commitNP'>提交新密码</view>
+</view>

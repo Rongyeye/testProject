@@ -1,0 +1,106 @@
+page{
+  background-color: #ffffff;
+}
+.flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+.frameA{
+  margin-top: 246rpx;
+  width: 628rpx;
+  height: 100rpx;
+  background-color: #ffffff;
+  border:1rpx solid rgba(230,230,230,0.54);
+  border-bottom-right-radius: 49px;
+  border-bottom-left-radius: 49px;
+  border-top-right-radius: 49px;
+  border-top-left-radius: 49px;
+
+  display: flex;
+  align-items: center;
+}
+.frameB{
+  margin-top: 28rpx;
+  width: 628rpx;
+  height: 100rpx;
+  background-color: #ffffff;
+  border:1rpx solid rgba(230,230,230,0.54);
+  border-bottom-right-radius: 49px;
+  border-bottom-left-radius: 49px;
+  border-top-right-radius: 49px;
+  border-top-left-radius: 49px;
+
+  display: flex;
+  align-items: center;
+}
+.frame_text_picture{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.text{
+  width: 432rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  margin-left: 60rpx;
+  font-family: PingFang-SC-Medium;
+  font-size: 30rpx;
+  color: #cccccc;
+}
+/* 验证码 */
+.VCode{
+margin-right: 10rpx;
+font-family: PingFang-SC-Medium;
+font-size: 25rpx;
+color: #666666;
+}
+/* 眼睛图案 */
+.picture{
+  margin-top: 10rpx;
+  margin-left: 50rpx;
+  width: 32rpx;
+  height: 20rpx;
+  margin-right: 36rpx;
+}
+.login{
+  margin-top: 44rpx;
+  width: 630rpx;
+  height: 88rpx;
+  background-color: #ed4849;
+  border:1rpx solid rgba(237,72,73,0.54);
+  border-bottom-right-radius: 49px;
+  border-bottom-left-radius: 49px;
+  border-top-right-radius: 49px;
+  border-top-left-radius: 49px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: PingFang-SC-Medium;
+  font-size: 36rpx;
+  color: #fefefe;
+}
+.frameitem{
+  margin-top: 40rpx;
+  display: flex;
+}
+.forget{
+  font-size: 24rpx;
+  padding-right: 20rpx;
+  border-right: 1rpx solid #999999;
+}
+.register{
+  font-size: 24rpx;
+  margin-left: 20rpx;
+  border-right: 1rpx solid #999999;
+}
+.alread_text{
+  align-self: flex-start;
+  margin-top: 20rpx;
+  margin-left: 117rpx;
+  font-size: 24rpx;
+  letter-spacing: 1rpx;
+  color: #666666;
+}

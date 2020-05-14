@@ -1,0 +1,70 @@
+{
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.4.2",
+	"appid": "wxde07fe6e404c8a8f",
+	"projectname": "xiyanzhuangyuan",
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 3,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/videoCase/video",
+					"pathName": "pages/videoCase/video",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/weChatLogin",
+					"pathName": "pages/weChatLogin",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/classifies/classifyList",
+					"pathName": "pages/classifies/classifyList",
+					"scene": null
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,94 @@
+{
+
+"pages": [
+  "pages/practice/practice",
+"pages/Xindex/Xindex",
+"pages/XNewclassify/XNewclassify",
+"pages/XLogin/XLogin",
+"pages/XMyBusinessInformation/XMyBusinessInformation",
+"pages/XExamineSuccess/XExamineSuccess",
+"pages/XExamining/XExamining",
+"pages/XRegister/XRegister",
+"pages/XPasswordReset/XPasswordReset",
+"pages/XSetting/XSetting",
+"pages/XmyRecommendation3/XmyRecommendation3",
+"pages/XmyRecommendation2/XmyRecommendation2",
+"pages/XmyRecommendation/XmyRecommendation",
+"pages/XmySingAround/XmySingAround",
+"pages/XinviteFriend/XinviteFriend",
+"pages/XQRCode/XQRCode",
+"pages/XMyWallet/XMyWallet",
+"pages/XpromotionAwards/XpromotionAwards",
+"pages/XPersonalCentre4/XPersonalCentre4",
+"pages/XPersonalCentre3/XPersonalCentre3",
+"pages/XPersonalCentre2/XPersonalCentre2",
+"pages/XPersonalCentre/XPersonalCentre",
+"pages/XCooperatinGunits/XCooperatinGunits",
+"pages/XCooperativeUnit/XCoopcerativeUnit",
+"pages/XSMerchants/XSMerchants",
+"pages/XCTCuture/XCTCuture",
+"pages/XclassificationFilter/XclassificationFilter",
+"pages/XnearbySinging/XnearbySinging",
+"pages/XHotSpotDetails/XHotSpotDetails",
+
+  "pages/w_spreadlist/w_spreadlist",
+  "pages/my_detail/my_detail",
+  "pages/w_hezuocheck/w_hezuocheck",
+    "pages/w_spreadcheck/w_spreadcheck",
+    "pages/w_teyuecheck/w_teyuecheck",
+    "pages/w_wechatpay/w_wechatpay",
+     "pages/w_updated/w_updated",
+     "pages/wupdate/wupdate",
+    "pages/wchang_phone/wchang_phone",  
+    "pages/wchang_name/wchang_name",
+    "pages/w_change_head/w_change_head",
+    "pages/w_spread_vip/w_spread_vip",
+    "pages/w_spread/w_spread",
+    "pages/w_cooperation/w_cooperation",
+    "pages/w_teyue_store/w_teyue_store",
+    "pages/w_store_detail_vip/w_store_detail_vip",
+    "pages/wstore_detail/wstore_detail"
+  ],
+  "window": {
+  "navigationBarBackgroundColor": "#ed4849",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "唱响美丽中国"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#ed4849",
+    "list": [
+      {
+        "pagePath": "pages/Xindex/Xindex",
+        "text": "商盟",
+        "iconPath":"/images/icon_tab_home1.png",
+        "selectedIconPath":"/images/icon_tab_home2.png"
+      },
+      {
+        "pagePath": "pages/XSMerchants/XSMerchants",
+        "text": "特约商家",
+        "iconPath": "/images/icon_tab_teyue1.png",
+        "selectedIconPath": "/images/icon_tab_teyue2.png"
+      },
+      {
+        "pagePath": "pages/XCooperativeUnit/XCoopcerativeUnit",
+        "text": "合作单位",
+        "iconPath": "/images/icon_tab_hezuo1.png",
+        "selectedIconPath": "/images/icon_tab_hezuo2.png"
+      },
+      {
+        "pagePath": "pages/w_spreadlist/w_spreadlist",
+        "text": "传播大使",
+        "iconPath": "/images/icon_lab_chuanbo1.png",
+        "selectedIconPath": "/images/icon_lab_chuanbo2.png"
+      },
+      {
+        "pagePath": "pages/XPersonalCentre2/XPersonalCentre2",
+        "text": "我的",
+        "iconPath": "/images/icon_lab_wode1.png",
+        "selectedIconPath": "/images/icon_lab_wode2.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

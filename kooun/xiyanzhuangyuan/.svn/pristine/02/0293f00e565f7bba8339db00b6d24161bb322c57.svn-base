@@ -1,0 +1,12 @@
+<view class="content">
+    <view class="video_box">
+        <video src="{{details.video}}" objectFit="contain"></video>
+        <!--<image mode="aspectFill" src="{{titlePic}}"></image>-->
+        <!--<image class="icon" src="../../imgs/video.png"></image>-->
+    </view>
+    <view class="info bgwhite">
+        <view class="title tac">{{details.contentTitle}}</view>
+        <view class="date">创建日期：{{details.create_time}}</view>
+        <view class="info_cont c666">{{details.content}}</view>
+    </view>
+</view>

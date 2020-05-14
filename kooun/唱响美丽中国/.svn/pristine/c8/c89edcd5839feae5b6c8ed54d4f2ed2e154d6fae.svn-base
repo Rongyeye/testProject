@@ -1,0 +1,58 @@
+<!--pages/w_spreadcheck/w_spreadcheck.wxml-->
+<!--pages/w_teyuecheck/w_teyuecheck.wxml-->
+<view class='content content1'>
+  <view>上传身份证照片</view>
+
+  <view class='block'>
+
+
+    <view class='blockleft'>
+      <view class='bg-img bg-img1' data-index="0" bindtap='upimg' data-index="0">
+        <image src="{{img1}}" class="picA"></image>
+
+      </view>
+      <view style='margin-top:20rpx;'>
+        手持证件照
+      </view>
+    </view>
+    <view class='blockleft'>
+      <view class='bg-img bg-img2' data-index="1" bindtap='upimg' data-index="1">
+        <image src="{{img2}}" class="picA"></image>
+      </view>
+      <view style='margin-top:20rpx;'>
+        证件照正面照
+      </view>
+    </view>
+
+  </view>
+
+</view>
+
+
+
+
+<view class='content content1'>
+  <view>上传标准个人形象照</view>
+  <view class='bg-img bg-img3' data-index="2" bindtap='upimg' data-index="2">
+    <image src="{{img3}}" class="picB"></image>
+  </view>
+</view>
+
+<view class='content content2'>
+  <view class='block1'>
+    <view class='store_name'>公司名称</view>
+    <input type="text" name="name" class='sinput' placeholder="请输入您的店铺名称" bindinput="getName" />
+  </view>
+  <view class='block1'>
+    <view class='store_name'>联系方式</view>
+    <input type="text" name="name" class='sinput' placeholder="请输入您的手机号" bindinput="getPhone" />
+  </view>
+  <view class='block1'>
+    <view class='store_name'>职位</view>
+    <input type="text" name="name" class='sinput' placeholder="请输入个人职位信息" bindinput="getClass" />
+  </view>
+</view>
+
+
+
+<view class='btn' bindtap='submit'>提交审核</view>

@@ -1,0 +1,21 @@
+.title{
+  margin-top: 59rpx;
+  margin-left: 30rpx;
+  font-family: PingFang-SC-Bold;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #000000;
+}
+.frame_text{
+  width: 688rpx;
+  margin-top: 59rpx;
+  margin-left: 29rpx;
+  /* border: 1rpx solid rebeccapurple; */
+}
+.text{
+  /* letter-spacing: 1rpx; */
+  font-family: PingFang-SC-Medium;
+  font-size: 32rpx;
+  line-height: 72rpx;
+  color: #333333;
+}

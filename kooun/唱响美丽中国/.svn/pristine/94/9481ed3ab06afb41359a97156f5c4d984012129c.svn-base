@@ -1,0 +1,36 @@
+
+
+<!-- 导航栏 -->
+<view class='frame'>
+  <view class='text'bindtap='switTo' id='0'>特约商家</view>
+  <view class='frame_nearby'>
+      <view class='text' class='textA' id='1'>合作单位</view>
+      <image src='{{denglu}}' class='picture'></image>
+  </view>
+  <view class='button'bindtap='switTo' id='2'>传播大使</view>
+</view>
+
+<!-- 主要项目 -->
+<scroll-view scroll-y="true" style="height:1050rpx;">
+<view wx:for="{{shopList}}" wx:key="id">
+<view class='item' id="{{index}}" >
+    <image src="{{shopList[index].shopPic[0]}}" class='item_picture'></image>
+    
+    <view class='framebig'>
+      <view class='frame_name_lable'>
+        <view class='frame_name_lable'>
+          <view class='name'>
+             {{shopList[index].shopName}}
+          </view>
+
+        </view>
+      
+      </view>
+      <view class='classification'>{{shopList[index].businessName}}</view>
+       <view class='detailedAddress'>
+           {{shopList[index].shopAddress}}
+      </view>
+    </view>  
+</view>
+</view>
+</scroll-view>

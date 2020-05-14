@@ -1,0 +1,60 @@
+/* pages/classificationFilter/classificationFilter.wxss */
+.frame_classification{
+  margin-top: 21rpx;
+  /* width: 750rpx; */
+  /* height: 712rpx; */
+  position: relative;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+
+}
+.frame{
+  display: flex;
+  flex-wrap: wrap;
+}
+.list{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.frame_item{
+  /* margin-left: 50rpx; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  height: 178rpx;
+ 
+  /* border: 1rpx solid red; */
+}
+.icon{
+  margin-left: 48rpx;
+  margin-right: 48rpx;
+  margin-top: 16rpx;
+  width: 81rpx;
+  height: 82rpx;
+}
+.icon_left{
+  margin-left:60rpx;
+  margin-right: 48rpx;
+  margin-top: 16rpx;
+  width: 81rpx;
+  height: 82rpx;
+}
+.icon_right{
+  margin-left: 48rpx;
+  margin-right:65rpx;
+  margin-top: 16rpx;
+  width: 81rpx;
+  height: 82rpx;
+}
+.text{
+  font-weight: bold;
+  letter-spacing: 1rpx;
+  align-self: center;
+  margin-top: 15rpx;
+  font-family: PingFang-SC-Bold;
+  font-size: 30rpx;
+}

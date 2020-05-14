@@ -1,0 +1,24 @@
+<view class='frameAward'>
+  <view class='title'>累计商家奖励</view>
+  <view class='prince'>{{proReWard}}</view>
+  <view class='frame'>
+    <view class='button_text'>提现</view>
+    <image src='{{gengduo3}}' class='button_picture'></image>
+  </view>
+  <view class='type'>提现手续费3%</view>
+  <view class='detail'>明细</view>
+</view>
+
+
+<!-- for循环 -->
+  <scroll-view style="height:300rpx" scroll-y="true" bindscrolltolower="onReachBottom">
+    <view wx:for="{{data}}" wx:key="index">
+    <view class='frameitem'>
+      <view class='frametext'>
+        <view class='itemname'>{{item.note}}</view>
+        <view class='date'>{{item.time}}</view>
+      </view>
+      <view class='money'>{{item.amount}}</view>
+    </view>
+    </view>
+  </scroll-view>

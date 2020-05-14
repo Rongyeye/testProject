@@ -1,0 +1,21 @@
+<view class="cardPack">
+    <tab current="{{current}}" bind:currentTab="getCurrentTab" tab-list="{{tab_items}}"></tab>
+    <view class="card_conts">
+        <view class="order_cont {{bgImg}}">
+            <view class="image_box">
+                <text class="sign">￥</text>
+                <text class="money">100</text>
+            </view>
+            <view class="order_detail">
+                <view class="detail_list">
+                    <view class="title">100元服务专用券</view>
+                    <view class="c90 fz24">使用日期：<text class="red_normal">2018.7.12~2018.9.12</text></view>
+                    <view class="c90 fz24">此为打蜡专用券，只能选择打蜡服务进行抵扣。使用方式为自动扣减。</view>
+                </view>
+                <view class="order_desc">
+                    <button bindtap="tapUseCard" class="normal" size="mini">立即使用</button>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

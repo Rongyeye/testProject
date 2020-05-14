@@ -1,0 +1,22 @@
+<!--pages/my_detail/my_detail.wxml-->
+<view class='content' bindtap="upimg">
+    <view>更换头像</view>
+    <view class='name'>
+      <image src='{{img}}' class='pic1'></image>
+ 
+    </view>
+ </view>
+<view class='content content1' bindtap='bind_changename'>
+    <view>昵称</view>
+    <view class='name'>
+      <view>{{nickname}}</view>
+  
+    </view>
+ </view>
+<view class='content content1' bindtap='bind_changeid'>
+    <view>手机号</view>
+    <view class='name'>
+      <view>{{phone}}</view>
+ 
+    </view>
+ </view>

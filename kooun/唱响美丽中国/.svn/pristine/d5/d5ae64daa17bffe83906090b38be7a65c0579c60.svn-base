@@ -1,0 +1,4 @@
+<view class='frame'>
+  <image src='{{shenhe}}' class='picture'></image>
+  <view class='text'>申请已经提交，正在审核中...</view>
+</view>

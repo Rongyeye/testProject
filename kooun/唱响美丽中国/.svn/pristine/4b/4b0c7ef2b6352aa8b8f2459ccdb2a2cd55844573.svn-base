@@ -1,0 +1,28 @@
+/* pages/spread/spread.wxss */
+
+.wsection{
+  padding: 30rpx 20rpx;
+  font-size: 30rpx;
+  color: #333333;
+  letter-spacing: 1rpx;
+
+}
+
+.wpic{
+  width: 710rpx;
+  height: 460rpx;
+}
+.wcontent{
+  padding: 22rpx 0;
+  line-height: 60rpx;
+}
+.wtitle{
+  font-family: PingFang-SC-Bold;
+  font-size: 36rpx;
+  letter-spacing: 0rpx;
+  color: #000000;
+  }
+  .wdetail{
+    display: block;
+  }
+  

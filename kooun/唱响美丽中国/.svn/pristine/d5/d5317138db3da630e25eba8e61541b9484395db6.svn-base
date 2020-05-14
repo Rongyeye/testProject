@@ -1,0 +1,28 @@
+<view class='frame'>
+  <view class='tip'>上传商户店面图</view>
+  <image src='{{pic1}}' class='picture'></image>
+  </view>
+  <view class='frame_item'>
+    <view class='item'>
+      <view class='textA'>店铺名称</view>
+      <view class='textB'>盛大国际</view>
+    </view>
+    <view class='item'>
+      <view class='textA'>联系方式</view>
+      <view class='textB'>1380013800</view>
+    </view>
+  </view>
+  <view class='frame_item' style='margin-top:0rpx;'>
+    <view class='itemB'>
+      <view class='textA'>主营业务</view>
+      <view class='text_type'>中国传统文化 文艺礼仪</view>
+    </view>
+    <view class='itemB'>
+      <view class='textA'>店铺地址</view>
+      <view class='text_type'>广东省 广州市 天河区</view>
+    </view>
+    <view class='text_frame'>
+      <view class='text_adress'>长湴地铁站盛大国际3楼366室</view>
+    </view>
+  </view>
+  <button class='button'>重新提交</button>

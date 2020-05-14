@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跑步活动</title>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<div class="content">
+    <div class="demoTable marginB20">
+        <form class="layui-form dispFlex">
+            <div class="layui-input-inline marginR20">
+                <input type="text" class="layui-input" id="keyWord" name="keyWord" placeholder="请输入标题/关键词">
+            </div>
+            <div class="layui-input-inline marginR20">
+                <select id="actType" name="type" lay-filter="activityType">
+                    <option value="">请选择运动类型</option>
+                    <option value="0">线上活动</option>
+                    <option value="1">指定地点活动</option>
+                </select>
+            </div>
+            <div class="dispFlex">
+                时间：
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="dateStart" name="dateStart" placeholder="yyyy-MM-dd">
+                </div>
+                &nbsp;—&nbsp;
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="dateEnd" name="dateEnd" placeholder="yyyy-MM-dd">
+                </div>
+            </div>
+            <button id="selectButton" class="layui-btn site-demo-active marginL20" data-type="reload">
+                <i class="layui-icon layui-icon-search"></i>搜索
+            </button>
+            <button id="resetBtn" type="reset" class="layui-btn marginL20">
+                <i class="layui-icon layui-icon-refresh"></i>重置
+            </button>
+        </form>
+    </div>
+    <div class="layui-form dispFlexBetw marginB20">
+        <button permission="sys:runAct:add" onclick="location.href='runAdd.html'" class="layui-btn">
+            <i class="layui-icon">&#xe654;</i> 新建活动
+        </button>
+        <div permission="sys:runAct:export" class="posiRela" id="exportList">
+            <button class="layui-btn marginL20">
+                <span>导出活动列表</span><i class="layui-icon layui-icon-triangle-d"
+                                      style="margin-left: 3px; margin-right: 0"></i>
+            </button>
+            <div class="export_list flow_box" id="flow_element">
+                <p data-type="0">导出当前页</p>
+                <p data-type="1">导出所有页</p>
+            </div>
+        </div>
+    </div>
+
+    <table class="layui-hide" id="lay_table" lay-filter="categories"></table>
+    <!-- 分页工具 -->
+    <div class="layui-table-page">
+        <div id="paged" class="page"></div>
+    </div>
+    <!--操作-->
+    <div style="display: none" id="barTool">
+        <a permission="sys:runAct:edit" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        {{#  if(d.isTop == 0){ }}
+        <a permission="sys:runAct:isTop" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="top">置顶</a>
+        {{#  } else { }}
+        <a permission="sys:runAct:isTop" class="layui-btn layui-btn-xs" lay-event="canceltop">取置</a>
+        {{#  } }}
+        <a permission="sys:runAct:delete" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
+    </div>
+</div>
+<body>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+//    checkPermission();
+</script>
+<script>
+    var actType = '';
+
+    $(document).ready(function () {
+        getData();
+        $("#selectButton").click(function () {
+            pageStart = 1;
+            getData();
+            return false;
+        });
+        $('#resetBtn').click(function () {
+            actType = '';
+        });
+    });
+
+    var pageStart = 1;//开始页数
+    var pageTotal = 10;//每页显示数据条数
+    var dataTotal = 0;//当前搜索条件下的所有数据总条数
+    var ids = [];
+
+    function getData() {
+        $.ajax({
+            url: ajaxHttp() + "/uaActivity/list",
+            data: {
+                pageStart: pageStart,
+                pageTotal: pageTotal,
+                search: JSON.stringify({
+                    title: $('#keyWord').val() || null,
+                    type: $('#actType').val() || null,//(类型:0=免费1=付费)
+                    startTime: $("#dateStart").val() || null,
+                    endTime: $("#dateEnd").val() || null
+                })
+            },
+            success: function (res) {
+                if (res.status == 'success') {
+                    dataTotal = res.result.pageCount;
+                    createTable(res.result.data);
+                    ids = [];
+                } else {
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        successService(layer, res, null, null);
+                    });
+                }
+            }
+        });
+    }
+
+    function createTable(data) {
+        for(var i=0;i<data.length;i++){
+            if(data[i].isTop != 0){  //置顶
+                data[i].isTopText = '<span style="color: red;">'+data[i].isTopText+'</span>';
+            }
+        }
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table, laypage = layui.laypage;
+            //表格渲染
+            table.render({
+                elem: '#lay_table'
+                , height: 'full-204'
+                , skin: 'line'
+                , cols: [[
+                    {type: 'numbers', fixed: 'left', minWidth: '50', title: '序号'}
+                    , {field: 'userNickName', sort: true, minWidth: '120', title: '发布者', align: 'center'}
+                    , {field: 'title', minWidth: '160', title: '标题', align: 'center'}
+                    , {field: 'address', minWidth: '200', title: '活动地址', align: 'center'}
+                    , {field: 'mileage', sort: true, minWidth: '100', title: '活动里程', align: 'center'}
+                    , {field: 'createTime', sort: true, minWidth: '160', title: '创建时间', align: 'center'}
+                    , {field: 'isTopText', sort: true, minWidth: '100', title: '是否置顶', align: 'center'}
+                    , {field: 'type', sort: true, minWidth: '100', title: '活动类型', align: 'center', templet: '<div>{{d.type == 0 ? "线上活动 " : "指定地址活动" }}</div>'}
+                    , {field: 'pic', minWidth: '80', title: '图片', align: 'center', templet: '<div><img src="{{d.pic}}"></div>'}
+                    , {field: 'operation', fixed: 'right', title: '操作', minWidth: '160', align: 'center', toolbar: '#barTool'} //这里的toolbar值是模板元素的选择器
+                ]]
+                , data: data  //数据来源
+                , limit: pageTotal
+                , done: function () {
+                    hoverOpenImg();
+                }
+            });
+            laypage.render({   //调用分页
+                elem: 'paged'
+                , count: dataTotal //这个是后台返回的数据的总条数
+                , limit: pageTotal   //每页显示的数据的条数,layui会根据count，limit进行分页的计算,
+                , limits: [10, 20, 50, 100]
+                , curr: pageStart
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+                , jump: function (obj, first) {
+                    pageTotal = obj.limit;
+                    pageStart = obj.curr;  //当前第几页, pageStart就是多少
+                    if (!first) { //一定要加此判断，否则初始时会无限刷新
+                        getData();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                    }
+                }
+            });
+            table.on('checkbox(categories)', function (obj) {   //复选框---批量删除操作
+                if (obj.type == "one") {
+                    if (obj.checked) {
+                        ids.push(obj.data.activityId);
+                    } else {
+                        var index = ids.indexOf(obj.data.activityId);
+                        if (index > -1) {
+                            ids.splice(index, 1);
+                        }
+                    }
+                } else {
+                    if (obj.checked) {
+                        ids = [];
+                        for (var i = 0; i < data.length; i++) {
+                            ids.push(data[i].activityId);
+                        }
+                    } else {
+                        ids = [];
+                    }
+                }
+            });
+        });
+    };
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var $ = layui.$, table = layui.table, layer = layui.layer, laydate = layui.laydate, form = layui.form;
+        laydate.render({
+            elem: '#dateStart', //指定元素
+        });
+        laydate.render({
+            elem: '#dateEnd', //指定元素
+        });
+
+        form.on('select(activityType)', function (data) {
+            actType = data.value;
+            console.log(data.value); //得到被选中的值
+        });
+
+        //layui使用table.exportFile(id, data, type)导出
+
+        //监听头工具栏事件
+        table.on('toolbar(categories)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id)
+                ,data = checkStatus.data; //获取选中的数据
+            console.log("toolbar----");
+            console.log(obj);
+            console.log(data);
+//            switch(obj.event){
+//                case 'add':
+//                    layer.msg('添加');
+//                    break;
+//                case 'update':
+//                    if(data.length === 0){
+//                        layer.msg('请选择一行');
+//                    } else if(data.length > 1){
+//                        layer.msg('只能同时编辑一个');
+//                    } else {
+//                        layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+//                    }
+//                    break;
+//                case 'delete':
+//                    if(data.length === 0){
+//                        layer.msg('请选择一行');
+//                    } else {
+//                        layer.msg('删除');
+//                    }
+//                    break;
+//            };
+        });
+
+        table.on('tool(categories)', function (obj) {  //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var actId = obj.data.activityId; //获得当前行数据
+            switch (obj.event) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                case 'edit':
+                    location.href = 'runEdit.html?id=' + actId;
+                    break;
+                case 'top':
+                    batchDynamic('/uaActivity/isTop', {uaActivityId: actId, type: 1});
+                    break;
+                case 'canceltop':
+                    batchDynamic('/uaActivity/isTop', {uaActivityId: actId, type: 0});
+                    break;
+                case 'delete':
+                    layer.confirm('确定删除吗？', {title: '提示'}, function (index) {
+                        batchDynamic('/uaActivity/delete', {uaActivityId: actId});
+                    });
+                    break;
+            }
+        });
+    });
+    //批量操作
+    function batchDynamic(url, data) {
+        $.ajax({
+            url: ajaxHttp() + url,
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 'success') {
+                    getData();
+                }
+                successService(layer, data, null, null);
+            }
+        });
+    }
+
+    //导出
+    $('#exportList .layui-btn').click(function (e) {
+        $(this).next().toggle();
+        e.stopPropagation();
+    })
+    $('.export_list p').click(function () {
+        $(this).addClass('active').siblings().removeClass('active');
+        var type = $(this).data('type');
+        console.log("type----" + type);
+        $(this).parent().hide();
+
+        printExcel(type);
+    });
+    function printExcel(printType) {
+        var url = ajaxHttp() + "/uaActivity/exportList";
+
+        //定义一个form表单,通过form表单来发送请求
+        var form = $("<form>");
+
+        //设置表单状态为不显示
+        form.attr("style", "display:none");
+
+        //method属性设置请求类型为post
+        form.attr("method", "post");
+
+        //action属性设置请求路径,
+        //请求类型是post时,路径后面跟参数的方式不可用
+        //可以通过表单中的input来传递参数
+        form.attr("action", url);
+        $("body").append(form);//将表单放置在web中
+
+        //在表单中添加input标签来传递参数
+        //如有多个参数可添加多个input标签
+//        var input1=$("<input>");
+//        input1.attr("type","hidden");//设置为隐藏域
+//        input1.attr("name","titles");//设置参数名称
+//        input1.attr("value",JSON.stringify(head));//设置参数值
+//        form.append(input1);//添加到表单中
+
+
+        var input3 = $("<input>");
+        input3.attr("type", "hidden");//设置为隐藏域
+        input3.attr("name", "pageTotal");//设置参数名称
+        input3.attr("value", pageTotal);//设置参数值
+        form.append(input3);//添加到表单中
+
+        var input4 = $("<input>");
+        input4.attr("type", "hidden");//设置为隐藏域
+        input4.attr("name", "pageStart");//设置参数名称
+        input4.attr("value", pageStart);//设置参数值
+        form.append(input4);//添加到表单中
+
+        var input5 = $("<input>");
+        input5.attr("type", "hidden");//设置为隐藏域
+        input5.attr("name", "search");//设置参数名称
+        input5.attr("value", JSON.stringify({
+            type: actType,
+            startTime: $("#dateStart").val(),
+            endTiem: $("#dateEnd").val(),
+        }));//设置参数值
+        form.append(input5);//添加到表单中
+
+        var input6 = $("<input>");
+        input6.attr("type", "hidden");//设置为隐藏域
+        input6.attr("name", "type");//设置参数名称
+        input6.attr("value", printType);//设置参数值
+        form.append(input6);//添加到表单中
+
+        form.submit();//表单提交
+    }
+
+</script>
+</body>
+</html>

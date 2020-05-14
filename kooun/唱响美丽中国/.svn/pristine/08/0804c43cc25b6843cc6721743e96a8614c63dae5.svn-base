@@ -1,0 +1,19 @@
+<!-- <scroll-view> -->
+<view class='frame_classification'  >
+    <scroll-view class="list"style="height:800rpx;"scroll-y="true">
+      <view class="frame"> 
+
+        <block wx:for="{{classification}}" wx:key="{{index}}">
+            <view class='frame_item' bindtap='switToClasify'>
+
+                <block wx:for="{{classification[index].shopPic}}" wx:key="{{index}}">
+                  <image src="{{item}}" class='icon_left'></image>
+                </block>
+
+                   <text class='text'>{{classification[index].businessName}}</text>
+           </view>
+        </block>
+
+      </view>
+    </scroll-view>
+ </view>

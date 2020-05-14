@@ -1,0 +1,41 @@
+<view class="changePhone pd20">
+    <view class="header dispFlex">
+        <view class="title">爱氛咔车管理平台</view>
+        <view class="title2 fz28">给广大车主贴心的管家式服务</view>
+    </view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="item">
+            <view class="item_content">
+                <input name="phone" class="item_after" type="text" placeholder="请输入您的手机号码" />
+            </view>
+        </view>
+        <view class="item">
+            <view class="item_content">
+                <input name="code" class="item_after" type="text" placeholder="请输入收到的验证码" />
+                <view class="code fz28">获取验证码</view>
+            </view>
+        </view>
+        <view class="dispFlex margintop20">
+            <icon type="info" size="16" color="#f01818"></icon>
+            <view class="fz24 red_press">手机接收不到短信验证码？请确保您输入了正确的手机号码，并保持手机信号畅通良好。</view>
+        </view>
+
+        <button form-type="submit" class="disabled btn" size="default">绑定</button>
+
+        <view class="c90">登录爱氛咔车管理平台，即表明你阅读并同意<text bindtap="showAgrement" class="xieyi">用户许可协议</text>条款</view>
+    </form>
+
+
+    <!-- 调用modal组件 -->
+    <alertModal modal-hidden="{{is_modal_Hidden}}" title="{{title}}">
+        <view slot="before">
+            <image src="../../imgs/blankpage.png"></image>
+        </view>
+        <view slot="after">
+
+        </view>
+    </alertModal>
+
+
+
+</view>

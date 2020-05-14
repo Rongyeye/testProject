@@ -1,0 +1,16 @@
+<view class='A'>
+  <view class='frame'bindtap='switToRSPassword'>
+      <view class='text' >重设密码</view>
+      <image src='{{gengduo1}}' class='icon'></image>
+  </view>
+  <view class='frame'>
+      <view class='text'>当前版本号</view>
+      <view class='versionNumber'>{{versionNumber}}</view>
+  </view>
+   <view class='frame'bindtap="cleanStirageSync">
+      <view class='text' >清除缓存</view>
+      <image src='{{gengduo1}}' class='icon'></image>
+  </view>
+  <view class='button' bindtap="signOut">退出登录</view>
+  </view>
+

@@ -1,0 +1,28 @@
+<view wx:for="{{orderInfo}}" wx:key="index" class="order_item marginb20">
+    <view class="order_status">
+        <text class="order_num fz26">订单编号：{{item.orderNum}}</text>
+        <text wx:if="{{item.status == 0}}" class="red_normal">待付款</text>
+        <text wx:if="{{item.status == 1}}" class="red_normal">待发货</text>
+    </view>
+
+    <view bindtap="showOrderDetail" data-orderid="{{item.orderId}}" data-status="{{item.status}}">
+        <view class="order_cont fz28" wx:for="{{item.orderItem}}" wx:key="index" wx:for-index="childIndex" wx:for-item="childItem">
+            <view class="image_box">
+                <image src="{{childItem.image}}"></image>
+            </view>
+            <view class="order_detail">
+                <view class="title">{{childItem.title}}</view>
+                <view class="order_desc">
+                    <view class="cate">{{childItem.cate}}</view>
+                    <view class="total">共{{childItem.totalNum}}件商品，合计：<text class="red_normal">{{childItem.totalPrice}}元</text></view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+
+    <view class="order_btn">
+        <button size="mini" class="ord_btn">付款</button>
+        <button size="mini" class="ord_btn">取消订单</button>
+    </view>
+</view>

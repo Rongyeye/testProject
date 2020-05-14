@@ -1,0 +1,34 @@
+/* components/order_item.wxss */
+@import "../style/base.wxss";
+
+.order_cont {
+    padding: 20rpx;
+    display: flex;
+    background-color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+}
+.image_box {
+    display: flex;
+    align-items: center;
+}
+.image_box image {
+    width: 200rpx;
+    height: 200rpx;
+    margin-right: 20rpx;
+}
+
+.order_detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+.order_detail .title {
+    font-size: 30rpx;
+    font-weight: bold;
+}
+.order_detail .cate {
+    font-size: 24rpx;
+    color: #909090;
+}

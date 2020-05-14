@@ -1,0 +1,61 @@
+/* pages/person/perIndex.wxss */
+.per_header {
+    height: 260rpx;
+    justify-content: flex-start;
+    background-color: #f43939;
+    padding-left: 50rpx;
+}
+.per_img {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%;
+}
+.per_header .per_info {
+    margin-left: 20rpx;
+}
+.per_info .name {
+    font-size: 34rpx;
+    line-height: 46rpx;
+}
+.per_info view {
+    color: #ffffff;
+}
+
+
+/*nav*/
+.order-card-nav {
+    background-color: #fff;
+}
+.nav_list.service_nav .nav_icon {
+    width: 90rpx;
+    height: 90rpx;
+}
+.order-card-nav .nav_list navigator:nth-child(3) {
+    border-right: 1px solid #e3e3e3;
+    box-sizing: border-box;
+}
+.nav_list {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20rpx;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e3e3e3;
+}
+.nav_list:nth-last-child(1) {
+    border-bottom: none;
+}
+.nav_list .nav_item {
+    width: 25%;
+    text-align: center;
+    margin-bottom: 20rpx;
+}
+.nav_list .nav_icon {
+    height: 40rpx;
+    margin: 0 auto;
+    width: 40rpx;
+}
+.nav_list .nav_text {
+    font-size: 26rpx;
+    line-height: 46rpx;
+}

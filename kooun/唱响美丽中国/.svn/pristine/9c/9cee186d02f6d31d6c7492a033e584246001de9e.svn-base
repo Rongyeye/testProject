@@ -1,0 +1,41 @@
+/* pages/store_detail/store_detail.wxss */
+.wsection{
+  padding: 30rpx 20rpx;
+  font-size: 30rpx;
+  color: #333333;
+  letter-spacing: 1rpx;
+
+}
+
+.wpic{
+  width: 710rpx;
+  height: 460rpx;
+}
+.wcontent{
+  padding: 22rpx 0;
+  line-height: 60rpx;
+}
+.wtitle{
+  font-family: PingFang-SC-Bold;
+  font-size: 36rpx;
+  letter-spacing: 0rpx;
+  color: #000000;
+  }
+  .wdetail{
+    display: block;
+  }
+  .wtab{
+    font-family: PingFang-SC-Medium;
+    border-radius: 18rpx;
+   background: #ed4849;
+   width: 116rpx;
+   height: 36rpx;
+  font-size: 22rpx;
+  line-height: 36rpx;
+  display: flex;
+  justify-content: center;
+  margin-left: 24rpx;
+  color: white
+
+
+  }

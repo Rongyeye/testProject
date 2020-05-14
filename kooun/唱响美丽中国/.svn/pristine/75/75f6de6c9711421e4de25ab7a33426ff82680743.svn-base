@@ -1,0 +1,24 @@
+<!--pages/spread_vip/spread_vip.wxml-->
+<!--pages/store_detail_vip/store_detail_vip.wxml-->
+<!--pages/store_detail/store_detail.wxml-->
+<view class='wsection'>
+  <image src='/images/pic2.jpg' class='wpic'></image>
+  <view class='wcontent'>
+    <view class='wtitle'>唱响详情</view>
+    <view class='wdetail'>
+      <view>唱响美丽中国传播大使</view>    
+      <view style='display:flex;align-items:center;'>
+          <view>联系方式：升级会员查看联系方式</view>
+          <view class='wtab  wtab2'>
+            去升级 
+            <image src='/images/gengduo1@2x.png' class='wicon' > 
+            </image>
+          </view>
+      </view>
+      
+    <view>唱响美丽中国组委会执行秘书长 CHINA AI 组委会执行秘书长</view>
+    <view>广东南方传媒产业开发有限公司B2B事业部/总监广州海星展览有限公司市场总监/董事</view>
+    </view>
+  </view>
+
+</view>

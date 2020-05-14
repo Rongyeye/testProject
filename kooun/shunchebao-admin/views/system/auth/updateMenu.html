@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="../../../static/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../../static/css/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="../../../static/layui/css/layui.css">
+</head>
+<body>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<form class="form-horizontal" onsubmit="return false" id="form">
+		<fieldset>
+			<input type="hidden" id="id" name="id">
+			<div class="form-group">
+				<label class="col-md-2 control-label">上级菜单</label>
+				<div class="col-md-10">
+                    <select id="parentId" name="parentId" class="form-control input-sm" onclick="cancelWarn(this)"></select>
+                </div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">名称</label>
+				<div class="col-md-10">
+					<input class="form-control" placeholder="名称" type="text" name="name" id="name"
+						 onclick="cancelWarn(this)">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">类型</label>
+				<div class="col-md-10">
+					<div class="radio">
+						<label>
+							<input type="radio" name="type" id="optionsRadios1"
+								   value="1" checked>权限
+						</label>
+						<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label>
+							<input type="radio" name="type" id="optionsRadios2"
+								   value="0">菜单/按钮
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group menuDiv" style='display: none'>
+				<label class="col-md-2 control-label">链接</label>
+				<div class="col-md-10">
+					<input class="form-control" placeholder="链接" name="href" id="href" onclick="cancelWarn(this)"/>
+				</div>
+			</div>
+			<div class="form-group powerDiv">
+				<label class="col-md-2 control-label">权限</label>
+				<div class="col-md-10">
+					<input class="form-control" placeholder="权限" name="permission" id="permission" onclick="cancelWarn(this)"/>
+				</div>
+			</div>
+			<div class="form-group menuDiv" style='display: none'>
+                <label class="col-md-2 control-label">排序</label>
+                <div class="col-md-10">
+                    <input class="form-control" placeholder="排序" name="sort" id="sort" type="number" 
+                         onclick="cancelWarn(this)">
+                </div>
+            </div>
+			<div class="form-group menuDiv" style='display: none'>
+				<label class="col-md-2 control-label">样式</label>
+				<div class="col-md-10">
+					<button onclick="selectCss()" class="btn btn-primary">选择</button>
+					<input type="hidden"  name="css" id="css" /><i id="cssImg" class="fa"></i>
+				</div>
+			</div>
+			<div class="form-actions">
+				<div class="row" align="center">
+					<div class="col-md-12">
+						<button class="btn btn-primary" onclick="location.href='menuList.html'">返回</button>
+						<button class="btn btn-primary" type="submit" onclick="update()">
+							<i class="fa fa-save"></i> 保存
+						</button>
+					</div>
+				</div>
+			</div>
+
+		</fieldset>
+	</form>
+</div>
+
+	<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../../../static/js/my/ztree-menu.js"></script>
+	<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+	<script type="text/javascript" src="../../../static/js/util.js"></script>
+	<script type="text/javascript" src="../../../static/js/jq.js"></script>
+	<script type="text/javascript" src="../../../static/js/common.js"></script>
+	<script type="text/javascript">
+
+        $('input[type=radio][name=type]').change(function() {
+           if(this.value==1){
+               $('.powerDiv').show()
+              	$('.menuDiv').hide()
+		   }else{
+               $('.powerDiv').hide()
+               $('.menuDiv').show()
+		   }
+        });
+
+     var id = getUrlParam().id;
+     var addId = getUrlParam().addId || 0;
+	layui.use('layer', function(){
+	    var layer = layui.layer;
+	});
+
+	// 加载上级菜单下拉选择框
+    showDictSelect()
+    function showDictSelect() {
+        var http=ajaxHttp()
+        var parentMenu = $("#parentId");
+        parentMenu.empty();
+        $.ajax({
+            xhrFields: { withCredentials: true },
+            type : 'post',
+            url : http+'/system/auth/permissions/parents',
+            async : false,
+            success : function(data) {
+                data = data.result
+                parentMenu.append("<option value='0'>无上级菜单</option>");
+                for(var i=0;i<data.length;i++){
+                    parentMenu.append("<option value ='" + data[i].permissionId + "'>" + data[i].name + "</option>");
+                }
+            }
+        });
+    }
+
+
+	initData();
+	function initData(){
+        var http=ajaxHttp()
+        if(id!==undefined){
+            $.ajax({
+                xhrFields: { withCredentials: true },
+                type : 'post',
+                url : http+'/system/auth/permissions/info',
+                data : {
+                    sysPermissionsId:id,
+                },
+                success : function(data) {
+                    console.log(data)
+                    data = data.result;
+                    $("#id").val(id);
+                    $("#parentId").val(data.parentName);
+                    $("#name").val(data.name);
+                    var css = data.css;
+                    $("#css").val(css);
+                    $("#href").val(data.href);
+                    var ro=document.getElementsByName('type');
+                    for(var i=0;i<ro.length;i++){
+                        if(ro[i].value==data.type){
+                            ro[i].checked=true;
+                            if(ro[i].value==1){
+                                $('.powerDiv').show()
+                                $('.menuDiv').hide()
+
+                            }else{
+                                $('.powerDiv').hide()
+                                $('.menuDiv').show()
+                            }
+                            break;
+                        }
+                    }
+                    $("#permission").val(data.permission);
+                    $("#sort").val(data.sort);
+                    if(css != ""){
+                        $("#cssImg").addClass("fa");
+                        $("#cssImg").addClass(css);
+                    }
+
+                }
+            });
+		}
+		else{
+            $("#parentId").val(addId);
+            $("#css").val("fa-circle-thin");
+            $("#cssImg").addClass("fa");
+            $("#cssImg").addClass("fa-circle-thin");
+            $("#sort").val(100)
+		}
+
+	}
+
+    function add() {
+        var http=ajaxHttp()
+        var formdata = $("#form").serializeObject();
+        if(formdata.type==1){
+            formdata.sort=100;
+            formdata.href='';
+		}else {
+			formdata.permission='';
+		}
+
+        var menuJson = JSON.stringify(formdata);
+        console.log(menuJson)
+        $.ajax({
+            xhrFields: { withCredentials: true },
+            type : 'post',
+            url : http+'/system/auth/permissions/add',
+            data : 'sysPermission='+menuJson,
+            dataType : 'JSON',
+            success : function(data) {
+                var layer = layui.layer;
+                successService(
+                    layer,
+                    data,
+                    // 'menuList.html',
+                    null,
+					null);
+            }
+        });
+    }
+
+
+	function selectCss(){
+		layer.open({
+			  type: 2,
+			  title: "样式",
+			  area: ['800px', '400px'],
+			  maxmin: true,
+			  shadeClose: true,
+			  content: ['icon.html']
+			});
+	}
+	
+		function update() {
+	    	if(id==undefined){
+	    	    add()
+			}
+	    	else {
+                var formdata = $("#form").serializeObject();
+                if(formdata.type==1){
+                    formdata.sort=100;
+                    formdata.href='';
+                }else {
+                    formdata.permission='';
+                }
+                var menuJson = JSON.stringify(formdata);
+                console.log(menuJson)
+                $.ajax({
+                    xhrFields: { withCredentials: true },
+                    type : 'post',
+                    url : http + '/system/auth/permissions/update',
+                    data : 'sysPermissions='+menuJson,
+                    success : function(data) {
+                        successService(
+                            layer,
+                            data,
+                            'menuList.html',
+                            null
+						);
+
+                    }
+                });
+			}
+		}
+		
+	</script>
+</body>
+</html>

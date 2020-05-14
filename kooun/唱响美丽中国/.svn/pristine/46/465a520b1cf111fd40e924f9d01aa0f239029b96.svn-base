@@ -1,0 +1,6 @@
+<view class='title'>{{hotspotTitle}}</view>
+<view class='frame_text'>
+  <view class='text'>
+    {{hotspotDetails}}
+</view>
+</view>

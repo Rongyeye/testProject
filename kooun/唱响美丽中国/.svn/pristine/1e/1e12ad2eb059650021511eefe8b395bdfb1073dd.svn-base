@@ -1,0 +1,147 @@
+/* pages/w_teyuecheck/w_teyuecheck.wxss */
+page{
+  background: rgb(245,245,245);
+  font-family: PingFang-SC-Medium;
+  font-size: 30rpx;
+  color: #999999;
+}
+
+.content{
+background: white;
+padding: 0rpx 20rpx;
+}
+.content1  {
+  font-size: 28rpx;
+ color:  #010101
+}
+.content2{
+    font-size: 30rpx;
+    margin-top: 20rpx;
+    padding: 0rpx 20rpx;
+}
+.bg-img{
+  
+  height: 368rpx;
+  width: 620rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:30rpx 46rpx 0 46rpx;
+  background-image: url("https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS8zOWIyZjNhM2Y5M2JmNTk0NWNmMmE0MzBiZDU5MTBlOS5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLnVpM0U5VjJMM2dqZjM5YjJmM2EzZjkzYmY1OTQ1Y2YyYTQzMGJkNTkxMGU5LmpwZw==");
+  background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;
+
+}
+.camera{
+ height: 368rpx;
+  width: 620rpx;
+}
+.block1{
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+.store_name{
+  color: #333333;
+}
+.sinput{
+  width: 520rpx;
+  height: 98rpx;
+  margin-left: 20rpx;
+}
+.block2{
+  display: flex;
+  justify-content: space-between;
+
+}
+.icon{
+  width: 14rpx;
+  height: 28rpx;
+  margin-left: 20rpx;
+}
+.block3{
+  height: 152rpx;
+  padding: 36rpx 44rpx 36rpx 20rpx;
+}
+.btn{
+  color: white;
+  background:   #ed4849;
+  width: 670rpx;
+  height: 94rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  margin: 30rpx 40rpx;
+
+
+}
+.Title{
+  display: flex;
+  justify-content: center;
+  background: #f8f8f8;
+  height: 90rpx;
+  align-items: center;
+  
+}
+.title{
+ font-family:  PingFang-SC-Bold;
+  color:#333333;
+
+}
+.done{
+  color: #ed4849;
+  font-family: PingFang-SC-Bold;
+  position: fixed;
+  right:36rpx;
+}
+.list{
+  display: flex;
+  justify-content: space-between;
+  height: 100rpx;
+  align-items: center;
+  color: #333333;
+  font-family: PingFang-SC-Medium;
+  border-bottom:1rpx solid #ebebeb ;
+}
+.pic{
+  width:36rpx ;
+  height:36rpx ;
+}
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+
+}
+
+.mask_layer {
+    width: 750rpx;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+.modal_box {
+    width: 750rpx;
+    height: 900rpx;
+    /*min-height: 300rpx;*/
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    background: #fff;
+
+}

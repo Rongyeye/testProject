@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "usingComponents": {
+    "alertModal": "../../components/alertModal",
+    "orderItem": "../../components/order_item",
+    "tab": "../../components/tab"
+  }
+}

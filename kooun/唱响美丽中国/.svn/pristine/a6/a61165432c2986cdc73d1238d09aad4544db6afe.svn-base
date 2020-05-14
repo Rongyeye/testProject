@@ -1,0 +1,22 @@
+<!--pages/w_wechatpay/w_wechatpay.wxml-->
+<view class='content' bindtap="selectTab"> 
+    <view class='name'>
+      <image src='https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS81NTkxMzVlNWEzZDZhYzRlNTBiODIyYTdjZjJlM2E0NC5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLjE4cGtUMDhlZ1lrbzU1OTEzNWU1YTNkNmFjNGU1MGI4MjJhN2NmMmUzYTQ0LmpwZw=='                class='pic pic1'>
+      </image> 
+      <view>
+        <view class='wtitle'> 微信支付</view>
+        <view class='wtest'> 
+        微信支付账户支付、银行卡支付</view>
+
+      </view> 
+    </view > 
+    <image src='{{flg ?"https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS84NGIzMzQ2ODEyMGI5ZTM5MDA0Njg1MDUzYTBjZWZmYy5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLmQyNm12UDdWMWxnQzg0YjMzNDY4MTIwYjllMzkwMDQ2ODUwNTNhMGNlZmZjLnBuZw==":"https://file.cxmlzg.infotoo.com.cn/open_file/L3NpbmdsZS9hMGZkZWJlNzkyYzQzNTU1ZDk3NmMzZDAyMzhhYzU5Yi5vNnpBSnN3bnE2VHNEMUNPeXgxazFPd2RUTmpVLlcyZjRaSGoyNFRZN2EwZmRlYmU3OTJjNDM1NTVkOTc2YzNkMDIzOGFjNTliLnBuZw=="}}'   class='pic2' >
+    </image> 
+  </view>
+  <view class='pay '>
+    <view class='display' >
+      <view>金额：</view>
+      <view style='color:#ed4849'>¥{{total}}</view>
+    </view>
+    <view class='btn' bindtap='gopay'>确认支付</view>
+  </view>

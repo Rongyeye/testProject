@@ -1,0 +1,95 @@
+/* pages/wchang_phone/wchang_phone.wxss */
+/* pages/wchang_name/wchang_name.wxss */
+page{
+  background: rgb(245, 245, 245);
+  font-size: 36rpx;
+  color: #000000;
+}
+.content{
+  height: 110rpx;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+
+}
+.name{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pic{
+
+  margin-right: 20rpx; 
+}
+.pic1{
+  height: 40rpx;
+  width: 26rpx;
+}
+.pic2{
+  height: 26rpx;
+  width: 26rpx;
+}
+.pic3{
+  height: 26rpx;
+  width: 36rpx;
+}
+.pic4{
+  height: 34rpx;
+  width: 34rpx;
+}
+.pic5{
+   height: 20rpx;
+  width: 32rpx;
+}
+.lock{
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  letter-spacing: 1rpx;
+}
+.sinput{
+  width: 600rpx;
+  height: 98rpx;
+  /* text-align: right; */
+  
+}
+.sinput2{
+  width: 400rpx;
+  height: 98rpx;
+  /* text-align: right; */
+  
+}
+.getcode{
+ color:#ed4849;
+ font-size:30rpx;
+ height:98rpx;
+ display: flex;
+ align-items: center;
+}
+.contenteye{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 98rpx;
+  width: 120rpx;
+}
+.btn{
+  position: fixed;
+  bottom: 0rpx;
+  color: white;
+  background:   #ed4849;
+  width: 670rpx;
+  height: 94rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  margin: 30rpx 40rpx;
+
+
+
+}

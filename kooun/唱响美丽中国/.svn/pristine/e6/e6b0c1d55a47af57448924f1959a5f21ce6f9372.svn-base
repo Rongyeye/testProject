@@ -1,0 +1,27 @@
+<view class='frame'>
+
+  <view wx:for="{{shopPic}}"wx:key="{{index}}">
+  <image src="{{item}}" class='picture'></image>
+  </view>
+  
+  <view class='title'> 唱响详情</view>
+  <view class='frame_text'>
+    <view class='text_typeA'>店铺名称：</view>
+    <view class='text_typeB' style='display:flex;'>{{shopName}}
+      <view class='type'>{{type}}</view>
+    </view>
+    
+  </view>
+  <view class='frame_text'>
+    <view class='text_typeA'>联系方式：</view>
+    <view class='text_typeB'>{{shopCall}}</view>
+  </view>
+  <view class='frame_text'>
+    <view class='text_typeA'>主营业务：</view>
+    <view class='text_typeB'>{{businessName}}</view>
+  </view>
+  <view class='frame_text'>
+    <view class='text_typeA'>店铺地址：</view>
+    <view class='text_typeB'>{{shopAddress}}</view>
+  </view>
+  </view>

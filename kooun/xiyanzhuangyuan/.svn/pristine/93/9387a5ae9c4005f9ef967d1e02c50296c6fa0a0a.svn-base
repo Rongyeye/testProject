@@ -1,0 +1,113 @@
+<view class="concent">
+    <swiper class="banner" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+        <block wx:for="{{banners}}" wx:key="index">
+            <swiper-item>
+                <image mode="aspectFill" src="{{item.pic}}" class="slide-image"/>
+            </swiper-item>
+        </block>
+    </swiper>
+    <view class="contact dispFlex marginb20">
+        <!--<view class="addr_img">-->
+            <!--<image src="../../imgs/address.png"></image>-->
+        <!--</view>-->
+        <!--<view class="address c90">{{address}}</view>-->
+        <!--<view bindtap="makePhone" class="phone">-->
+            <!--<image src="../../imgs/phone.png"></image>-->
+        <!--</view>-->
+        <!--<button class="service" open-type='contact'>-->
+            <!--<image src="../../imgs/wechat.png"></image>-->
+        <!--</button>-->
+        <!--<view bindtap="showFocusCode" class="focus">-->
+            <!--<image src="../../imgs/focus.png"></image>-->
+        <!--</view>-->
+        <view class="dispFlex">
+            <image class="addr_img" src="../../imgs/address.png"></image>
+            <view class="address c90">{{address}}</view>
+        </view>
+        <view class="dispFlex">
+            <image bindtap="makePhone" class="phone" src="../../imgs/phone.png"></image>
+            <button class="service" open-type='contact'>
+                <image src="../../imgs/wechat.png"></image>
+            </button>
+            <image bindtap="showFocusCode" class="focus" src="../../imgs/focus.png"></image>
+        </view>
+
+    </view>
+    <view class="cont_item bgwhite marginb20">
+        <view class="title tac">| 特色菜品 |</view>
+        <scroll-view class="scroll_box" scroll-x bindscroll="scrollCourse" bindscrolltolower="moreCourse">
+            <!--<swiper display-multiple-items="2" indicator-dots="true" interval="5000" duration="1000">-->
+            <view wx:if="{{courseList.length == 0}}" class="c90 fz26 pd26">暂无特色菜品</view>
+            <block wx:else>
+                <!--<swiper-item bindtap="ToCourseDetail" data-id="{{item.id}}">-->
+                <view wx:for="{{courseList}}" wx:key="courIndex" bindtap="ToCourseDetail" data-id="{{item.orderId}}"
+                      class="scroll_item box">
+                    <image mode="aspectFill" src="{{item.titlePic}}" class="slide-image"/>
+                    <view class="c90">{{item.title}}</view>
+                </view>
+                <!--</swiper-item>-->
+            </block>
+            <!--</swiper>-->
+        </scroll-view>
+        <view class="dot_box">
+            <block wx:for="{{courseCount}}" wx:key="cdotIndex">
+                <view class="dot_item {{actiCourse == index ? 'active' : ''}}"></view>
+            </block>
+        </view>
+    </view>
+    <view class="cont_item bgwhite marginb20">
+        <view class="title tac">| 庄园环境 |</view>
+        <scroll-view class="scroll_box" scroll-x bindscroll="scrollActivity" bindscrolltolower="moreActivities">
+            <!--<swiper display-multiple-items="2" indicator-dots="true" interval="5000" duration="1000">-->
+            <block wx:for="{{activities}}" wx:key="actIndex">
+                <!--<swiper-item>-->
+                <view class="scroll_item box">
+                    <image bindtap="previewImg" mode="aspectFill" data-index="{{index}}" src="{{item.pic}}"
+                           class="slide-image"/>
+                    <view class="c90">{{item.title}}</view>
+                </view>
+                <!--</swiper-item>-->
+            </block>
+            <!--</swiper>-->
+        </scroll-view>
+        <view class="dot_box">
+            <block wx:for="{{actiCount}}" wx:key="adotIndex">
+                <view class="dot_item {{activeCur == index ? 'active' : ''}}"></view>
+            </block>
+        </view>
+    </view>
+    <view class="cont_item bgwhite marginb20">
+        <view class="title tac">| 庄园介绍 |</view>
+        <scroll-view class="scroll_box" scroll-x bindscroll="scrollEnterprise" bindscrolltolower="moreEnterprise">
+            <block wx:for="{{enterprise}}" wx:key="i">
+                <!--<block wx:for="{{item.pics}}" wx:for-item="imgItem" wx:key="pic">-->
+                    <view class="scroll_item enter_item">
+                        <image mode="aspectFill" src="{{item.pics[0]}}" class=""/>
+                        <image mode="aspectFill" src="{{item.pics[1]}}" class=""/>
+                        <image mode="aspectFill" src="{{item.pics[2]}}" class=""/>
+                    </view>
+                    <view wx:if="{{item.pics[3] != undefined}}" class="scroll_item enter_item">
+                        <image mode="aspectFill" src="{{item.pics[3]}}" class=""/>
+                        <image mode="aspectFill" src="{{item.pics[4]}}" class=""/>
+                        <image mode="aspectFill" src="{{item.pics[5]}}" class=""/>
+                    </view>
+                <!--</block>-->
+            </block>
+        </scroll-view>
+        <view class="enterCont c666">{{enterprise[0].content}}</view>
+        <view class="dot_box">
+            <block wx:for="{{enterpCount}}" wx:key="edotIndex">
+                <view class="dot_item {{activeEnterp == index ? 'active' : ''}}"></view>
+            </block>
+        </view>
+    </view>
+</view>
+<!--<view class="copyright">广州人上人企业管理咨询有限公司 版权所有 COPYRIGHT WWW.GZRSR.COM ALL RIGHT RESERVED 粤ICP备09215353号</view>-->
+
+<!-- 新手优惠券 -->
+<alertModal modal-hidden="{{is_modal_Hidden}}" show-icon="{{showIcon}}">
+    <view class="modal_newcard" slot="before">
+        <image src="../../imgs/focus.jpg"></image>
+        <view class="fz24 c90">请扫描二维码，关注官方公众号，获取最新资讯</view>
+    </view>
+</alertModal>

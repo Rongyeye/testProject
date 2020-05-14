@@ -1,0 +1,36 @@
+page {
+    margin-bottom: 120rpx;
+}
+.order_addr {
+    display: flex;
+    padding: 20rpx;
+}
+
+.image_box {
+    display: flex;
+    align-items: center;
+    margin-right: 20rpx;
+}
+.image_box image {
+    width: 48rpx;
+    height: 48rpx;
+}
+.order_detail .head {
+    height: 88rpx;
+    padding-left: 20rpx;
+    line-height: 88rpx;
+    font-size: 28rpx;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+.order_btn {
+    width: 100%;
+    padding: 0 20rpx;
+    justify-content: flex-end;
+}
+.order_btn button {
+    margin-left: 20rpx;
+}
+
+

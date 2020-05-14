@@ -1,0 +1,42 @@
+.header {
+    background-color: #fff;
+    justify-content: flex-start;
+    height: 360rpx;
+    margin-bottom: 20rpx;
+    padding: 0 26rpx;
+}
+.per_img {
+    width: 162rpx;
+    height: 162rpx;
+    border-radius: 50%;
+}
+.per_info {
+    margin-left: 20rpx;
+}
+.per_info .name {
+    margin-bottom: 34rpx;
+}
+.per_info .addr {
+    border-right: 1px solid #909090;
+    padding-right: 8rpx;
+}
+.per_info  .state {
+    padding-left: 8rpx;
+}
+
+.modal_sex {
+    width: 70%;
+}
+.modal_sex .item_content {
+    justify-content: flex-start;
+}
+.modal_sex .item_content:nth-child(1) {
+    border-bottom: 1px solid #e3e3e3;
+}
+.modal_sex .icon {
+    margin-right: 40rpx;
+}
+.chose_date {
+    position:absolute;
+    right:64rpx;
+}

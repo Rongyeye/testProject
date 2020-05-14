@@ -1,0 +1,41 @@
+<view class="order_addr marginb20 bgwhite">
+    <view class="image_box">
+        <image src="http://img.infotoo.com.cn/group1/M00/00/08/rBKgyFrtjoGAJFg_AAAI1LMl7MA481.png"></image>
+    </view>
+    <view class="info fz28">
+        <view class="title">小星星，13800138000</view>
+        <view class="line_clamp_2">广东省广州市天河区长兴路白沙水路110001号广州市天河区长兴路白沙水路110001号市天河区长兴路白沙水路110001号</view>
+    </view>
+</view>
+
+<view class="order_detail bgwhite marginb20">
+    <view class="head">订单商品</view>
+
+    <!--自定义组件-->
+    <orderItem orderItemInfo="{{orderDetailInfo}}"></orderItem>
+    <!--自定义组件-->
+
+    <view class="item"><text>配送方式</text><text>快递 免费</text></view>
+    <view class="item"><text>红包抵扣</text><text class="red_normal">最高抵付100元</text></view>
+</view>
+
+<view class="orde_info fz26 bgwhite">
+    <view class="item">订单信息</view>
+    <view class="pd20">
+        <view class="lh50">订单编号：123456789</view>
+        <view class="lh50">订单编号：123456789</view>
+        <view class="lh50">订单编号：123456789</view>
+        <view class="lh50">订单编号：123456789</view>
+        <view class="lh50">订单编号：123456789</view>
+    </view>
+</view>
+
+<view class="footer">
+    <view class="dispFlex order_btn">
+        <button wx:if="{{status == 0}}" class="normal" size="mini">待付款</button>
+        <button wx:if="{{status == 0}}" size="mini">取消订单</button>
+        <button wx:if="{{status == 1}}" size="mini">待发货</button>
+    </view>
+</view>
+
+

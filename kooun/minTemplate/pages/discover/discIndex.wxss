@@ -1,0 +1,15 @@
+/* pages/discover/discIndex.wxss */
+
+.disc_content {
+    margin-top: 126rpx;
+}
+.act_item {
+    margin: 0 26rpx 26rpx;
+    border-radius: 20rpx;
+    height: 392rpx;
+    background-color: #fff;
+}
+.act_item image {
+    height: 300rpx;
+    width: 100%;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="../../../static/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../../static/layui/css/layui.css">
+<style>
+.layui-form-label {
+   width: 120px;
+}
+.layui-input-block {
+  margin-left: 120px;
+}
+</style>
+</head>
+<body>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<form class="layui-form" onsubmit="return false" id="form">
+		<input type="hidden" id="id" name="id" />
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">昵称</label>
+			<div class="layui-input-block">
+				<input id="nickName" class="form-control" placeholder="昵称" type="text" name="nickname" value="" onclick="cancelWarn(this)" />
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">账号</label>
+			<div class="layui-input-block">
+				<input id="userName" class="form-control" placeholder="账号" type="text" maxlength="11" name="phone" value="" onclick="cancelWarn(this)" />
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">服务电话</label>
+			<div class="layui-input-block">
+				<input id="servicePhone" class="form-control" placeholder="服务电话" type="text" maxlength="11" name="servicephone" value="" onclick="cancelWarn(this)" />
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">地址</label>
+			<div class="layui-input-block">
+				<input id="address" class="form-control" placeholder="地址" type="text"  name="address" value="" onclick="cancelWarn(this)" />
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">电子邮件</label>
+			<div class="layui-input-block">
+				<input id="email" class="form-control" placeholder="电子邮件" type="email" name="email" value="" onclick="cancelWarn(this)" />
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">账号类型</label>
+			<div class="layui-input-inline" style="width: 100px"  >
+				<select class="form-control input-sm" name="type" id="type" style="width:auto;" >
+
+				</select>
+			</div>
+		</div>
+
+		<div class="layui-form-item" onclick="cancelWarn(this)" >
+			<label class="layui-form-label">角色</label>
+			<div class="layui-input-inline" style="width: 100px"  >
+				<select class="form-control input-sm" name="roleId" id="role" style="width:auto;" >
+
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">性别</label>
+			<div class="layui-input-inline" style="width: 100px">
+				<select name="sex" id="sex" >
+					<option value="0">男</option>
+					<option value="1">女</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">状态</label>
+			<div class="layui-input-inline" style="width: 100px">
+				<select name="status" id="status" >
+					<option value="1">正常</option>
+					<option value="0">无效</option>
+					<option value="2">锁定</option>
+				</select>
+			</div>
+		</div>
+
+
+			<div class="form-actions">
+				<div class="row" align="center">
+					<div class="col-md-12">
+						<button class="btn btn-primary" onclick="location.href='userList.html'">返回</button>
+						<button class="btn btn-primary" type="submit" onclick="update()">
+							<i class="fa fa-save"></i> 保存
+						</button>
+					</div>
+				</div>
+			</div>
+	</form>
+</div>	
+	<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../../../static/js/jq.js"></script>
+	<script type="text/javascript" src="../../../static/js/common.js"></script>
+	<script type="text/javascript" src="../../../static/js/my/roles/role.js"></script>
+	<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+	<script type="text/javascript" src="../../../static/js/util.js"></script>
+	<script type="text/javascript">
+    layui.use(['layer','laydate','form'], function(){
+        var layer = layui.layer;
+        var laydate = layui.laydate;
+        var form = layui.form, $ = layui.jquery;
+    });
+
+    showDictSelect()
+    function showDictSelect() {
+        var http=ajaxHttp()
+        var type = $("#type");
+        var role = $("#role");
+        type.empty();
+        role.empty();
+        $.ajax({
+            xhrFields: { withCredentials: true },
+            type : 'post',
+            url : http+'/system/auth/user/toAddUser',
+            async : false,
+            success : function(data) {
+                data = data.result
+                var roleList = data.roleList
+                var typeList = data.typeList
+                for(var i=0;i<roleList.length;i++){
+                    role.append("<option value ='" + roleList[i].id + "'>" + roleList[i].name + "</option>");
+                }
+                for(var i=0;i<typeList.length;i++){
+                    type.append("<option value ='" + typeList[i].type + "'>" + typeList[i].typeName + "</option>");
+                }
+            }
+        });
+    }
+
+	initData()
+	function initData(){
+		var http=ajaxHttp();
+        var id = getUrlParam().id
+		$.ajax({
+			xhrFields: { withCredentials: true },
+			type : 'post',
+			url : http+'/system/auth/user/getUser',
+			data : {id:id},
+			async : false,
+			success : function(data) {
+				data = data.result
+				$("#id").val(data.userId);
+				$("#nickName").val(data.nickName);
+				$("#userName").val(data.userName);
+				$("#servicePhone").val(data.servicePhone);
+                $("#email").val(data.email);
+                $("#sex").val(data.sex);
+                $("#address").val(data.address);
+                $("#type").val(data.type);
+                $("#role").val(data.role);
+                $("#status").val(data.status);
+			}
+		});
+
+	}
+	
+	function update() {
+		var http=ajaxHttp()
+		var formdata = $("#form").serializeObject();
+		var userJson = JSON.stringify(formdata);
+		console.log(userJson)
+		$.ajax({
+			xhrFields: { withCredentials: true },
+			type : 'post',
+			url : http+'/system/auth/user/updateUserSubmit',
+			data : 'userDto='+userJson,
+			success : function(data) {
+				var layer = layui.layer;
+				successService(
+					layer,
+					data,
+					'userList.html',
+					null
+				);
+			}
+		});
+	}
+		
+	</script>
+</body>
+</html>

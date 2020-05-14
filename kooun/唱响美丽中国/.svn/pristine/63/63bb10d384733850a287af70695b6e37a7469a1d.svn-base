@@ -1,0 +1,52 @@
+<!-- 搜索 -->
+<view class="border_frame">
+
+<view class='border'>
+  <image src='{{icon3}}'class="b_picture"></image>
+  <input class='border_text' bindinput="getBorderItem"></input>
+</view>
+<text class="border_textB" bindtap="switchBack">搜索</text>
+</view>
+
+<!-- 导航栏 -->
+<view class='frame'>
+  <view class='frame_A'>
+    <view  class="text_S"  bindtap='switchacre'>地区筛选</view>
+    <image src='{{gengduo3}}' class='picture'></image>
+  </view>
+  <view class='frame_B'>
+    <view class="{{flg==1?'text_S':'text'}}" id='1' bindtap='switchclassify'>分类筛选</view>
+    <image src='{{gengduo3}}' class='picture'></image>
+  </view>
+</view>
+
+
+  <view class="content">
+<!-- 左侧滑块 -->
+      <scroll-view class='left' scroll-y style="height: 426px;" bindscrolltolower="lowerMoreProvince">
+        <view class="{{flag==0?'select':'normal'}}" id="0" bindtap='switchNavB'>附近</view>
+  
+        <block wx:for="{{province}}" wx:key="{{index}}">
+        <view class="{{index == curProvinceIndex?'select':'normal'}}" data-index="{{index}}" id="{{province[index].id}}" bindtap='switchNav' >{{province[index].name}}</view>
+        </block>
+      </scroll-view>
+
+
+
+  <!-- 右侧滑块 -->
+      <scroll-view class='right' scroll-y  style="height: 426px;" bindscrolltolower="lowerMoreCity">
+        <!-- <view class='category'> -->
+          <block wx:if="{{city.length == 0}}">
+              <view  class="text_city">暂无</view>
+          </block>
+          <block wx:else>
+            <block wx:for="{{city}}" wx:key="{{index}}">    
+              <view id="{{city[index].id}}" class='text_city_frame' >
+                <view class='text_city' bindtap='selectCity' data-index="{{index}}">{{city[index].name}}                    </view>
+              </view>
+             </block>
+          </block>
+        <!-- </view> -->
+      </scroll-view>
+
+    </view>

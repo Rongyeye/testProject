@@ -1,0 +1,34 @@
+<view class="addrManage margintop30 pd20">
+    <view bindtap="tapHomeAddr" class="addr_item marginb20">
+        <block wx:if="{{addHomeAddr}}">
+            <textarea name="homeAddr"></textarea>
+        </block>
+        <view wx:else>
+            <view class="icon myicon"></view>
+            <text class="c90 fz28">添加家庭地址</text>
+        </view>
+        <image class="addr_sign" src="http://img.infotoo.com.cn/group1/M00/00/08/rBKgyFrthRuAGenNAAAGWjbF_Vo694.png"></image>
+    </view>
+    <view bindtap="tapComAddr" class="addr_item marginb20">
+        <block wx:if="{{addComAddr}}">
+            <textarea name="comAddr"></textarea>
+        </block>
+        <view wx:else>
+            <view class="icon myicon"></view>
+            <text class="c90 fz28">添加公司地址</text>
+        </view>
+        <image class="addr_sign" src="http://img.infotoo.com.cn/group1/M00/00/08/rBKgyFrthRuAGenNAAAGWjbF_Vo694.png"></image>
+    </view>
+    <view bindtap="tapOtherAddr"  class="addr_item marginb20">
+        <block wx:if="{{addOtherAddr}}">
+            <textarea name="otherAddr"></textarea>
+        </block>
+        <view wx:else>
+            <view class="icon myicon"></view>
+            <text class="c90 fz28">添加其他地址</text>
+        </view>
+        <image class="addr_sign" src="http://img.infotoo.com.cn/group1/M00/00/08/rBKgyFrthRuAGenNAAAGWjbF_Vo694.png"></image>
+    </view>
+
+
+</view>

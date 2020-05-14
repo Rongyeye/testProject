@@ -1,0 +1,7 @@
+
+<view class="tab" style="position: {{isfixed ? 'fixed' : 'relative' }};">
+    <view wx:for="{{tabList}}" wx:key="index" class="tab_item {{current==index ? 'active' : ''}}"
+          bindtap="switchTab" data-current="{{index}}">
+        {{item.name ? item.name : item}}
+    </view>
+</view>

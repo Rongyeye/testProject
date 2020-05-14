@@ -1,0 +1,35 @@
+.addr_item {
+    border: 1px solid #e3e3e3;
+    height: 300rpx;
+    padding: 20rpx;
+    background-color: #fff;
+    border-radius: 20rpx;
+    position: relative;
+}
+.addr_item .icon {
+    width: 100rpx;
+    height: 100rpx;
+    margin-bottom: 24rpx;
+}
+.addr_sign {
+    position: absolute;
+    bottom: 26rpx;
+    left: 26rpx;
+    width: 78rpx;
+    height: 60rpx;
+}
+.addr_item view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 260rpx;
+}
+textarea {
+    width: 100%;
+    height: 200rpx;
+    padding: 10rpx;
+    font-size: 28rpx;
+    color: #909090;
+    line-height: 50rpx;
+}

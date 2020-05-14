@@ -1,0 +1,49 @@
+/* pages/wchang_name/wchang_name.wxss */
+page{
+  background: rgb(245, 245, 245);
+  font-size: 36rpx;
+  color: #000000;
+}
+.content{
+  height: 110rpx;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32rpx;
+  
+
+}
+.name{
+  color: #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pic{
+   height: 26rpx;
+  width: 26rpx;
+  margin-left: 20rpx; 
+}
+.sinput{
+  width: 520rpx;
+  height: 98rpx;
+  text-align: right;
+  
+}
+.btn{
+  position: fixed;
+  bottom: 0rpx;
+  color: white;
+  background:   #ed4849;
+  width: 670rpx;
+  height: 94rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  margin: 30rpx 40rpx;
+
+
+
+}

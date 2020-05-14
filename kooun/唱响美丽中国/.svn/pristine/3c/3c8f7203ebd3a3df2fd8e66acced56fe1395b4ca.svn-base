@@ -1,0 +1,135 @@
+<!-- 搜索 -->
+<view class='border'>
+  <image src='../../images/icon3@2x.png'class="b_picture"></image>
+  <view class='border_text'>搜索</view>
+</view>
+
+<!-- 导航栏 -->
+<view class='frame'>
+  <view class='frame_nearby'>
+    <view class='text'>附近唱响</view>
+    <image src='../../images/denglu.png' class='picture'></image>
+  </view>
+  <view class='text' class='textA'>最近距离</view>
+  <view class='button'>筛选</view>
+</view>
+
+<!-- 主要项目 -->
+<view class='item'>
+    <image src='../../images/图片1.png' class='item_picture'></image>
+    
+    <view class='framebig'>
+      <view class='frame_name_lable'>
+        <view class='frame_name_lable'>
+          <view class='name'>
+             盛大国际
+          </view>
+
+           <view class='item_lable'>
+             特约商家
+          </view>
+        </view>
+      
+      </view>
+      <view class='classification'>中国传统文化</view>
+       <view class='detailedAddress'>
+           广州市天河区天源路401号盛大国际三楼C306室（长湴地铁C出口旁）
+      </view>
+    </view>  
+</view>
+<view class='item'>
+    <image src='../../images/图片1.png' class='item_picture'></image>
+    
+    <view class='framebig'>
+      <view class='frame_name_lable'>
+        <view class='frame_name_lable'>
+          <view class='name'>
+             盛大国际
+          </view>
+
+           <view class='item_lable'>
+             特约商家
+          </view>
+          <view class='item_lable'style='margin-left:10rpx'>
+             合作单位
+          </view>
+        </view>
+      
+      </view>
+      <view class='classification'>文艺礼仪</view>
+       <view class='detailedAddress'>
+           广州市天河区天源路401号盛大国际三楼C306室（长湴地铁C出口旁）
+      </view>
+    </view>  
+</view>
+
+<view class='item'>
+    <image src='../../images/图片1.png' class='item_picture'></image>
+    
+    <view class='framebig'>
+      <view class='frame_name_lable'>
+        <view class='frame_name_lable'>
+          <view class='name'>
+             盛大国际
+          </view>
+           <view class='item_lable'>
+             合作单位
+          </view>
+        </view>
+      
+      </view>
+      <view class='classification'>酒店住宿</view>
+       <view class='detailedAddress'>
+           广州市天河区天源路401号盛大国际三楼C306室（长湴地铁C出口旁）
+      </view>
+    </view>  
+</view>
+
+<view class='item'>
+    <image src='../../images/图片1.png' class='item_picture'></image>
+    
+    <view class='framebig'>
+      <view class='frame_name_lable'>
+        <view class='frame_name_lable'>
+          <view class='name'>
+             盛大国际
+          </view>
+          <view class='item_lable'>
+             特约商家
+          </view>
+          
+        </view>
+      
+      </view>
+      <view class='classification'>美容养生</view>
+       <view class='detailedAddress'>
+           广州市天河区天源路401号盛大国际三楼C306室（长湴地铁C出口旁）
+      </view>
+    </view>  
+</view>
+
+<view class='item'>
+    <image src='../../images/图片1.png' class='item_picture'></image>
+    
+    <view class='framebig'>
+      <view class='frame_name_lable'>
+        <view class='frame_name_lable'>
+          <view class='name'>
+             盛大国际
+          </view>
+
+           <view class='item_lable'>
+             特约商家
+          </view>
+           <view class='item_lable' style='margin-left:10rpx'>
+             合作单位
+          </view>
+        </view>
+      
+      </view>
+      <view class='classification'>美容养生</view>
+       <view class='detailedAddress'>
+           广州市天河区天源路401号盛大国际三楼C306室（长湴地铁C出口旁）
+      </view>
+    </view>  
+</view>

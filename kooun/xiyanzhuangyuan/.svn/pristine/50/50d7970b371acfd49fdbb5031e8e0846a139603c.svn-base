@@ -1,0 +1,83 @@
+/* pages/modal/alertModal.wxss */
+
+.mask_layer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+.modal_box {
+    /*width: 500rpx;*/
+    width: 600rpx;
+    /*min-height: 300rpx;*/
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    z-index: 1001;
+    /*margin: -150px 12% 0 12%;*/
+    margin-top: -304rpx;
+    /*margin-left: 100rpx;*/
+    margin-left: 54rpx;
+    border-radius: 10rpx;
+    padding: 26rpx;
+}
+.modal_box .close-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 16rpx;
+}
+
+.title {
+    text-align: center;
+    font-size: 28rpx;
+    padding-bottom: 10px;
+    padding-top: 24px;
+}
+.content {
+    overflow-y: scroll; /*超出父盒子高度可滚动*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.content image {
+    max-width:420rpx;
+    max-height:420rpx;
+}
+
+.btn {
+    width: 100%;
+    margin-top: 65rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.cancel {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    color: red;
+}
+
+.Sure {
+    width: 100%;
+    padding: 10px;
+    background-color: gainsboro;
+    text-align: center;
+}
+
+.green {
+    color: #4bcf22;
+}

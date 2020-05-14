@@ -1,0 +1,12 @@
+
+<view class="changeName margintop30">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="item_content">
+            <input name="userName" type="text" placeholder="请填写姓名" placeholder-style="font-size: 28rpx" />
+        </view>
+
+        <button form-type="submit" class="disabled btn" size="default">保存</button>
+    </form>
+
+</view>
+

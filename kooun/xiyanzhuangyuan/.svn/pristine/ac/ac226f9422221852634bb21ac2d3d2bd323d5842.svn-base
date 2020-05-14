@@ -1,0 +1,17 @@
+<import src="../../wxParse/wxParse.wxml"/>
+<view class="content">
+    <view class="header">
+        <image src="{{detail.titlePic}}"></image>
+    </view>
+    <view class="cont_info bgwhite">
+        <view class="title tac fz32">—— {{detail.title}} ——</view>
+        <view>
+            <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+        </view>
+    </view>
+    <view class="course_imgs bgwhite">
+        <block wx:for="{{detail.pics}}" wx:key="index">
+            <image bindtap="previewImg" mode="aspectFill" data-index="{{index}}" src="{{item}}"></image>
+        </block>
+    </view>
+</view>

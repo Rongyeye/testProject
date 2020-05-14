@@ -1,0 +1,11 @@
+<view class='A'>
+  <view class='frame' bindtap='switToMyshopmsg'>
+      <view class='text'>我的商户信息</view>
+      <image src='{{gengduo1}}' class='icon'></image>
+  </view>
+  <view class='frame' bindtap='switTochuanbo'>
+      <view class='text'>传播大使</view>
+      <image src='{{gengduo1}}' class='icon'></image>
+  </view>
+  <!-- <view class='tip'>您还没有升级成为传播大使</view> -->
+</view>
