@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>业务系统管理-收益规则管理-编辑</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+</head>
+<body>
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">最大里程</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">最小里程</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格类型</label>
+            <div class="layui-input-inline marginR20 ">
+                <select name="interest" lay-filter="aihao">
+                    <option value="0">距离阶梯计费</option>
+                    <option value="1">基础</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务类型</label>
+            <div class="layui-input-inline marginR20">
+                <select name="interest" lay-filter="aihao">
+                    <option value="0">拼车</option>
+                    <option value="1">专车</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">单价</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <span class="dispFlexEnd">
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon"></i> 提交</button>
+        </span>
+    </form>
+    <!--为了显示下拉框，运行form-->
+    <div>
+        <script src="../../../static/layui/layui.js" charset="utf-8"></script>
+        <script>
+            layui.use('form', function(){
+                var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                form.render();
+            });
+        </script>
+    </div>
+</body>
+</html>

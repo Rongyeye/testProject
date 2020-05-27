@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理-订单列表</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form dispFlex">
+        <div >
+
+
+
+            <div class="layui-input-inline marginR20">
+                <select id="keyType'" autocomplete="off">
+                    <option value="">请选择</option>
+                    <option value="1" selected = "">商家编号</option>
+                    <option value="2">用户名</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input type="text"  lay-verify=""  id="keyWord"  name="keyWord"  placeholder="请输入关键字" autocomplete="off" class="layui-input">
+            </div>
+            <button id="selectButton" class="layui-btn site-demo-active marginL20" data-type="reload">
+                <i class="layui-icon layui-icon-search"></i>搜索
+            </button>
+
+
+        </div>
+    </form>
+    <!--数据列表-->
+    <table class="layui-hide" id="lay_table" lay-filter="categories"></table>
+    <!-- 分页工具 -->
+    <div class="layui-table-page">
+        <div id="paged" class="page"></div>
+    </div>
+    <!--操作-->
+    <div style="display: none" id="barTool">
+        <a permission="sys:runAct:edit" class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+        <a permission="sys:runAct:edit" class="layui-btn layui-btn-xs" lay-event="changeStatus">修改状态</a>
+    </div>
+</div>
+<div class="content" style="display: none; margin-top:20px" id="changeStatusForm">
+    <form  class="layui-form" action="" >
+        <input type="hidden" id="statusId" name="id" />
+        <div class="layui-form-item">
+            <div class="layui-input-inline marginR20">
+                <select id="editStatus" name="status">
+                    <option value=""></option>
+                    <option value="1">上架</option>
+                    <option value="2">下架</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-input-block dispFlexEnd ">
+            <button class="layui-btn layui-btn-sm layui-btn-primary" id = "cancel">取消</button>
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="formSubmit">提交</button>
+        </div>
+    </form>
+</div>
+
+<!--<script src="../../../static/layui/layui.js" charset="utf-8"></script>-->
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+    //    checkPermission();
+</script>
+<script>
+//    搜索
+    $(document).ready(function () {
+        getData();
+        $("#selectButton").click(function () {
+            pageStart = 1;
+            getData();
+            return false;
+        });
+    });
+    var pageStart = 1;//开始页数
+    var pageTotal = 10;//每页显示数据条数
+    var dataTotal = 0;//当前搜索条件下的所有数据总条数
+    var ids = [];
+
+    function getData() {
+        $.ajax({
+            url: ajaxHttp() + "/order/orderListByKey",//接口路径
+            data: {
+                pageStart: pageStart,
+                pageTotal: pageTotal,
+//                key:$('#keyType').val(),
+                key:1,
+                keyWord:$('#keyWord').val()
+            },
+            success: function (res) {
+                if (res.status == 'success') {
+                    dataTotal = res.result.pageCount;
+                    createTable(res.result.data);
+                    ids = [];
+                } else {
+                    successService(res, null, null);
+                }
+            }
+        });
+    }
+/*businessNum: "XDD7072110"
+id: "1"
+note: "快点，要回家做菜的！"
+orderNum: "1"
+orderStatus: 4
+orderStatusCN: "交易完成待评价"
+payStatus: 0
+payStatusCN: "未支付"
+payTime: null
+payType: 0
+payTypeCN: "未知"
+userId: "bd21ed3030224677adc00144fe679efd"
+userName: "18125735656"*/
+    function createTable(data) {
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table, laypage = layui.laypage;
+            //表格渲染
+            table.render({
+                elem: '#lay_table'
+                , height: 'full-204'
+                , cols: [[
+                    {type: 'numbers', fixed: 'left', minWidth: '50', title: '序号'}
+                    ,{field:'businessNum', width:150, title: '订单编号', sort: true,align: 'center'}
+                    ,{field:'orderStatusCN', width:150, title: '订单状态', sort: true,align: 'center'}
+                    ,{field:'note', width:150, title: '备注', sort: true,align: 'center'}
+                    ,{field:'payTypeCN', width:150, title: '支付类型', sort: true,align: 'center'}
+
+                    ,{field:'payStatusCN', title: '支付状态', minWidth: 150, sort: true,align: 'center'}
+                    ,{field:'detals', width:200, title: '详情',align: 'center',fixed: 'right', toolbar: '#barTool'}
+                ]]
+                , data: data  //数据来源
+                , limit: pageTotal
+            });
+            laypage.render({   //调用分页
+                elem: 'paged'
+                , count: dataTotal //这个是后台返回的数据的总条数
+                , limit: pageTotal   //每页显示的数据的条数,layui会根据count，limit进行分页的计算,
+                , limits: [10, 20, 50, 100]
+                , curr: pageStart
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+                , jump: function (obj, first) {
+                    pageTotal = obj.limit;
+                    pageStart = obj.curr;  //当前第几页, pageStart就是多少
+                    if (!first) { //一定要加此判断，否则初始时会无限刷新
+                        getData();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                    }
+                }
+            });
+        });
+    };
+
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var $ = layui.$, table = layui.table, layer = layui.layer, laydate = layui.laydate, form = layui.form;
+
+        table.on('tool(categories)', function (obj) {  //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var objId = obj.data.id; //获得当前行数据
+            switch (obj.event) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                case 'detail':
+                    location.href = 'orderDetails.html?id1=' + objId;
+                    break;
+                case 'toComplaint':
+                    location.href = order_complaint.html;
+                    break;
+
+                case 'changeStatus':
+                    $('#statusId').val(objId);
+                    $('#editStatus option').eq(obj.data.status).attr('selected', true);
+                    form.render('select');
+//                    //打开弹出层
+                    index = layer.open({
+                        type: 1,
+                        title: '更改状态',
+                        area: ['500px', '300px'],
+                        content: $('#changeStatusForm') //这里content是一个普通的String
+                    });
+                    break;
+
+            }
+
+        });
+        //更改状态
+        function changeStatus(orderId,status) {
+            $.ajax({
+                url: ajaxHttp() + '/order/editOrderStatus',
+                data:{
+                    orderId :orderId ,
+                    status:status
+                },
+                success: function (res) {
+                    //关闭弹出层
+                    layer.close(index);
+                    successService(res, null, null);
+                    if (res.status == 'success') {
+                        getData();
+                        location.reload();
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            })
+        }
+    });
+
+    //操作
+    function batchDynamic(url, data) {
+        $.ajax({
+            url: ajaxHttp() + url,
+            data: data,
+            dataType: "json",
+            success: function (res) {
+                if (res.status == 'success') {
+                    getData();
+                }
+                successService(res, null, null);
+            }
+        });
+    }
+</script>
+</body>
+</html>

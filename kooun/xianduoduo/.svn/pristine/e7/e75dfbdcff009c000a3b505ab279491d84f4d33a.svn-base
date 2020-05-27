@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表-新增</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form id="form" class="layui-form" action="" lay-filter="formbox">
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章标题</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" autocomplete="off" placeholder="请输入文章标题"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章类型</label>
+            <div class="layui-input-inline">
+                <select name="type">
+                    <option value=""></option>
+                    <option value="0">系统公告</option>
+                    <option value="2">公司公告</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章图片</label>
+            <div class="layui-input-inline">
+                <div class="layui-upload" id="uploadPicture">
+                    <input type="hidden" id="picture" name="picture" value="">
+                    <button type="button" class="layui-btn uploadBtn">选择一张图片</button>
+                    <!--<span class="layui-text">图片比例（2:1）</span>-->
+                    <div class="layui-upload-list">
+                        <p class="uploadTip"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-block">
+                <textarea id="summernote" name="content"></textarea>
+            </div>
+        </div>
+        <div class="layui-input-block">
+            <button permission="sys:runAct:add" type="button" class="layui-btn" lay-submit lay-filter="formSubmit">
+                立即提交
+            </button>
+        </div>
+        <button onclick="location.href='articlesList.html'; return false;" type="button" class="layui-btn">返回</button>
+    </form>
+</div>
+
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script type="text/javascript" src="../../../static/js/uploadFiles.js"></script>
+
+<script>
+    //    checkPermission();
+</script>
+<!--图片上传，富文本-->
+<script>
+    uploadImg('#uploadPicture', 1);
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            lang: 'zh-CN',
+            height: 300,
+            callbacks: {
+                onImageUpload: function (files, editor, welEditable) {
+                    sendFile(files);
+                },
+                onMediaDelete: function (e) {
+                    var imgUrl = e.context.currentSrc;
+                    console.log("删除图片====");
+                    console.log(e);
+                    $.ajax({
+                        xhrFields: {withCredentials: true},
+                        type: "POST",
+                        data: {url: imgUrl},
+                        url: http + '/index/deletePicRecord',
+                        success: function (data) {
+                            console.log("删除富文本图片=====");
+                            console.log(data);
+                        },
+                        error: function () {
+                            console.log("删除失败");
+                        }
+                    });
+                }
+            },
+        });
+    });
+
+    function sendFile(files) {
+        var formData = new FormData();
+        formData.append("file", files[0]);
+        $.ajax({
+            data: formData,
+            type: "POST",
+            url: uploadFile(),
+            headers: {AccessKey: '4915a6b8b79a4a53911d5f7cb269451e'},
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (data) {
+                console.log("富文本=====");
+                console.log(data);
+                $('#summernote').summernote('insertImage', data.result.url);
+                uploadImgSucs(data.result.urlId);
+            },
+            error: function () {
+                alert("上传失败");
+            }
+        });
+    }
+
+    // 富文本上传图片,接口成功后需要调这个接口
+    function upload(urlid) {
+        $.ajax({
+            xhrFields: {withCredentials: true},
+            type: 'post',
+            data: {urlId: urlid},
+            url: http + '/index/deletePicCache',
+            success: function (res) {
+                console.log("=====富文本图片上传成功=====");
+                console.log(res);
+
+                if (res.status == 'success') {
+
+                } else {
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        successService(layer, res, null, null);
+                    });
+                }
+            }
+        });
+    }
+</script>
+
+
+<script>
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field;
+
+            delete formdata.field.files;
+            delete formdata.field.file;
+
+            console.log(fd);
+
+            addRunAct(fd);
+            return false;
+        });
+
+        function addRunAct(data) {
+            $.ajax({
+                url: ajaxHttp() + '/article/add',
+                data: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json;charset=utf-8'},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(res, 'articlesList.html', null);
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

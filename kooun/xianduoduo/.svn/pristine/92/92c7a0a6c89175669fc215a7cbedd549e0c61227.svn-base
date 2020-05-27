@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css">
+    <style>
+        body {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <form id="form" class="layui-form" action="" lay-filter="formbox">
+        <input type="hidden" id="id" name="userId">
+        <div class="layui-form-item">
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-inline">
+                <input  id="nickname"
+                        name="nickName"
+                        required
+                        lay-verify="required"
+                        type="text"
+                        autocomplete="off"
+                        class="layui-input"
+                        placeholder="请输入">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号</label>
+            <div class="layui-input-inline">
+                <input  id="phone"
+                        name="phone"
+                        required
+                        lay-verify="phone"
+                        type="text"
+                        autocomplete="off"
+                        class="layui-input"
+                        placeholder="请输入">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务电话</label>
+            <div class="layui-input-inline">
+                <input  id="servicephone"
+                        name="servicephone"
+                        required
+                        lay-verify="phone"
+                        type="text"
+                        autocomplete="off"
+                        class="layui-input"
+                        placeholder="请输入">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+                <input  id="email"
+                        name="email"
+                        required
+                        lay-verify="email"
+                        type="text"
+                        autocomplete="off"
+                        class="layui-input"
+                        placeholder="请输入">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <select name="sex" id="sex">
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-input-block">
+            <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+            <button class="layui-btn" lay-submit lay-filter="formSubmit">保存</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+    initData()
+    function initData() {
+        $.ajax({
+            url : http+'/system/auth/user/current',
+            success: function (data) {
+                if(data.status=="success"){
+                    $("#form").populateForm(data.result);
+                }else {
+                    layui.use(['layer'], function(){
+                        var layer = layui.layer;
+                        successService(layer,data,null,null)
+                    });
+                }
+            }
+        });
+    }
+    layui.use(['form','layer'], function () {
+        var layer = layui.layer,form = layui.form;
+        form.on('submit(formSubmit)', function (formdata) {
+
+            updateInfo(formdata.field);
+
+
+            console.log(formdata.field);
+
+            return false;
+        });
+
+        function updateInfo(fd) {
+            $.ajax({
+                url : ajaxHttp()+'/system/auth/user/updateMyself',
+                data: {userDto : JSON.stringify(fd)},
+                success: function (data) {
+                    successService(layer,data,null,null)
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

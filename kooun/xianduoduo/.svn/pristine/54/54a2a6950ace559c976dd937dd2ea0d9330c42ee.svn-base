@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寄件类型编辑</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form" action="" id="form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="val" id="valID" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-inline">
+                <input type="text" name="type" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-inline">
+                <input type="text" name="notes" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div  class="layui-form-item">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="createtime"  placeholder="开始时间" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div  class="layui-form-item">
+            <label class="layui-form-label">更新时间</label>
+             <div class="layui-input-inline">
+                 <input type="text" name="updatetime" placeholder="更新时间" autocomplete="off" class="layui-input">
+             </div>
+        </div>
+        <button onclick="location.href='typeOfMail.html'; return false;"
+                class="layui-btn  layui-btn-sm"> 返回</button>
+    </form>
+</div>
+
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+    var id = getUrlParam().id;
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+        getDetail();
+
+        function getDetail() {
+            $.ajax({
+                url: ajaxHttp() + "/mail/mailTypeDetail",
+                data: {id: id},
+                success: function (res) {
+                    console.log('详情---');
+                    console.log(res);
+                    if (res.status == 'success') {
+                        $('#form').populateForm(res.result);
+                        form.render();
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

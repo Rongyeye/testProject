@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>优惠卷编辑</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form id="form" class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">优惠卷名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格</label>
+            <div class="layui-input-inline">
+                <input type="text" name="price"  id="priceID" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label ">时间类型</label>
+            <div class="layui-input-block ">
+                <input lay-filter="timeType" type="radio" name="time" value="0" title="具体时间">
+                <input lay-filter="timeType" type="radio" name="time" value="1" title="天数">
+            </div>
+        </div>
+        <div id="specificTime" class="layui-form-item" style="display: none;">
+            <label class="layui-form-label">具体时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="startTime" id="startDate" placeholder="开始时间" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" name="endTime" id="endDate" placeholder="结束时间" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div id="dayNum" class="layui-form-item" style="display: none;">
+            <label class="layui-form-label">天数</label>
+            <div class="layui-input-inline">
+                <input type="text" name="duration" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">优惠卷总数</label>
+            <div class="layui-input-inline">
+                <input type="text" name="total" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div  class="layui-form-item">
+            <label class="layui-form-label">优惠卷类型</label>
+            <div class="layui-input-inline">
+                <select name="couponType" lay-filter="aihao">
+                    <option value=""></option>
+                    <option value="0">新用户注册优惠券</option>
+                    <option value="1">分享优惠券</option>
+                    <option value="2">完成订单优惠券</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">使用类型</label>
+            <div class="layui-input-inline ">
+                <select name="type" lay-filter="aihao">
+                    <option value="0">专车</option>
+                    <option value="1">顺风车</option>
+                    <option value="2">通用</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <select name="status" lay-filter="aihao">
+                    <option value="0">上架</option>
+                    <option value="1">下架</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-input-block">
+            <button onclick="location.href='couponList.html'; return false;" class="layui-btn layui-btn-primary">取消</button>
+            <button permission="sys:runAct:add" class="layui-btn" lay-submit lay-filter="formSubmit">保存</button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+
+<script>
+    var id = getUrlParam().id1;
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+        getDetail();
+        function getDetail() {
+            $.ajax({
+                url: ajaxHttp() + "/coupon/couponDetail",
+                data: {id: id},
+                success: function (res) {
+                    console.log('详情---');
+                    console.log(res);
+                    if (res.status == 'success') {
+                        $('#form').populateForm(res.result);
+                        //价格回填
+                        $('#priceID').val(res.result.discount);
+
+                        if(res.result.duration == -1) {
+                            $('input[name="time"]').eq(0).attr('checked', true);
+                            $('#specificTime').show();
+                        } else {
+                            $('input[name="time"]').eq(1).attr('checked', true);
+                            $('#dayNum').show();
+                        }
+
+                        form.render();
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+
+
+        //监听时间类型的选择
+        form.on('radio(timeType)', function(data){
+            if (data.value == 0) {
+                $('#specificTime').show();
+                $('#dayNum').hide();
+            } else {
+                $('#dayNum').show();
+                $('#specificTime').hide();
+            }
+        });
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field, money = fd.price;
+
+            if(fd.time == 0) {  //具体时间
+                fd.duration = -1;
+            }
+
+            fd.id = id;
+
+            delete formdata.field.files;
+            delete formdata.field.file;
+            delete fd.time;
+            delete fd.price;
+
+            console.log(fd);
+
+            addRunAct(fd, money);
+            return false;
+        });
+
+        function addRunAct(data, money) {
+            $.ajax({
+                url: ajaxHttp() + '/coupon/couponEdit',
+                data: {couponJson: JSON.stringify(data), discount: money},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService( res, 'couponList.html', null);
+                    } else {
+                        successService( res, null, null);
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+        //开始时间
+        laydate.render({
+            elem: '#startDate'
+        });
+        laydate.render({
+            elem: '#endDate'
+        });
+        //结束时间
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date2'
+        });
+    });
+</script>
+</body>
+</html>

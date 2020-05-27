@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>答题列表-新增</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">分数</label>
+            <div class="layui-input-inline">
+                <input type="text" name="score" id=score lay-verify="required" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">题目</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入题目" name="title" id=title class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">选项</label>
+            <div class="layui-input-inline">
+                <div class="layui-btn layui-btn-sm" onclick="addOption()">
+                    新增选项
+                </div>
+            </div>
+        </div >
+        <div id="optionsBox" class="layui-form-item option">
+        </div>
+
+
+        <div class="layui-input-block">
+            <button onclick="location.href='questionList.html'; return false;" class="layui-btn layui-btn-primary">取消
+            </button>
+            <button permission="sys:runAct:add" class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+
+<script>
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field, arr = [];
+
+            $('#optionsBox .layui-input-block').each(function () {
+                var choseStatus = $(this).find('input[name="status"]').val(),
+                    choseNum = $(this).find('input[name="number"]').val(),
+                    choseCont = $(this).find('textarea[name="content"]').val();
+
+                arr.push({number: choseNum, content: choseCont, status: choseStatus});
+            });
+
+            delete formdata.field.files;
+            delete formdata.field.file;
+            delete fd.number;
+            delete fd.content;
+            delete fd.status;
+
+            console.log(arr)
+
+            console.log(fd);
+
+            addRunAct(fd,arr);
+            return false;
+        });
+
+        function addRunAct(data,arr) {
+            $.ajax({
+                url: ajaxHttp() + '/answer/answerAdd',
+                data: {anserJson: JSON.stringify(data),
+                    optionsJson: JSON.stringify(arr)},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(res, 'questionList.html', null);
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+
+        //监听答案单选框
+        form.on('radio(checkRadio)', function(data){
+            $(this).val(1);
+            $(this).parents('.layui-input-block').siblings().find('input[name="status"]').val(0);
+        });
+    });
+
+
+    var layerIndex;
+
+    function addOption(id) {
+        $('.option').append('<div class="layui-input-block" style="display: flex;justify-content: flex-start;">\n' +
+            '<input type="hidden" class="optionId">\n' +
+            '<div><input type="radio" value="0" name="status" lay-filter="checkRadio"></div>\n' +
+            '<div class="layui-input-item"><input type="text" class="layui-input" id="keyWord" name="number" placeholder="答案编号"></div>\n' +
+            '<div><textarea rows="2" cols="93%" name="content" style="padding:5px" placeholder="请输入答案"></textarea></div>\n' +
+            '<div><i class="layui-icon" onclick="removeOption(this,' + id + ')" ' +
+            'style="font-size: 35px; color: #1E9FFF;">&#x1007;</i></div>\n' +
+            '</div>')
+        layui.use(['table', 'form', 'element'], function () {
+            var form = layui.form;
+            form.render();
+        })
+    }
+
+    function removeOption(t, id) {
+        if (id != undefined) {
+            $.ajax({
+                xhrFields: {withCredentials: true},
+                type: "post",
+                async: false,
+                url: http + "/answer/delOption",
+                data: {
+                    articleId: id
+                },
+                success: function (res) {
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        successService(layer, res, null, null);
+                    });
+                }
+            });
+        }
+        $(t).parent().parent().remove()
+    }
+
+    $('#addCoupon').click(function () {
+        document.getElementById("form").reset();
+        $('.option').html('');
+        addOption();
+        $('.typeDiv0').show()
+        $('.typeDiv1').hide()
+        layer.open({
+            type: 1,
+            title: '新增答题',
+            area: ["80%", "80%"],
+            resize: false,
+            content: $('#addCouponWindow'),
+            success: function (layero, index) {
+                layerIndex = index;
+            }
+
+        });
+    })
+
+</script>
+
+
+</body>
+</html>

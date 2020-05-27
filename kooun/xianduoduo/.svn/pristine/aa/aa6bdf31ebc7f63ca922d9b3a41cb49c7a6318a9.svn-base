@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发票详情</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form" action="" id="form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="nick_name" lay-verify="required" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="create_time" name="create_time">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">抬头</label>
+            <div class="layui-input-inline">
+                <input type="text" name="head" lay-verify="required" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">企业单位</label>
+            <div class="layui-input-inline marginR20">
+                <select id="headType">
+                    <option value="3">企业单位</option>
+                    <option value="4">个人/非企业单位</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+                <input type="text" name="mail" lay-verify="required" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">号码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="number" lay-verify="required" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-inline marginR20">
+                <select id="pickUpType">
+                    <option value="5">拼车</option>
+                    <option value="6">专车</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格</label>
+            <div class="layui-input-inline">
+                <input type="text" name="price" lay-verify="required" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">发票状态</label>
+            <div class="layui-input-inline marginR20">
+                <select id="status">
+                    <option value=""></option>
+                    <option value="1">已开票</option>
+                    <option value="2">开票失败</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-inline">
+                <input type="text" name="remark" lay-verify="required" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <button onclick="location.href='invoiceList.html'; return false;"
+                class="layui-btn  layui-btn-sm"> 返回</button>
+    </form>
+</div>
+
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+    var id = getUrlParam().id
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+        getDetail();
+        function getDetail() {
+            $.ajax({
+                url: ajaxHttp() + "/invoice/invoiceDetail",
+                data: {id: id},
+                success: function (res) {
+                    console.log('详情---');
+                    console.log(res);
+                    if (res.status == 'success') {
+                        $('#form').populateForm(res.result);
+                        $('#status option').eq(res.result.statusCode).attr('selected', true);
+
+                        form.render();
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+
+            });
+        }
+    });
+</script>
+</body>
+</html>

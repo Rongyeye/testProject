@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <div class="demoTable marginB20">
+        <form class="layui-form dispFlex">
+            <div class="layui-input-inline marginR20">
+                <input type="text" class="layui-input" id="keyWord" name="keyWord" placeholder="关键词">
+            </div>
+            <button id="selectButton" class="layui-btn site-demo-active marginL20" data-type="reload">
+                <i class="layui-icon layui-icon-search"></i>搜索
+            </button>
+        </form>
+        <button onclick="location.href='articleAdd.html'; return false;" class="layui-btn layui-btn-btn layui-icon layui-icon-add-1">添加</button>
+    </div>
+
+
+    <table class="layui-hide" id="lay_table" lay-filter="categories"></table>
+    <!-- 分页工具 -->
+    <div class="layui-table-page">
+        <div id="paged" class="page"></div>
+    </div>
+    <!--操作-->
+    <div style="display: none" id="barTool">
+        <a permission="sys:runAct:edit" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a permission="sys:runAct:edit" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
+    </div>
+
+</div>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+
+    $(document).ready(function () {
+        getData();
+        $("#selectButton").click(function () {
+            pageStart = 1;
+            getData();
+            return false;
+        });
+    });
+
+    var pageStart = 1;//开始页数
+    var pageTotal = 10;//每页显示数据条数
+    var dataTotal = 0;//当前搜索条件下的所有数据总条数
+    var ids = [];
+
+    function getData() {
+        $.ajax({
+            url: ajaxHttp() + "/article/articleList",
+            data: {
+                pageStart: pageStart,
+                pageTotal: pageTotal,
+                title: $('#keyWord').val(),
+            },
+            success: function (res) {
+                if (res.status == 'success') {
+                    dataTotal = res.result.pageCount;
+                    createTable(res.result.data);
+                    ids = [];
+                } else {
+                    successService(res, null, null);
+                }
+            }
+        });
+    }
+
+    function createTable(data) {
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table, laypage = layui.laypage;
+            //表格渲染
+            table.render({
+                elem: '#lay_table'
+                , height: 'full-204'
+                , cols: [[
+                    {type: 'numbers', fixed: 'left', minWidth: '50', title: '序号'}
+                    , {field: 'addTime', minWidth: '160', title: '添加时间', align: 'center'}
+                    , {field: 'title', minWidth: '160', title: '文章标题', align: 'center'}
+                    , {field: 'content', minWidth: '160', title: '内容', align: 'center'}
+                    , {field: 'picture', minWidth: '160', title: '封面', align: 'center'}
+                    , {field: 'type', minWidth: '160', title: '所属分类', align: 'center'}
+                    , {field: 'operation', fixed: 'right', title: '操作', minWidth: '160', align: 'center', toolbar: '#barTool'} //这里的toolbar值是模板元素的选择器
+                ]]
+                , data: data  //数据来源
+                , limit: pageTotal
+            });
+            laypage.render({   //调用分页
+                elem: 'paged'
+                , count: dataTotal //这个是后台返回的数据的总条数
+                , limit: pageTotal   //每页显示的数据的条数,layui会根据count，limit进行分页的计算,
+                , limits: [10, 20, 50, 100]
+                , curr: pageStart
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+                , jump: function (obj, first) {
+                    pageTotal = obj.limit;
+                    pageStart = obj.curr;  //当前第几页, pageStart就是多少
+                    if (!first) { //一定要加此判断，否则初始时会无限刷新
+                        getData();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                    }
+                }
+            });
+        });
+    };
+
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var $ = layui.$, table = layui.table, layer = layui.layer, laydate = layui.laydate, form = layui.form;
+
+        table.on('tool(categories)', function (obj) {  //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var objId = obj.data.articleId; //获得当前行数据
+            switch (obj.event) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                case 'edit':
+                    location.href = 'articleEdit.html?id1=' + objId;
+                    break;
+
+                case 'delete':
+                    var arrId = [];//定义一个数组
+                    arrId.push(objId);
+
+                    layer.confirm('确定删除吗？', {title: '提示'}, function (index) {
+                        batchDynamic('/article/articlDel', {id: objId});
+                        batchDynamic('/article/articlDel',{idsJson:JSON.stringify(arrId)});
+                    });
+                    break;
+
+            }
+        });
+    });
+    //操作方法
+    function batchDynamic(url, data) {
+        $.ajax({
+            url: ajaxHttp() + url,
+            data: data,
+            dataType: "json",
+            success: function (res) {
+                if (res.status == 'success') {
+                    getData();
+                }
+                successService(res, null, null);
+            }
+        });
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>业务系统管理-收益规则管理</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form">
+        <div class="layui-input-inline marginR20">
+            状态
+            <div class="layui-input-inline marginR20">
+                <select name="interest" lay-filter="aihao">
+                    <option value=""></option>
+                    <option value="0" selected="">取消寄件</option>
+                    <option value="1">全部</option>
+                    <option value="2">等待接单</option>
+                    <option value="3">已接单</option>
+                    <option value="4">派送中</option>
+                    <option value="5">已送达</option>
+                    <option value="6">已完成未评价</option>
+                    <option value="7">已完成已评价</option>
+                </select>
+            </div>
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
+        </div>
+    </form>
+    <table class="layui-hide" id="test"></table>
+</div>
+<script src="../../../static/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            ,url:'/demo/table/user/'
+            ,cols: [[
+                {field:'id', width:80, title: '编号',align: 'center'}
+                ,{field:'maximumMileage', width:250, title: '最大里程', sort: true,align: 'center'}
+                ,{field:'minimumMileage', width:250, title: '最小里程', sort: true,align: 'center'}
+                ,{field:'priceType', width:250,title: '价格类型', sort: true,align: 'center'}
+                ,{field:'serviceType', width:250, title: '服务类型', sort: true,align: 'center'}
+                ,{field:'unitPrice', width:250, title: '单价', sort: true,align: 'center'}
+                ,{field:'operation', width:200, title: '操作',align: 'center'}
+            ]]
+            ,page: true
+        });
+    });
+</script>
+</div>
+</body>
+</html>

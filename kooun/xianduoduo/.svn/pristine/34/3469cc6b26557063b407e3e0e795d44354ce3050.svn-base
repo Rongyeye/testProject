@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鲜多多后台管理登录</title>
+	<link rel="icon" href="../static/img/logo/kooun.ico" type="image/x-icon">
+	<link href="../static/css/login.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript">
+        if(window!=top){// 判断当前的window对象是否是顶级对象
+            // 修改顶级窗口的地址为当前窗口的地址
+            top.location.href=window.location.href;
+        }
+	</script>
+</head>
+<body>
+<div class="login">
+	<div class="message">鲜多多后台管理端</div>
+	<div id="darkbannerwrap"></div>
+	<form id="login-form" onsubmit="return false;">
+		<input  required  lay-verify="required"   id="username" name="username" placeholder="用户名" type="text" value=""
+			   autocomplete="off">
+		<hr class="hr15">
+		<input  required  lay-verify="required"   id="password" name="password" placeholder="密码" type="password" value=""
+			   autocomplete="off">
+		<hr class="hr15 codeAfter">
+		<button style="width: 100%;" type="submit">登录</button>
+	</form>
+</div>
+<div id="codeDiv" style="display: none">
+	<hr class="hr15">
+	<input required  lay-verify="phone"  style="width:50%;float: left" id="code" name="code" placeholder="验证码" type="text"
+		   autocomplete="off">
+	<button onclick="getCode(this)" type="button" style="width:50%;float: left">发送短信验证码</button>
+	<hr class="hr15" >
+</div>
+</body>
+<script src="../static/js/libs/jquery-2.1.1.min.js"></script>
+<script src="../static/layui/layui.js"></script>
+<script src="../static/js/util.js"></script>
+<script src="../static/js/common.js"></script>
+<script>
+    function getCode(elem) {
+        if(w==0){
+            var reg = /^1[0-9]{10}$/;//验证规则
+            if(reg.test($.trim($('#username').val()))){
+                $.ajax({
+                    url : http+'/sms/sendSmsCode.wx',
+                    data : {
+                        phone: $.trim($("#username").val()),
+                        smsId:smsId
+                    },
+                    success : function(data) {
+                        if(data.status == "success"){
+                            layer.msg("短信已发送到"+$.trim($('#username').val()).replace(/(\d{3})\d{4}(\d{4})/, '$1****$2'))
+                            time($(elem),60)
+                        }else {
+                            successService(layer,data,null,null)
+                        }
+                    }
+                });
+            }else{
+                alert("请输入有效的手机号");
+            }
+        }
+    }
+    var w=0;
+    function time(o,wait) {
+        if (wait == 0) {
+            $(o).text('获取验证码');
+            $(o).css({"background": "#189F92"})
+            wait = 60;
+        } else {
+            $(o).css({"background": "#565c5a"})
+            $(o).text(wait+'s后可重新获取');
+            wait--;
+            w=wait;
+            setTimeout(function() {
+                    time(o,wait)
+                },
+                1000)
+        }
+    }
+</script>
+<script>
+	var codeDivShow = false
+	var smsId
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        $("form").submit(function(e){
+            $.ajax({
+                url : http+'/system/auth/loginSubmit',
+                data : {
+                    username: $.trim($('#username').val()),
+                    password: $.trim($('#password').val())
+                },
+                success : function(data) {
+                    if(data.status=="success" && data.message=="OK"){
+                        location.href = '../views/index.html';
+                    }else if(data.status=="success" && data.message=="Mobile phone authentication"&&!codeDivShow){
+                        $(".codeAfter").before($("#codeDiv").html())
+                        codeDivShow = true
+                        smsId = data.result.smsId
+                        // var code = prompt("短信已发送到"+$.trim($('#username').val()).replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')+",请注意接收输入短信验证码", "");
+                        // if (code) {
+                    	//
+                        // }
+                    }else {
+                        successService(layer,data,null,null)
+                    }
+                }
+            });
+		})
+    });
+</script>
+</html>

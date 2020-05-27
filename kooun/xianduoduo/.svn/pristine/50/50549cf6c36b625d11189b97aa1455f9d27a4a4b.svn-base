@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改阶梯</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+</head>
+<body>
+<div class="content" style="display: none">
+    <form class="layui-form" id ="ladderForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">最大里程</label>
+            <div class="layui-input-inline">
+                <input type="number" name="mileageEnd" placeholder="最大里程" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">最小里程</label>
+            <div class="layui-input-inline">
+                <input type="number" name="mileageMin" placeholder="最小里程" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格类型</label>
+            <div class="layui-input-inline marginR20">
+                <select name="priceStatus">
+                    <option value="0">基础</option>
+                    <option value="1">距离阶梯计费</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务类型</label>
+            <div class="layui-input-inline marginR20">
+                <select name="serviceStatus">
+                    <option value="0">专车</option>
+                    <option value="1">拼车(顺丰车)</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">单价</label>
+            <div class="layui-input-inline">
+                <input type="number" name="unitPrice" placeholder="单价" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-input-block dispFlexEnd">
+            <button onclick="location.href='ladderList.html'; return false;" class="layui-btn layui-btn-primary">取消</button>
+            <button permission="sys:runAct:add" class="layui-btn" lay-submit lay-filter="formSubmit">保存</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+
+<script>
+    var id = getUrlParam().id;
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+        var index;
+        getDetail();
+        function getDetail() {
+            $.ajax({
+                url: ajaxHttp() + "/mail/computingMethodDetail",
+                data: {id: id},
+                success: function (res) {
+                    console.log('详情---');
+                    console.log(res);
+                    if (res.status == 'success') {
+                        $('#ladderForm').populateForm(res.result);
+
+                        form.render();
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field;
+            fd.id = id;
+            console.log(fd);
+            addRunAct(fd);
+            //关闭弹出层
+            layer.close(layer.index); //它获取的始终是最新弹出的某个层，值是由layer内部动态递增计算的
+            return false;
+        });
+
+        function addRunAct(data) {
+            $.ajax({
+                url: ajaxHttp() + '/mail/computingMethodEdit',
+                data: {valuationJson: JSON.stringify(data)},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(res, 'ladderList.html', null);
+                        console.log(res);
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        };
+
+        //    弹出层
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            index = layer.open({
+                type: 1
+                , title: '添加阶梯价格'
+                , area: ['800px', '500px']
+                , content: $(".content")
+            });
+        });
+    });
+
+</script>
+
+</body>
+</html>

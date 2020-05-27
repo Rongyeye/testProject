@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>保证金管理列表</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form" action="" id="form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">金额</label>
+            <div class="layui-input-inline">
+                <input type="number" name="money" id="money" lay-verify="required" placeholder="请输入保证金金额"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-block">
+                <textarea id="content" rows="10" cols="40" placeholder="请输入保证金说明" name="note"
+                          lay-verify=""></textarea>
+            </div>
+        </div>
+        <div class="layui-input-block">
+            <div permission="sys:bail:edit" id="edit" class="layui-btn" style="display: inline-block;">修改</div>
+            <button style="display: none;" id="formSubmit" class="layui-btn" permission="sys:vip:edit" lay-submit=""
+                    lay-filter="formSubmit">立即提交
+            </button>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, $ = layui.$, layer = layui.layer, element = layui.element;
+        //id容器
+        var contentID;
+        var contentID1;
+        $('#edit').click(function () {
+            $(this).hide()
+            $('#formSubmit').show()
+        })
+        initData()
+
+        function initData() {
+            $.ajax({
+                url: ajaxHttp() + "/cashWithdrawal/dictDetail",
+                data: {
+                    type: "cashDeposit",
+                },
+
+                success: function (res) {
+                    console.log('详情---');
+                    console.log(res);
+                    if (res.status == 'success') {
+                        $('#money').val(res.result.val);
+                        form.render();
+                        contentID = res.result.id;
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+
+            });
+            $.ajax({
+                url: ajaxHttp() + "/cashWithdrawal/dictDetail",
+                data: {
+                    type: "cashDepositExpla",
+                },
+
+                success: function (res) {
+                    console.log('详情---');
+                    console.log(res);
+                    if (res.status == 'success') {
+                        $('#content').val(res.result.val);
+                        form.render();
+                        contentID1 = res.result.id;
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+
+            });
+        }
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field, money = fd.money, notes = fd.note;
+
+            fd.id = contentID;
+            fd.id1 = contentID1;
+
+            addRunAct(money, contentID);
+
+            addRunAct(notes, fd.id1);
+            console.log(fd);
+            return false;
+        });
+
+        function addRunAct(data, id) {
+            $.ajax({
+                url: ajaxHttp() + '/cashWithdrawal/dictEdit',
+                data: {
+                    id: id,
+                    val: data,
+                },
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(res, 'bond.html', null);
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+
+    });
+
+</script>
+</body>
+</html>

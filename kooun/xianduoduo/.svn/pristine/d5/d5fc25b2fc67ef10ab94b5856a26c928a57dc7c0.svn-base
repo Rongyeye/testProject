@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改商品</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+</head>
+<body>
+<form class="layui-form" action="" id="form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="goodsName" lay-verify="required" placeholder="请输入" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">店铺编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="businessNum" readonly="" lay-verify="" placeholder="请输入" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品图片</label>
+        <div class="layui-input-inline">
+            <div class="layui-upload" id="uploadPicture">
+                <input type="hidden" id="picture" name="pic" value="">
+                <button type="button" class="layui-btn uploadBtn">选择一张图片</button>
+                <div class="layui-upload-list">
+                    <p class="uploadTip"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" readonly="" lay-verify="" placeholder="请输入" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品库存</label>
+        <div class="layui-input-inline">
+            <input type="number" name="count" lay-verify="required" placeholder="请输入" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品状态</label>
+        <div class="layui-input-inline marginR20 ">
+            <select name="status" lay-filter="aihao">
+                <option value="0">下架</option>
+                <option value="1">上架</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">服务类型</label>
+        <div class="layui-input-inline marginR20">
+            <select name="interest" lay-filter="aihao">
+                <option value="0">拼车</option>
+                <option value="1">专车</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">优惠券标题</label>
+        <div class="layui-input-inline">
+            <input type="text" name="title" readonly="" lay-verify="" placeholder="未绑定优惠券" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品单价</label>
+        <div class="layui-input-inline">
+            <input type="number" name="unitPrice" lay-verify="required" placeholder="请输入" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">计算单位</label>
+        <div class="layui-input-inline marginR20 ">
+            <select name="unitType" lay-filter="aihao">
+                <option value="1">斤</option>
+                <option value="2">份</option>
+                <option value="3">只</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否是优品</label>
+        <div class="layui-input-inline marginR20 ">
+            <select name="superiorStatus" lay-filter="aihao">
+                <option value="0">是</option>
+                <option value="1">否</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">特色优品是否错选</label>
+        <div class="layui-input-inline marginR20 ">
+            <select name="isSupError" lay-filter="aihao">
+                <option value="0">否</option>
+                <option value="1">是</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品简介</label>
+        <div class="layui-input-inline">
+            <textarea type="text" name="introduce" autocomplete="off"></textarea>
+        </div>
+    </div>
+    <span class="dispFlexEnd">
+         <button onclick="location.href='goodsList.html'; return false;"
+                 class="layui-btn layui-btn-primary">取消</button>
+        <button permission="sys:runAct:add" class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+    </span>
+</form>
+
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script type="text/javascript" src="../../../static/js/uploadFiles.js"></script>
+
+<script>
+    var id = getUrlParam().id;
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+        getDetail();
+        var couponsId, goodsTypeId, sUserId;
+
+        function getDetail() {
+            $.ajax({
+                url: ajaxHttp() + "/goods/showUpdateGoods",
+                data: {goodsId: id},
+                success: function (res) {
+                    console.log('详情---');
+                    console.log(res);
+                    couponsId = res.result.couponsId;
+                    goodsTypeId = res.result.goodsTypeId;
+                    sUserId = res.result.sUserId;
+
+                    if (res.status == 'success') {
+                        $('#form').populateForm(res.result);
+                        //图片回填
+                        $('#uploadPicture').find('.layui-upload-list').prepend('<img src="' + res.result.pic + '" />');
+                        form.render();
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+
+        uploadImg('#uploadPicture', 1);
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field;
+            console.log("提交前");
+            console.log(fd);
+            fd.id = id;
+            fd.couponsId = couponsId;
+            fd.goodsTypeId = goodsTypeId;
+            fd.sUserId = sUserId;
+//          字符串转为整数
+            fd.unitType = parseInt(fd.unitType);
+            fd.status = parseInt(fd.status);
+            fd.isSupError = parseInt(fd.isSupError);
+            fd.superiorStatus = parseInt(fd.superiorStatus);
+
+            delete formdata.field.files;
+            delete formdata.field.file;
+            delete fd.businessNum;
+            delete fd.interest;
+            delete fd.name;
+            delete fd.title;
+            console.log("修改后");
+            console.log(fd);
+            addCoupon(fd);
+            return false;
+        });
+
+        function addCoupon(data) {
+            $.ajax({
+                url: ajaxHttp() + '/goods/updateGoods',
+                data: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json;charset=utf-8'},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(res, 'goodsList.html', null);
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

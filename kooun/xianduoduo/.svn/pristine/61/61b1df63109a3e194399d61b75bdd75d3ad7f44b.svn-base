@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en-us" id="extr-page">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+	<link rel="stylesheet" href="../../../static/css/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" href="../../../static/css/ztree/demo.css" type="text/css">
+</head>
+<body>
+<div class="content">
+	<form action="" id="form" class="layui-form" lay-filter="formbox">
+		<input type="hidden" id="id" name="id">
+		<div class="layui-form-item">
+			<div class="layui-form-label">角色</div>
+			<div class="layui-input-inline">
+				<input id='name'
+					   name="name"
+					   required
+					   lay-verify="required"
+					   type="text"
+					   autocomplete="off"
+					   class="layui-input"
+					   placeholder="请输入"/>
+			</div>
+		</div>
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">描述</label>
+			<div class="layui-input-block">
+				<textarea id="description" name="description" placeholder="描述" class="layui-textarea"></textarea>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">权限</label>
+			<div class="layui-input-block">
+				<ul id="treeDemo" class="ztree"></ul>
+			</div>
+		</div>
+		<div class="layui-input-block">
+			<button class="layui-btn layui-btn-normal" type="button" onclick="location.href='roleList.html'">返回</button>
+			<button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+		</div>
+	</form>
+</div>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/libs/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="../../../static/js/my/ztree-menu.js"></script>
+<script type="text/javascript">
+    var roleId = getUrlParam().roleId || null, http = ajaxHttp();
+    $.fn.zTree.init($("#treeDemo"), getSettting(), getMenuTree());
+    if (roleId != null) {
+        initData(roleId);
+    }
+
+    function initData(roleId) {
+        $.ajax({
+            url: http + '/system/auth/roles/getRole',
+            data: {roleId: roleId},
+            success: function (res) {
+               if(res.status=="success"){
+                   $("#name").val(res.result.roleInfo.name);
+                   $("#description").val(res.result.roleInfo.description);
+			   }else {
+                   layui.use(['layer', 'form'], function () {
+                       var layer=layui.layer;
+                       successService(layer,res,null,null)
+				   })
+			   }
+            }
+        });
+        initMenuDatas(roleId);
+    }
+
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer, form = layui.form;
+        form.on('submit(formSubmit)', function (formdata) {
+            formdata.field.permissionIds = getCheckedMenuIds();
+            formdata.field.permissionIds.splice(0,1)
+            $.ajax({
+                url: http + '/system/auth/roles/addRoleSubmit',
+                data: {
+                    roleDto: JSON.stringify({
+                        roleId: roleId,
+                        name: formdata.field.name,
+                        description: formdata.field.description,
+                        permissionIds: formdata.field.permissionIds
+					})
+				},
+                success: function (data) {
+                    successService(layer, data, 'roleList.html', null);
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

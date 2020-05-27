@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<title>顺车宝后台管理端</title>
+	<link rel="stylesheet" href="../static/layui/css/layui-old.css" media="all" />
+	<link rel="stylesheet" href="../static/layui/css/global.css" media="all" />
+	<link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.css" media="all" />
+	<script type="text/javascript">
+        if(window!=top){// 判断当前的window对象是否是顶级对象
+            // 修改顶级窗口的地址为当前窗口的地址
+            top.location.href=window.location.href;
+        }
+	</script>
+	<style>
+		.reload{
+			position: absolute; cursor: pointer;
+			z-index: 19940201;
+			left: 250px;
+			color: white;
+			text-align: center;
+			width: 30px;
+			height: 30px;
+			background-color: #1AA094;
+			line-height: 30px;
+			top: 25%;
+		}
+		.reload:hover{
+			background-color: #5FB878;
+		}
+
+		.header-demo .layui-nav .layui-nav-item {
+			margin: 0;
+		}
+		.li_line {
+			border-right: 1px solid #CCCCCC;
+			display: inline-block;
+			height: 24px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="layui-layout layui-layout-admin"
+	 style="border-bottom: solid 5px #1aa094;">
+	<!-- 标题栏 -->
+	<div class="layui-header header header-demo">
+		<div class="layui-main">
+			<div class="admin-login-box">
+				<a class="logo" style="left: 0;" title=""> <span
+						style="font-size: 20px;">顺车宝后台管理端</span>
+				</a>
+				<div class="admin-side-toggle">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</div>
+				<div class="reload" title="刷新当前页面" onclick="document.querySelector('.layui-show iframe').contentWindow.location.reload(true);">
+					<i class="layui-icon">&#xe669;</i>
+				</div>
+			</div>
+			<ul class="layui-nav" pc>
+				<li class="layui-nav-item" lay-unselect="">
+					<a href='javascript:;' id="userFeedBack"></i> 用户反馈</a>
+				</li>
+				<span class="li_line">|</span>
+				<li class="layui-nav-item" pc>
+					<a href="javascript:;" class="admin-header-user">
+						<img style="margin-right: 6px;" id="headImg" /><span id="nickName"></span>
+					</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a href='javascript:;' lay-id="-999"
+							   data-url="system/auth/updateMyself.html"><i
+									class="fa fa-user-circle" aria-hidden="true"></i> 个人信息</a>
+						</dd>
+						<dd>
+							<a href='javascript:;' lay-id="-998"
+							   data-url="system/auth/updateHeadImg.html"><i
+									class="fa fa-drupal" aria-hidden="true"></i> 头像</a>
+						</dd>
+						<dd>
+							<a href='javascript:;' lay-id="-997"
+							   data-url="system/auth/changePassword.html"><i
+									class="fa fa-pencil" aria-hidden="true"></i> 修改密码</a>
+						</dd>
+						<dd>
+							<a href="javascript:;" onclick="logout()"><i
+									class="fa fa-sign-out" aria-hidden="true"></i> 退出</a>
+						</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!--菜单-->
+	<div class="layui-side layui-bg-black" id="admin-side">
+		<div class="layui-side-scroll" id="admin-navbar-side"
+			 lay-filter="side">
+			<ul id="menu" class="layui-nav layui-nav-tree" lay-filter="demo">
+
+			</ul>
+		</div>
+	</div>
+	<div class="layui-body" style="bottom: 0; border-left: solid 2px #1AA094;" id="admin-body">
+		<div class="layui-tab admin-nav-card layui-tab-brief"
+			 lay-allowClose="true" lay-filter="admin-tab">
+			<ul class="layui-tab-title">
+				<!--<li class="layui-this"><i class="fa fa-dashboard"-->
+										  <!--aria-hidden="true"></i> <cite>Home</cite></li>-->
+			</ul>
+			<!-- 首页 -->
+			<div class="layui-tab-content"
+				 style="min-height: 150px; padding: 5px 0 0 0;">
+				<!--<div class="layui-tab-item layui-show">-->
+					<!--<form name="form1" id="form1" action="" method="post">-->
+						<!--shouyeydfd-->
+					<!--</form>-->
+
+				<!--</div>-->
+			</div>
+		</div>
+	</div>
+	<div class="layui-footer footer footer-demo" id="admin-footer">
+		<div>
+			<p>https://www.kooun.cn</p>
+		</div>
+	</div>
+	<div class="site-tree-mobile layui-hide">
+		<i class="layui-icon">&#xe602;</i>
+	</div>
+	<div class="site-mobile-shade"></div>
+	<script type="text/javascript" src="../static/js/libs/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/layui/layui.js"></script>
+	<script type="text/javascript" src="../static/js/util.js"></script>
+	<script type="text/javascript" src="../static/js/common.js"></script>
+	<script type="text/javascript" src="../static/js/main.js"></script>
+	<script>
+        layui.use(['element','layer'], function () {
+            var element = layui.element,layer = layui.element;
+            $.ajax({
+                url:http+"/system/auth/permissions/current",
+                success:function(data){
+                    if(data.status=='success'){
+                        var menu = $("#menu");
+                        $.each(data.result.permissionList, function(i,item){
+                            var a = $("<a data-parenti='"+i+"' href='javascript:;'></a>");
+
+                            var css = item.css;
+                            if(css!=null && css!=""){
+                                a.append("<i aria-hidden='true' class='fa " + css +"'></i>");
+                            }
+                            a.append("<cite>"+item.name+"</cite>");
+                            a.attr("lay-id", item.id);
+                            //按钮url
+                            var href = item.href;
+                            if(href != null && href != ""){
+                                a.attr("data-url", href+".html");
+                            } else {
+                                a.attr("data-ischild", 1);
+                            }
+
+                            var li = $("<li class='layui-nav-item'></li>");
+                            if (i == 0) {
+                                li.addClass("layui-nav-itemed");
+                            }
+                            li.append(a);
+
+                            //二级菜单
+                            var child2 = item.child;
+                            if(child2 != null && child2.length > 0){
+                                $.each(child2, function(j,item2){
+                                    var ca = $("<a data-ischild='1' data-parenti='"+i+"' data-childi='"+j+"'  href='javascript:;'></a>");
+                                    ca.attr("data-url", item2.href+".html");
+                                    ca.attr("lay-id", item2.id);
+
+                                    var css2 = item2.css;
+                                    if(css2!=null && css2!=""){
+                                        ca.append("<i aria-hidden='true' class='fa " + css2 +"'></i>");
+                                    }
+
+                                    ca.append("<cite>"+item2.name+"</cite>");
+
+                                    var dd = $("<dd class='layui-nav-child'></dd>");
+                                    dd.append(ca);
+
+                                    var dl = $("<dl class='layui-nav-child'></dl>");
+                                    dl.append(dd);
+
+                                    li.append(dl);
+                                });
+                            }
+                            menu.append(li);
+                        });
+                        element.render()
+                    }else if(data.status=='401'){
+                        location.href = '../views/login.html';
+                    }else {
+                        successService(layer,data,null,null)
+                    }
+                }
+            });
+            $.ajax({//获取头像和用户名
+                url : http+'/system/auth/user/current',
+                success : function(data) {
+                    if(data.status=='success'){
+                        $("#headImg").attr("src",data.result.headImgUrl);
+                        $("#nickName").html(data.result.nickName)
+					}else {
+                        successService(layer,data,null,null)
+                    }
+                }
+            });
+
+            //用户反馈
+            $('#userFeedBack').click(function () {
+                addParentTab('135', 'business/feedback/feedbackList.html', '用户反馈', 13, 0, 1);
+            });
+        })
+
+        function logout(){
+            $.ajax({
+                url : http+'/system/auth/logout',
+                success : function(data) {
+                    if(data.status=='success'){
+                        alert(data.message)
+                        location.href = '../views/login.html';
+                    }else{
+                        location.href = '../views/login.html';
+                    }
+                },
+                error:function () {
+                    location.href = '../views/login.html';
+                }
+            });
+
+        }
+	</script>
+</div>
+</body>
+</html>

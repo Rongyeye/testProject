@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理-投诉订单列表</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form ">
+        <div class="layui-input-inline marginR20">
+            根据商家编号或用户名查看投诉订单
+            <div class="layui-input-inline marginR20">
+                <select id="keyType" autocomplete="off" lay-filter="rulue">
+                    <option value="" ></option>
+                    <option value="1" selected>商家编号</option>
+                    <option value="2">用户名</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" lay-verify=""  id="keyword"  name="keyword" placeholder="请输入关键字" autocomplete="off" class="layui-input">
+            </div>
+            <button id="selectButton" class="layui-btn site-demo-active layui-icon layui-icon-search" data-type="reload" >搜索</button>
+        </div>
+    </form>
+    <!--数据列表-->
+    <table class="layui-hide" id="lay_table" lay-filter="categories"></table>
+    <!-- 分页工具 -->
+    <div class="layui-table-page">
+        <div id="paged" class="page"></div>
+    </div>
+    <!--操作-->
+    <div style="display: none" id="barTool">
+        <a permission="sys:runAct:edit" class="layui-btn layui-btn-xs" lay-event="handle">处理</a>
+    </div>
+</div>
+<!--<script src="../../../static/layui/layui.js" charset="utf-8"></script>-->
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script>
+    var pageStart = 1;//开始页数
+    var pageTotal = 10;//每页显示数据条数
+    var dataTotal = 0;//当前搜索条件下的所有数据总条数
+    var ids = [];
+
+    $(function () {
+        getData();
+        $("#selectButton").click(function () {
+            pageStart = 1;
+            getData();
+            return false;
+        });
+    });
+//1=商家编号
+    function getData() {
+        $.ajax({
+            url: ajaxHttp() + "/complaint/complaintList",//接口路径
+            data: {
+                pageStart: pageStart,
+                pageTotal: pageTotal,
+                key:$('#keyType').val(),
+//                key:1,
+                keyword:$('#keyword').val()
+            },
+            success: function (res) {
+                if (res.status == 'success') {
+                    dataTotal = res.result.pageCount;
+                    createTable(res.result.data);
+                    ids = [];
+                } else {
+                    successService(res, null, null);
+                }
+            }
+        });
+    }
+    //创建表格
+    function createTable(data) {
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table, laypage = layui.laypage;
+            //表格渲染
+            table.render({
+                elem: '#lay_table'
+                , height: 'full-150'
+                , cols: [[
+                    {type: 'numbers', fixed: 'left', minWidth: '50', title: '序号'}
+                    ,{field:'complaint', width:150, title: '投诉原因',align: 'center'}
+                    ,{field:'complaintPhone', width:150, title: '投诉人电话', sort: true,align: 'center'}
+                    ,{field:'complaintTime', width:150, title: '投诉时间', sort: true,align: 'center'}
+                    ,{field:'complaintTypeCN', title: '投诉类型', minWidth: 120, align: 'center'}
+                    ,{field:'statusCN', title: '是否已被处罚', minWidth: 120, align: 'center'}
+                    ,{field:'complaintPic', title: '投诉图片', minWidth: 150,align: 'center',templet: '<div><img src="{{d.complaintPic[0]}}" /></div>'}
+                    ,{field:'detals', width:80, title: '操作',align: 'center',fixed: 'right', toolbar: '#barTool'}
+                ]]
+                , data: data  //数据来源
+                , limit: pageTotal
+            });
+            laypage.render({   //调用分页
+                elem: 'paged'
+                , count: dataTotal //这个是后台返回的数据的总条数
+                , limit: pageTotal   //每页显示的数据的条数,layui会根据count，limit进行分页的计算,
+                , limits: [10, 20, 50, 100]
+                , curr: pageStart
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+                , jump: function (obj, first) {
+                    pageTotal = obj.limit;
+                    pageStart = obj.curr;  //当前第几页, pageStart就是多少
+                    if (!first) { //一定要加此判断，否则初始时会无限刷新
+                        getData();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                    }
+                }
+            });
+        });
+    };
+
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var $ = layui.$, table = layui.table, layer = layui.layer, laydate = layui.laydate, form = layui.form;
+
+        form.on('select(rulue)', function (data) {
+            if( data.value ==1){
+                getData();
+                $("#selectButton").show();
+                $("#selectButton2").hide();
+                $("#selectButton").click(function () {
+                    pageStart = 1;
+                    getData();
+                    return false;
+                });
+            }else if(data.value ==2){
+                getData2();
+                $("#selectButton2").show();
+                $("#selectButton").hide();
+                $("#selectButton2").click(function () {
+                    pageStart = 1;
+                    getData2();
+                    return false;
+                });
+            }
+        });
+
+        table.on('tool(categories)', function (obj) {  //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var objId = obj.data.complaintId; //获得当前行数据
+            switch (obj.event) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                case 'handle':
+                    cancleBindCou(objId);
+                    break;
+            }
+        });
+
+    });
+    //处理
+    function cancleBindCou(complaintId) {
+        $.ajax({
+            url: ajaxHttp() + '/complaint/dealingComplaint',
+            data:{
+                complaintId: complaintId
+            },
+            success: function (res) {
+                successService(res, null, null);
+                if (res.status == 'success') {
+                    location.reload();
+                        getData();
+                } else {
+                    successService(res, null, null);
+                }
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

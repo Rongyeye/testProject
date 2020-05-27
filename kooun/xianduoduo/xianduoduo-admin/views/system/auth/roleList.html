@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>角色</title>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <div class="demoTable">
+        <div class="search-box">
+            角色:
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="keyWord" name="keyWord" placeholder="角色关键字">
+            </div>
+            <button id="selectButton" class="layui-btn site-demo-active" permission="sys:role:query" data-type="reload">
+                搜索
+            </button>
+        </div>
+        <div class="add-delt">
+            <button onclick="location.href='addRole.html'" permission="sys:role:add" class="layui-btn layui-btn-sm">
+                <i class="layui-icon">&#xe654;</i> 新增
+            </button>
+        </div>
+    </div>
+    <table class="layui-hide" id="lay_table" lay-filter="categories"></table>
+    <!--操作-->
+    <script type="text/html" id="barTool">
+
+    </script>
+    <div class="layui-table-page"> <!-- 分页工具 -->
+        <div id="paged" class="page"></div>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/jq.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script>
+    var pers = checkPermission()
+    var edit = buttonEdit("", "sys:role:edit", pers);
+    var del = buttonDel("", "sys:role:del", pers);
+    $("#barTool").append(edit+del)
+
+
+    $(document).ready(function () {
+        getData();
+        $("#selectButton").click(function () {
+            pageStart=1;
+            getData();
+        });
+    });
+
+    var pageStart = 1;//开始页数
+    var pageTotal = 50;//每页显示数据条数
+    var dataTotal = 0;//当前搜索条件下的所有数据总条数
+    var ids = [];
+    function getData(){
+        $.ajax({
+            url: http + "/system/auth/roles/all",
+            data: {
+                pageStart: pageStart,
+                pageTotal: pageTotal,
+                keyWord: $("#keyWord").val()
+            },
+            success: function (res) {
+                if(res.status=='success'){
+                    dataTotal=res.result.pageCount;
+                    createTable(res.result.data);
+                    ids=[];
+                }else {
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        successService(layer, res, null, null);
+                    });
+                }
+            }
+        });
+    }
+
+    function createTable(data) {
+        layui.use(['table','layer','laypage'], function () {
+            var  table = layui.table,layer = layui.layer,laypage = layui.laypage;
+            //表格渲染
+            table.render({
+                elem: '#lay_table'
+                , height: 'full-100'
+                , cols: [[
+                        {type: 'numbers', fixed: 'left',width:'5%',  title: '编号'}
+                    , {field: 'name', width: '25%', sort: 'true', title: '角色', align: 'center'}
+                    , {field: 'description', width: '40%', sort: 'true', title: '描述', align: 'center'}
+                    , {field: 'updateTime', width: '20%', sort: 'true', title: '修改时间', align: 'center'}
+                    , {field: 'operation', fixed: 'right', title: '操作', width: '10%', align: 'center', toolbar: '#barTool'}
+                ]]
+                , data: data  //数据来源
+                // , limit: pageTotal
+                // , limits:[50,100,150,200,250]
+                ,limits: [3,5,10]
+                ,limit: 10 //每页默认显示的数量
+
+            });
+            laypage.render({   //调用分页
+                elem: 'paged'
+                , count: dataTotal //这个是后台返回的数据的总条数
+                , limit: pageTotal   //每页显示的数据的条数,layui会根据count，limit进行分页的计算,
+                , limits: [50,100,200,500]
+                , curr: pageStart
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+                , jump: function (obj, first) {
+                    pageTotal = obj.limit;
+                    pageStart = obj.curr;  //当前第几页, pageStart就是多少
+                    if (!first) { //一定要加此判断，否则初始时会无限刷新
+                        getData();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                    }
+                }
+            });
+        });
+    };
+    layui.use(['table','layer'], function () {
+        var $ = layui.$, table = layui.table,layer = layui.layer;
+        table.on('tool(categories)', function (obj) {  //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+            switch(obj.event){  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                case 'edit':
+                    window.location = "addRole.html?roleId="+data.id
+                    break;
+                case 'delete':
+                    layer.confirm('确定删除此角色?', {title: '提示'}, function (index) {
+                        $.ajax({
+                            xhrFields: {withCredentials: true},
+                            url: http + '/system/auth/roles/delete',
+                            type: 'post',
+                            data: {
+                                roleId: data.id
+                            },
+                            success: function (data) {
+                                if(data.status=="success"){
+                                    getData();
+                                }
+                                successService(layer, data, null, null);
+                            }
+                        });
+                    });
+                    break;
+            };
+        });
+    })
+</script>

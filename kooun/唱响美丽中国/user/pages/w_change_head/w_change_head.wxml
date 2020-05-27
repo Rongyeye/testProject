@@ -1,4 +1,0 @@
-<!--pages/change_head/change_head.wxml-->
-<view>
-  <image src='{{avator}}' class='head'></image>
-</view>

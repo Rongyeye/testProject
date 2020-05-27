@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增商品二级分类</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px">分类名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" lay-verify="required" placeholder="请输入二级分类名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px">分类等级</label>
+            <div class="layui-input-inline">
+                <input type="text" name="level" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="2" readonly>
+            </div>
+        </div>
+
+        <div  class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px">上下架状态</label>
+            <div class="layui-input-inline">
+                <select name="status" lay-filter="aihao" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">下架</option>
+                    <option value="1">上架</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px">分类描述</label>
+            <div class="layui-input-inline">
+                <input type="text" name="description" placeholder="请输入分类描述" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-input-block">
+            <button onclick="location.href='showType.html'; return false;" class="layui-btn layui-btn-primary">取消
+            </button>
+            <button permission="sys:runAct:add" class="layui-btn" lay-submit lay-filter="formSubmit">提交</button>
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+
+<script>
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+
+
+        form.on('select(grade)', function (data) {
+            switch (data.value) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                case '1':
+                    $('#sun').hide();
+                    break;
+
+                case '2':
+                    $('#sun').show();
+                    break;
+
+            }
+        });
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field;
+
+            //把分类等级和上下架分类由字符串转成数值
+            fd.level = parseInt(fd.level);
+            fd.status = parseInt(fd.status);
+
+            fd.parentid = getUrlParam().addId;
+
+            console.log("fd-----");
+            console.log(fd);
+
+            addClassify(fd);
+            return false;
+        });
+
+
+
+        function addClassify(data) {
+            $.ajax({
+                url: ajaxHttp() + '/goodsType/addGoodsType',
+                data: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json;charset=utf-8'},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(res, 'showType.html', null);
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

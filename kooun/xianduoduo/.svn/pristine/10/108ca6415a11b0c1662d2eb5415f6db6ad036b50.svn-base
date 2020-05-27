@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>优惠卷编辑</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form class="layui-form" action="" id="form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">优惠卷名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" lay-verify="required" placeholder="优惠券名称" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">优惠券总数</label>
+            <div class="layui-input-inline">
+                <input type="bumber" name="total" lay-verify="" placeholder="优惠券名称" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">优惠券规则类型</label>
+            <div class="layui-input-inline">
+                <select name="couponsRuleType" lay-filter="rulue">
+                    <option value=0>满减</option>
+                    <option value=1>立减</option>
+                    <option value=2>折扣</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">时间段限制</label>
+            <div class="layui-input-inline">
+                <input type="text" name="timeLimit" id="timelimit" placeholder="多个时间段用’,’相隔" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">日限制使用数量</label>
+            <div class="layui-input-inline">
+                <input type="number" name="dayLimit" id="dayLimit" placeholder="要求用’,’相隔" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">优惠券库存量</label>
+            <div class="layui-input-inline">
+                <input type="number" name="stock" lay-verify="required" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <select name="status" lay-filter="aihao">
+                    <option value= 0>上架</option>
+                    <option value= 1>下架</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <select name="publishStatus" lay-filter="aihao">
+                    <option value= 1>发布中</option>
+                </select>
+            </div>
+        </div>
+        <div id="useTime" class="layui-form-item">
+            <label class="layui-form-label">使用时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="startTime" id="startDate" placeholder="开始时间"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="endTime" id="endDate" placeholder="结束时间" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" id="duration">
+            <label class="layui-form-label">优惠券时长</label>
+            <div class="layui-input-inline">
+                <input type="text" name="duration" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" id="demand" style="display: none; margin-top:20px">
+            <label class="layui-form-label">扣减条件</label>
+            <div class="layui-input-inline">
+                <input type="text" name="demand" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" id="discount" style="display: none; margin-top:20px">
+            <label class="layui-form-label">优惠金额</label>
+            <div class="layui-input-inline">
+                <input type="number" name="discount" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" id="rebate" style="display: none; margin-top:20px">
+            <label class="layui-form-label">折扣</label>
+            <div class="layui-input-inline">
+                <input type="text" name="rebate" placeholder=" 折扣(输入0-1)" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-input-block">
+            <button onclick="location.href='couponList.html'; return false;" class="layui-btn layui-btn-primary">取消
+            </button>
+            <button permission="sys:runAct:add" class="layui-btn" lay-submit lay-filter="formSubmit">保存</button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+
+<script>
+    var couponsId  = getUrlParam().id;
+
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+        getDetail();
+
+        function getDetail() {
+            $.ajax({
+                url: ajaxHttp() + "/coupons/showCouponsInfo",
+                data: {couponsId: couponsId },
+                success: function (res) {
+                    console.log('详情---');
+                    console.log(res);
+                    if (res.status == 'success') {
+//                        discountRule(res.result.couponsRuleType);
+                        $('#form').populateForm(res.result);
+
+                        if (res.result.duration == -1) {
+                            $('#duration').hide();
+                        } else {
+                            $('#useTime').show();
+                        }
+
+                        form.render();
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+
+        //日期时间选择器
+        laydate.render({
+            elem: '#startDate'
+            , type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endDate'
+            , type: 'datetime'
+        });
+
+        form.on('select(rulue)', function (data) {
+            console.log(data.value);
+//            得到select原始DOM对象
+            switch (data.value) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                case '0':
+                    $('#demand').show();//扣减条件
+                    $('#discount').show();//优惠金额
+                    $('#rebate').hide();//折扣(输入0-1)
+                    break;
+                case '1':
+                    $('#demand').hide();
+                    $('#discount').show();
+                    $('#rebate').hide();
+                    break;
+
+                case '2':
+                    $('#demand').hide();
+                    $('#discount').hide();
+                    $('#rebate').show();
+                    break;
+            }
+        });
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field;
+            console.log("原始数据");
+            console.log(fd);
+            fd.couponsId = couponsId;
+
+            //使用时间
+            if ((fd.endTime != -1)) {  //具体时间
+                fd.duration = -1;
+            }
+            if ((fd.duration != -1)) {  //具体时间
+                fd.startTime = -1;
+                fd.endTime = -1;
+            }
+//            优惠规则
+            switch (fd.couponsRuleType) {
+                case '0':
+                    fd.rebate = -1;
+                    break;
+                case '1':
+                    fd.demand = -1;
+                    fd.rebate = -1;
+                    break;
+
+                case '2':
+                    fd.demand = -1;
+                    fd.discount = -1;
+                    break;
+            }
+
+            fd.couponsRuleType = parseInt(fd.couponsRuleType);
+            fd.publishStatus = parseInt(fd.publishStatus);
+            fd.status = parseInt(fd.status);
+
+            delete formdata.field.files;
+            delete formdata.field.file;
+            delete  fd.couponsId;
+            console.log(fd);
+
+            addRunAct(fd);
+            return false;
+        });
+
+//        function discountRule(value) {
+//            switch (value) {  // obj.event 是 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+//                case '0':
+//                    $('#demand').show();//扣减条件
+//                    $('#discount').show();//优惠金额
+//                    $('#rebate').hide();//折扣(输入0-1)
+//                    break;
+//                case '1':
+//                    $('#demand').hide();
+//                    $('#discount').show();
+//                    $('#rebate').hide();
+//                    break;
+//
+//                case '2':
+//                    $('#demand').hide();
+//                    $('#discount').hide();
+//                    $('#rebate').show();
+//                    break;
+//            }
+//        }
+
+        function addRunAct(data) {
+            $.ajax({
+                url: ajaxHttp() + '/coupons/editCoupons',
+                data: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json;charset=utf-8'},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(res, 'couponList.html', null);
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+        //开始时间
+        laydate.render({
+            elem: '#startDate'
+        });
+        laydate.render({
+            elem: '#endDate'
+        });
+        //结束时间
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date2'
+        });
+    });
+</script>
+</body>
+</html>

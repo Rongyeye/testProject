@@ -1,0 +1,107 @@
+/* pages/w_spreadlist/w_spreadlist.wxss */
+
+page{
+  background-color: rgb(245, 245, 245)
+}
+
+.border_frame{
+  display: flex;
+  align-items: center; 
+}
+.border{
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center; 
+  margin-left:20rpx;
+  width: 600rpx;
+  height: 70rpx;
+
+  border-bottom-right-radius: 29px;
+  border-bottom-left-radius: 29px;
+  border-top-right-radius: 29px;
+  border-top-left-radius: 29px;
+  background-color: rgb(255,255,255);
+  border: 0.05rpx solid ;
+}
+.border_text{ 
+  margin-left: 20rpx;
+  font-family: PingFang-SC-Medium;
+  font-size: 30rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+.border_textB{
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+
+  padding-bottom: 15rpx;
+  padding-top: 15rpx;
+  padding-left: 25rpx;
+  padding-right: 25rpx;
+
+  font-family: PingFang-SC-Medium;
+  font-size: 35rpx;
+  /* border: 0.05rpx solid ; */
+}
+.b_picture{ 
+  margin-left: 30rpx;
+  width:35rpx;
+  height: 35rpx;
+  color: #bfbaba;
+}
+.frame{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: rgb(255, 255, 255)
+ 
+}
+.frame_A{
+  margin-bottom: 30rpx;
+  margin-top: 29rpx;
+  margin-left: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.frame_B{
+  margin-bottom: 30rpx;
+  margin-top: 29rpx;
+  margin-right: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text{
+  font-family: PingFang-SC-Medium;
+  font-size: 32rpx;
+  color: #333333
+}
+.textA{
+  margin-top: 29rpx;
+  margin-bottom: 29rpx;
+  margin-right: 82rpx;
+}
+.picture{
+  margin-left: 30rpx;
+  height: 20rpx;
+  width: 20rpx;
+  justify-self: flex-end;
+  align-self: flex-end;
+}
+.pic{
+  margin: 0 20rpx;
+  width: 710rpx;
+  height: 460rpx;
+}
+.pic1{
+  margin-top: 28rpx;
+}
+.pic2{
+  margin-top: 20rpx;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>展示客户端设置</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/layui/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/css/font-awesome/css/font-awesome.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/summernote/summernote.css" media="all"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/css/common.css" media="all"/>
+</head>
+<body>
+<div class="content">
+    <form id="form" class="layui-form" action="">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">设置值</label>
+            <div class="layui-input-block">
+                <input type="text" name="val" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <input type="text" name="notes" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-block">
+                <input type="text" name="updateTime" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" readonly>
+            </div>
+        </div>
+
+
+        <div class="layui-input-block">
+            <div permission="sys:bail:edit" id="edit" class="layui-btn" lay-submit lay-filter="formSubmit">修改并提交</div>
+            <button onclick="location.href='clientSet.html'; return false;" class="layui-btn layui-btn-primary">关闭
+            </button>
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript" src="../../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/summernote/summernote.js"></script>
+<script type="text/javascript" src="../../../static/summernote/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/js/my/permission.js"></script>
+<script type="text/javascript" src="../../../static/js/util.js"></script>
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+
+
+<script>
+    var key = getUrlParam().key;
+    var clientID;
+//    console.log("key值：");
+//    console.log(key);
+
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+        form.on('submit(formSubmit)', function (formdata) {
+            var fd = formdata.field;
+            fd.id = clientID;
+            fd.status = key;
+            fd.val = fd.val.split(",");//转成数组
+            delete fd.updateTime;
+            delete fd.notes;
+            console.log("fd-----");
+            console.log(fd);
+
+            clientEdit(fd);
+
+            return false;
+        });
+
+        function clientEdit(data) {
+            $.ajax({
+                url: ajaxHttp() + '/client/editClientSet',
+                data: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json;charset=utf-8'},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        successService(res, 'clientSet.html', null);
+                    } else {
+                        successService(res, null, null);
+                    }
+                }
+            });
+        }
+
+        //展示数据
+        getDate();
+        function getDate() {
+            $.ajax({
+                url: ajaxHttp() + "/client/showClientSet",
+                data: {
+                    key: key
+                },
+                success: function (res) {
+                    console.log('结果res---');
+                    console.log(res);
+                    if (res.status == 'success') {
+                        clientID = res.result.id;
+                        $('#form').populateForm(res.result);
+                        form.render();
+                    }
+                }
+            });
+        }
+
+
+    });
+</script>
+</body>
+</html>

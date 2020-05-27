@@ -1,0 +1,20 @@
+
+<view class='framebig'>
+  <view class='frameQRCode'>
+    <view class='frameHeadpicture'>
+      <image src='../../images/2541.jpg' class='picture'></image>
+      <view class='frameName'>
+        <view class='name'>
+          游来游去的鱼
+        </view>
+        <view class='type'>特约商家</view>
+      </view>
+      </view>
+      <image src="{{accessToken}}" class='QRcode'></image>
+      <view class='text'>分享二维码邀请好友</view>
+      </view>
+    
+    <view class='button'>分享二维码邀请好友加入</view>
+  
+
+</view>
